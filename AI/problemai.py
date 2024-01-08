@@ -2,6 +2,7 @@ from imageparser import ImageParser
 from openai import OpenAI
 from prompt import Prompt
 
+
 class ProblemAI:
     def __init__(self):
         self.client = OpenAI(api_key="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")
@@ -23,6 +24,30 @@ class ProblemAI:
                 {"role":"assistant", "content":"유사도:[낮음]"},
                 {"role": "user", "content":"문제1: " + problem_text1 + "\n문제1 풀이 과정 : " + solving_process_text1 + \
                 "\n\n문제2: " + problem_text2 + "\n\n문제2 풀이 과정 : " + solving_process_text2 +"\n유사도: "},
+        ])
+        content = response.choices[0].message.content
+        print(content)
+
+    def check_plagiarism_with_text(self, problem1_text, solving_process1_text, problem2_text, solving_process2_text):
+        
+        with open(problem1_text, 'r') as f:
+            problem1 = f.read()
+        with open(solving_process1_text, 'r') as f:
+            solving_process1 = f.read()
+        with open(problem2_text, 'r') as f:
+            problem2 = f.read()
+        with open(solving_process2_text, 'r') as f:
+            solving_process2 = f.read()
+
+        response = self.client.chat.completions.create(
+            model="gpt-4-1106-preview",
+            temperature=0.5,
+            top_p=0.5,
+            messages=[
+                {"role": "system", "content": self.prompt.check_plagiarism_enhanced_prompt},
+                {"role":"assistant", "content":"유사도:[낮음]"},
+                {"role": "user", "content":"문제1: " + problem1 + "\n문제1 풀이 과정 : " + solving_process1 + \
+                "\n\n문제2: " + problem2 + "\n\n문제2 풀이 과정 : " + solving_process2 +"\n유사도: "},
         ])
         content = response.choices[0].message.content
         print(content)
@@ -80,5 +105,14 @@ class ProblemAI:
 
 ai = ProblemAI()
 
+#Wai.check_plagiarism_enhanced('AI/image/problem11.png', 'AI/image/solving_process11.png','AI/image/problem12.png', 'AI/image/solving_process12.png')
 for _ in range(10):
-    ai.check_plagiarism_enhanced('image/problem11.png', 'image/solving_process11.png','image/problem12.png', 'image/solving_process12.png')
+    ai.check_plagiarism_with_text('AI/text/problem11.txt','AI/text/solving_process11.txt', 'AI/text/problem13.txt', 'AI/text/solving_process13.txt')
+
+
+# parser = ImageParser(ai)
+# parser.save_text_from_image('AI/image/problem11.png', 11, True)
+# parser.save_text_from_image('AI/image/solving_process11.png', 11, False)
+
+# parser.save_text_from_image('AI/image/problem13.png', 13, True)
+# parser.save_text_from_image('AI/image/solving_process13.png', 13, False)
