@@ -1,23 +1,17 @@
+import { BackButton } from "../uploadpage/UploadHeader";
 import { SignOutButton } from "../mainpage/MainHeader";
 import { UserName } from "../mainpage/MainHeader";
-import './UploadHeader.css'
 
-export function BackButton() {
-    return (
-        <button id="back">BACK</button>
-    )
-    
-}
 
-function UploadHeader() {
+function ProblemHeader() {
     return (
         <div>
             <BackButton></BackButton> <br/>
             <SignOutButton></SignOutButton> <br/>
             <UserName></UserName> <br/>
-            <h1>Upload Problem</h1>
+            <h1>Problem #1325</h1>
         </div>
     )
 }
 
-export default UploadHeader;
+export default ProblemHeader;

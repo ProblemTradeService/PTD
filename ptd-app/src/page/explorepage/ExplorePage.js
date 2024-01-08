@@ -1,7 +1,7 @@
 import ExploreHeader from "./ExploreHeader"
 import ExploreArticle from "./ExploreArticle"
 
-function ExporePage() {
+function ExplorePage() {
     
     return (
         <>
@@ -11,4 +11,4 @@ function ExporePage() {
     )
 }
 
-export default ExporePage;
+export default ExplorePage;
