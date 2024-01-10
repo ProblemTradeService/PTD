@@ -5,20 +5,46 @@ nav ul {
 
 nav ul li {
     display: inline-block;
-    padding: 20px;
-    margin: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
     font-weight: bold;
 }
 
 .wrapper {
+
+    width: 1200px;
     
-    width: 1000px;
-    
-    display: grid;
+    display: grid ;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto;
+    grid-template-rows: repeat(20,300px);
+    grid-gap: 20px 20px;
+    margin: auto; /* 수평으로 가운데 정렬 */
+    
 }
 
 .problems {
-    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 2px #3AAF46;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.problems img {
+    width: auto;
+    object-fit: cover; 
+    
+}
+
+.Whereyouare {
+    margin-top: 10px;
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+}
+
+#category-search-explore{
+    margin-top: -40px;
 }

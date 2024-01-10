@@ -1,20 +1,14 @@
-import { SignOutButton } from "../mainpage/MainHeader";
-import { UserName } from "../mainpage/MainHeader";
-import './UploadHeader.css'
+import SignOutButton from '../../asset/components/SignOutButton';
+import UserName from '../../asset/components/UserName';
+import BackButton from '../../asset/components/BackButton';
 
-export function BackButton() {
-    return (
-        <button id="back">BACK</button>
-    )
-    
-}
 
 function UploadHeader() {
     return (
         <div>
-            <BackButton></BackButton> <br/>
-            <SignOutButton></SignOutButton> <br/>
-            <UserName></UserName> <br/>
+            <BackButton/> <br/>
+            <SignOutButton/> <br/>
+            <UserName/> <br/>
             <h1>Upload Problem</h1>
         </div>
     )

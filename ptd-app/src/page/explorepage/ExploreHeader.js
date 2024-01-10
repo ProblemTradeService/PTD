@@ -1,14 +1,14 @@
-import { UploadProblemButton } from "../mainpage/MainHeader";
-import { SignOutButton } from "../mainpage/MainHeader";
-import { UserName } from "../mainpage/MainHeader";
+import UploadProblemButton from "../../asset/components/UploadProblemButton";
+import SignOutButton from '../../asset/components/SignOutButton';
+import UserName from '../../asset/components/UserName';
 
 function ExploreHeader() {
     
     return (
         <div>
-            <UploadProblemButton></UploadProblemButton> <br/>
-            <SignOutButton></SignOutButton>
-            <UserName></UserName><br/>
+            <UploadProblemButton/> <br/>
+            <SignOutButton/>
+            <UserName/><br/>
         </div>
     )
 }
