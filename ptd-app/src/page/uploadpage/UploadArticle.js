@@ -70,10 +70,17 @@ function UploadForm() {
 
 function UploadArticle() {
 
+    const uploadTitle ={
+        textAlign: 'center',
+        fontSize: '60px',
+        color: 'black'
+    }
+
     return (
         <article>
             <div><UploadForm></UploadForm></div>
             <div><NextButton></NextButton></div>
+            <h1 style={uploadTitle}>Upload Problem</h1>
         </article>
     )
 }

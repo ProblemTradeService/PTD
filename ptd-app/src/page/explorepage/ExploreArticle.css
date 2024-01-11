@@ -10,6 +10,12 @@ nav ul li {
     font-weight: bold;
 }
 
+.searchTitle {
+    text-align: center;
+    font-size: 60px;
+    color: black;
+}
+
 .wrapper {
 
     width: 1200px;
@@ -45,6 +51,6 @@ nav ul li {
     font-weight: bold;
 }
 
-#category-search-explore{
-    margin-top: -40px;
-}
+/* #category-search-explore{
+    
+} */

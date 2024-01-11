@@ -43,7 +43,7 @@ function ProblemArticle() {
                     
                 </li>
                 <li>
-                    <label for="category">카테고리 : </label>
+                    <label for="problemCategory">카테고리 : </label>
                     <label>#고등학교 #미적분 #수열의 극한 #급수</label> 
                 </li> 
                 <li>

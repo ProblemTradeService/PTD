@@ -17,7 +17,7 @@ function SearchButton() {
     return (
       <Link to="/explore">
         <button id="SearchButton" style={searchButtonStyle}>
-          <img src={image2} style={imgStyle}alt="Search" />
+          <img src={image2} style={imgStyle} alt="Search" />
         </button>
       </Link>
     );

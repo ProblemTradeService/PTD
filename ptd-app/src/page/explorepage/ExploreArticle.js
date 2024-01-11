@@ -1,6 +1,5 @@
 import SearchButton from '../../asset/components/SearchButton';
 import './ExploreArticle.css';
-import '../mainpage/MainArticle.css';
 import CategorySelector from "../../asset/components/CategorySelector";
 import pro_1 from "../../asset/components/image/pro_1.PNG";
 import pro_2 from "../../asset/components/image/pro_2.PNG";
@@ -56,7 +55,7 @@ function ExploreArticle() {
     }
     return (
         <article>
-            <h1>Search Problem</h1>
+            <h1 class="searchTitle">Search Problem</h1>
             <div id="category-search" style={exploreCategory}>
                 <CategorySelector></CategorySelector>
                 <SearchButton></SearchButton>

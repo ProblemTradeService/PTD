@@ -4,9 +4,6 @@
     justify-content: center; /* 화면 가로 중앙 정렬 */
 }
 
-#category-search .category-search-explore {
-    margin-top: -40px;
-}
 
 #category {
     /* width: 60%; */

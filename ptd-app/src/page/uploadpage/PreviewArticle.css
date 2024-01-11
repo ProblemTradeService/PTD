@@ -1,0 +1,29 @@
+.previewContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 가로 중앙 정렬 */
+    flex-direction: column; /* 열 방향으로 배치 */
+    margin-top: -30px;
+}
+
+.previewImg-container {
+    width: 900px;
+    height: 400px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.pro_13 {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+}

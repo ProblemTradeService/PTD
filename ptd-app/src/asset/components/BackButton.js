@@ -12,12 +12,17 @@ function BackButton() {
         border: 'solid 1px #3AAF46',
         borderRadius: '10px'
     }
+
+    const imgStyle = {
+      float: 'left',
+      width: '50px',
+  };
     
 
     return (
         
           <button style={BackButtonStyle}>
-            <img src={back_button}  alt="back" />
+            <img src={back_button} style={imgStyle}  alt="back" />
           </button>
           
        
