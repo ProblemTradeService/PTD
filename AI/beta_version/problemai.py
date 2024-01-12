@@ -42,9 +42,8 @@ class ProblemAI:
         response = self.client.chat.completions.create(
             model="gpt-4-1106-preview",
             temperature=0.5,
-            top_p=0.5,
             messages=[
-                {"role": "system", "content": self.prompt.check_plagiarism_enhanced_prompt},
+                {"role": "system", "content": self.prompt.check_plagiarism_enhanced_prompt2},
                 {"role":"assistant", "content":"유사도:[낮음]"},
                 {"role": "user", "content":"문제1: " + problem1 + "\n문제1 풀이 과정 : " + solving_process1 + \
                 "\n\n문제2: " + problem2 + "\n\n문제2 풀이 과정 : " + solving_process2 +"\n유사도: "},
@@ -107,12 +106,12 @@ ai = ProblemAI()
 
 #Wai.check_plagiarism_enhanced('AI/image/problem11.png', 'AI/image/solving_process11.png','AI/image/problem12.png', 'AI/image/solving_process12.png')
 for _ in range(10):
-    ai.check_plagiarism_with_text('AI/text/problem11.txt','AI/text/solving_process11.txt', 'AI/text/problem13.txt', 'AI/text/solving_process13.txt')
+    ai.check_plagiarism_with_text('AI/text/problem11.txt','AI/text/solving_process11.txt', 'AI/text/problem12.txt', 'AI/text/solving_process12.txt')
 
 
 # parser = ImageParser(ai)
-# parser.save_text_from_image('AI/image/problem11.png', 11, True)
-# parser.save_text_from_image('AI/image/solving_process11.png', 11, False)
+# parser.save_text_from_image('AI/image/problem12.png', 12, True)
+# parser.save_text_from_image('AI/image/solving_process12.png', 12, False)
 
 # parser.save_text_from_image('AI/image/problem13.png', 13, True)
 # parser.save_text_from_image('AI/image/solving_process13.png', 13, False)
