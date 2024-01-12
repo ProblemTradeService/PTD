@@ -17,7 +17,6 @@ function InputImageP(){
         const formdata = new FormData();
         for(var i=0;i<files.length;i++){
         formdata.append("file",files[i]);
-        console.log(files[i])
         }
 
         axios.post("/api/problems/image",formdata, {headers: {"Content-Type": "multipart/form-data"}})
@@ -32,17 +31,17 @@ function InputImageP(){
         setPid(e.target.value);
     }
 
-    const imageClick = (e)=>{
-        const data={"pid": null};
-        data.pid=parseInt(pid);
-        console.log(data);
-        axios.get("/api/problems/category/"+pid, {
-            responseType: 'blob', // binary data로 설정
-          })
-        .then(response => setResult(URL.createObjectURL(response.data)))
-        .catch(error => console.log(error))
-        console.log(result)
-    }
+    // const imageClick = (e)=>{
+    //     const data={"pid": null};
+    //     data.pid=parseInt(pid);
+    //     console.log(data);
+    //     axios.get("/api/problems/category/"+pid, {
+    //         responseType: 'blob', // binary data로 설정
+    //       })
+    //     .then(response => setResult(URL.createObjectURL(response.data)))
+    //     .catch(error => console.log(error))
+    //     console.log(result)
+    // }
 
     function ImageList(props){
         const src="http://localhost:7030/api/problems/category/"+props.id
@@ -62,7 +61,7 @@ function InputImageP(){
             <button class="btn btn-primary" onClick={handleClick}>Submit</button>
             <div class="mb-3">
                 <input type="text" class="form-control" name="id" onChange={onImageValue}></input>
-                <button class="btn btn-primary" onClick={imageClick}>사진보기</button>
+                {/* <button class="btn btn-primary" onClick={imageClick}>사진보기</button> */}
                 <ImageList id={8}></ImageList>
             </div>
             <img src={result} alt="미리보기"></img>
