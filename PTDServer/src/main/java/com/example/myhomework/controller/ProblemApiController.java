@@ -82,11 +82,11 @@ public class ProblemApiController {
 
     @PostMapping("/api/problems/image")
     public String createFile(@RequestParam("file") List<MultipartFile> file) throws IOException {
-        for(int i=0;i<file.size();i++) {
-            String filePath = "C:/Image/Hi"+i+".jpg";
+        for(int i=1;i<=file.size();i++) {
+            String filePath = "C:/Image/problem"+i+".jpg";
             Path imagePath = Paths.get(filePath);
             try {
-                Files.write(imagePath, file.get(i).getBytes());
+                Files.write(imagePath, file.get(i-1).getBytes());
             } catch (Exception e) {
             }
         }
