@@ -1,6 +1,6 @@
 import SearchButton from '../../asset/components/SearchButton';
 import './ExploreArticle.css';
-import CategorySelector from "../../asset/components/CategorySelector";
+import ConditionSelect from '../../asset/components/ConditionSelect';
 import pro_1 from "../../asset/components/image/pro_1.PNG";
 import pro_2 from "../../asset/components/image/pro_2.PNG";
 import pro_3 from "../../asset/components/image/pro_3.PNG";
@@ -51,14 +51,17 @@ function ProblemList() {
 
 function ExploreArticle() {
     const exploreCategory = {
-        marginTop: '-40px'
+        marginTop: '-40px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
     }
     return (
         <article>
             <h1 class="searchTitle">Search Problem</h1>
             <div id="category-search" style={exploreCategory}>
-                <CategorySelector></CategorySelector>
-                <SearchButton></SearchButton>
+            <div style={{marginRight: '20px'}}><ConditionSelect/></div>
+                <SearchButton/>
             </div>
             <div class="Whereyouare">현재 위치 : 고등학교 {'>'} 미적분 {'>'} 수열의극한 {'>'} 급수</div>
             <nav><SortingSelector></SortingSelector></nav>

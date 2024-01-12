@@ -10,27 +10,27 @@ function ProblemArticle() {
 /* 문제가 가로로 길면 네모칸 가로에 자동 맞추도록 하고
     문제가 세로로 길면 네모칸 세로에 자동 맞추도록 한다*/ 
 
-            const imgContainer = document.querySelector('.img-container');
-            const pro1 = document.querySelector('.pro_1');
+            // const imgContainer = document.querySelector('.img-container');
+            // const pro1 = document.querySelector('.pro_1');
       
-            if (imgContainer && pro1) {
-              const containerAspectRatio = imgContainer.offsetWidth / imgContainer.offsetHeight;
-              const pro1AspectRatio = pro1.offsetWidth / pro1.offsetHeight;
+            // if (imgContainer && pro1) {
+            //   const containerAspectRatio = imgContainer.offsetWidth / imgContainer.offsetHeight;
+            //   const pro1AspectRatio = pro1.offsetWidth / pro1.offsetHeight;
       
-              if ( containerAspectRatio > pro1AspectRatio ) {
-                pro1.style.width = '100%';
-                pro1.style.height = 'auto';
-              } else {
-                pro1.style.width = 'auto';
-                pro1.style.height = '100%';
-              }
-            }
+            //   if ( containerAspectRatio > pro1AspectRatio ) {
+            //     pro1.style.width = '100%';
+            //     pro1.style.height = 'auto';
+            //   } else {
+            //     pro1.style.width = 'auto';
+            //     pro1.style.height = '100%';
+            //   }
+            // }
 
     return (
         <article>
             <div class="container">
             <div class='img-container'>
-                <img className='pro_1' src={pro_13} alt='pro'></img>
+                <img className='proImg' src={pro_13} alt='pro'></img>
             </div>
 
             <div class='data-container'>
