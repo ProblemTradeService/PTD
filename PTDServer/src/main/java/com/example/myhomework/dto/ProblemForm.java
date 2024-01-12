@@ -3,16 +3,14 @@ package com.example.myhomework.dto;
 import com.example.myhomework.entity.Member;
 import com.example.myhomework.entity.Problem;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Setter
+@Getter
 
 public class ProblemForm {
     @JsonProperty
@@ -28,6 +26,7 @@ public class ProblemForm {
 
     //@JsonProperty
     //private MultipartFile file;
+
 
     public Problem toEntity() {
         return new Problem(id,level,price,owner,category);
