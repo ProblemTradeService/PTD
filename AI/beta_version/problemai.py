@@ -1,12 +1,11 @@
 from imageparser import ImageParser
 from openai import OpenAI
-from prompt import Prompt
+import prompt
 
 
 class ProblemAI:
     def __init__(self):
         self.client = OpenAI(api_key="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")
-        self.prompt = Prompt()
         self.imageparser = ImageParser(self)
 
     # 문제 풀이과정을 사용하여 표절 수준 검사
@@ -20,7 +19,7 @@ class ProblemAI:
             model="gpt-4-1106-preview",
             temperature=0.5,
             messages=[
-                {"role": "system", "content": self.prompt.check_plagiarism_enhanced_prompt},
+                {"role": "system", "content": prompt.check_plagiarism_enhanced_prompt},
                 {"role":"assistant", "content":"유사도:[낮음]"},
                 {"role": "user", "content":"문제1: " + problem_text1 + "\n문제1 풀이 과정 : " + solving_process_text1 + \
                 "\n\n문제2: " + problem_text2 + "\n\n문제2 풀이 과정 : " + solving_process_text2 +"\n유사도: "},
@@ -30,20 +29,20 @@ class ProblemAI:
 
     def check_plagiarism_with_text(self, problem1_text, solving_process1_text, problem2_text, solving_process2_text):
         
-        with open(problem1_text, 'r') as f:
+        with open(problem1_text, 'r', encoding='utf-8') as f:
             problem1 = f.read()
-        with open(solving_process1_text, 'r') as f:
+        with open(solving_process1_text, 'r', encoding='utf-8') as f:
             solving_process1 = f.read()
-        with open(problem2_text, 'r') as f:
+        with open(problem2_text, 'r', encoding='utf-8') as f:
             problem2 = f.read()
-        with open(solving_process2_text, 'r') as f:
+        with open(solving_process2_text, 'r', encoding='utf-8') as f:
             solving_process2 = f.read()
 
         response = self.client.chat.completions.create(
             model="gpt-4-1106-preview",
             temperature=0.5,
             messages=[
-                {"role": "system", "content": self.prompt.check_plagiarism_enhanced_prompt2},
+                {"role": "system", "content": prompt.check_plagiarism_enhanced_prompt2},
                 {"role":"assistant", "content":"유사도:[낮음]"},
                 {"role": "user", "content":"문제1: " + problem1 + "\n문제1 풀이 과정 : " + solving_process1 + \
                 "\n\n문제2: " + problem2 + "\n\n문제2 풀이 과정 : " + solving_process2 +"\n유사도: "},
@@ -62,7 +61,7 @@ class ProblemAI:
             model="gpt-4-1106-preview",
             temperature=0.5,
             messages=[
-                {"role": "system", "content": self.prompt.check_similarity_enhanced_prompt},
+                {"role": "system", "content": prompt.check_similarity_enhanced_prompt},
                 {"role":"assistant", "content":"유사도:[낮음]"},
                 {"role": "user", "content":"문제1: " + problem_text1 + "\n문제1 풀이 과정 : " + solving_process_text1 + \
                 "\n\n문제2: " + problem_text2 + "\n\n문제2 풀이 과정 : " + solving_process_text2 +"\n유사도: "},
@@ -79,7 +78,7 @@ class ProblemAI:
             model="gpt-4-1106-preview",
             temperature=0.5,
             messages=[
-                {"role": "system", "content": self.prompt.check_plagiarism_prompt},
+                {"role": "system", "content": prompt.check_plagiarism_prompt},
                 {"role":"assistant", "content":"표절 수준:[보통]"},
                 {"role": "user", "content":"문제1 : " + information1 + "\n\n문제2 : " + information2 +"\n표절 수준: "},
         ])
@@ -95,7 +94,7 @@ class ProblemAI:
             model="gpt-4-1106-preview",
             temperature=0.5,
             messages=[
-                {"role": "system", "content": self.prompt.check_similarity_prompt},
+                {"role": "system", "content": prompt.check_similarity_prompt},
                 {"role":"assistant", "content":"유사도:[보통]"},
                 {"role": "user", "content":"문제1 : " + information1 + "\n\n문제2 : " + information2 +"\n유사도: "},
         ])

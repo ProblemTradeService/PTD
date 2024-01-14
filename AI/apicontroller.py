@@ -1,13 +1,15 @@
 from fastapi import FastAPI, UploadFile
-from problem import Problem
+from main import *
 
-#uvicorn apicontroller:app --reload
+# fastAPI 서버 실행 코드
+# uvicorn apicontroller:app --reload
+
 
 app = FastAPI()
 
+
+# 표절 수준 측정 요청 api
 @app.post("/plagiarism")
-def get_plagiarism_level(file : Problem): #Problem, problems: list[Problem])
-    print(file.problemImage.filename)
-    print(file.solvingProcessImage.filename)
-    
+async def get_plagiarism_level(problem: UploadFile, solvingProcess: UploadFile, problems : list[UploadFile] = None, solvingProcesses: list[UploadFile] = None):
+    await check_plagiarism(problem, solvingProcess, problems, solvingProcesses)
     return "file post success"

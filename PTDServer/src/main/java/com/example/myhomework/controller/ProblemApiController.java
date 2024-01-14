@@ -44,8 +44,8 @@ import java.util.List;
 @RestController
 
 public class ProblemApiController {
-    private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
-    //private static final String UPLOAD_DIR = "/path/to/your/upload/directory";
+    //private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
+    private static final String IMAGE_DIR = "D:/Projects/PTD/images/";
     @Autowired
     private ProblemRepository problemRepository;
 
@@ -127,16 +127,13 @@ public class ProblemApiController {
         FileSystemResource fileResource2 = new FileSystemResource(convertMultiPartToFile(multipartFile2));
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        FileForm dto = new FileForm();
-        dto.setProblem(fileResource1);
-        dto.setSolution(fileResource2);
 
-
-        body.add("problem", dto);
+        body.add("problem", fileResource1);
+        body.add("solvingProcess", fileResource2);
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
-        String serverUrl = "http://127.0.0.1:8000/plagiarism";
+        String serverUrl = "http://localhost:8000/plagiarism";
 
         String result = restTemplate.postForObject(serverUrl, requestEntity, String.class);
         log.info(result);
