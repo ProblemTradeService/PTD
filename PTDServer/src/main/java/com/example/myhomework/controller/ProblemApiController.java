@@ -29,23 +29,28 @@ import java.io.FileOutputStream;
 
 
 
-
+import java.util.HashMap;
 import javax.swing.text.html.HTML;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
+import org.springframework.http.MediaType;
 @Slf4j
 @RestController
 
 public class ProblemApiController {
+    private Long pid = 1L;
     //private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
-    private static final String IMAGE_DIR = "D:/Projects/PTD/images/";
+    private static final String IMAGE_DIR = "C:/Image/";
     @Autowired
     private ProblemRepository problemRepository;
 
@@ -58,7 +63,7 @@ public class ProblemApiController {
         return problemService.index();
     }
 
-    @GetMapping("/api/problems/{pid}")
+    @GetMapping("/api/problems/info/{pid}")
     public Problem show(@PathVariable Long pid){
         return problemService.show(pid);
     }
@@ -68,26 +73,44 @@ public class ProblemApiController {
         return problemService.showSpecial();
     }
 
-//    @GetMapping("/api/problems/category/{id}")
-//    public ResponseEntity<FileSystemResource> display(@PathVariable("id") Long pid){
-//        String path="C:/Image/problem"+pid+".jpg";
-//        FileSystemResource resource=  new FileSystemResource(path);
-//
-//        HttpHeaders header = new HttpHeaders();
-//        Path filePath= null;
-//
-//        try{
-//            filePath=Paths.get(path);
-//            header.add("Content-Type",Files.probeContentType(filePath));
-//        }catch (IOException e){
-//            e.printStackTrace();
-//        }
-//        return new ResponseEntity<FileSystemResource>(resource,header,HttpStatus.OK);
-//    }
+    @GetMapping("/api/problems/image/{pid}")
+    public ResponseEntity<byte[]> getImage(@PathVariable("pid") Long pid) throws UnsupportedEncodingException{
+        String path=IMAGE_DIR + "problem" +pid +".jpg";
+        HttpHeaders header=new HttpHeaders();
+        Path filePath;
+        try{
+            filePath=Paths.get(path);
+            header.setContentType(MediaType.IMAGE_JPEG);
+            byte[] imageBytes = Files.readAllBytes(filePath);
+            return new ResponseEntity<>(imageBytes, header, HttpStatus.OK);
+        }catch (IOException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @GetMapping("/api/problems/{category}")
+    public ResponseEntity<byte[]> display(@PathVariable("category") String category) throws UnsupportedEncodingException {
+        String decodedString = URLDecoder.decode(category, StandardCharsets.UTF_8.toString());
+        List<Problem> problems = problemRepository.findCategory(category);
+
+        String path="C:/Image/problem"+problems.get(0).getId()+".jpg";
+        HttpHeaders header = new HttpHeaders();
+        Path filePath;
+
+        try{
+            filePath=Paths.get(path);
+            header.setContentType(MediaType.IMAGE_JPEG);
+            byte[] imageBytes = Files.readAllBytes(filePath);
+            return new ResponseEntity<>(imageBytes, header, HttpStatus.OK);
+        }catch (IOException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     @PostMapping("/api/problems")
     public ResponseEntity<Problem> crate(@RequestBody ProblemForm dto){
-        log.info(dto.toString());
         Problem created=problemService.create(dto);
         return (created !=null)?
                 ResponseEntity.status(HttpStatus.OK).body(created):
@@ -95,41 +118,55 @@ public class ProblemApiController {
     }
 
     @PostMapping("/api/problems/image")
-    public String createFile(@RequestParam("file") List<MultipartFile> file) throws IOException {
-        for(int i=1;i<=file.size();i++) {
-            String filePath = IMAGE_DIR + "problem"+i+".png";
-            Path imagePath = Paths.get(filePath);
-            try {
-                Files.write(imagePath, file.get(i-1).getBytes());
-            } catch (Exception e) {
-            }
-        }
+    public String createFile(@RequestParam("problemfile") MultipartFile file1, @RequestParam("solutionfile") MultipartFile file2) throws IOException {
+        String filePath1 = IMAGE_DIR + "problem" + pid + ".jpg";
+        String filePath2 = IMAGE_DIR + "solution" + pid + ".jpg";
 
-//        List<File> f = null;
-//        for(int i=0;;i++){
-//            File fff=new File(IMAGE_DIR + "problem"+i+".png");
-//            if(fff==null) {
-//                break;
-//            }
-//            f.add(fff);
+        File newFile1=convertMultiPartToFile(file1,"problem");
+        File newFile2=convertMultiPartToFile(file2,"solution");
+        pid++;
+
+//        Path imagePath1 = Paths.get(filePath1);
+//        Path imagePath2 = Paths.get(filePath2);
+//        try {
+//            Files.write(imagePath1, file1.getBytes());
+//            Files.write(imagePath2, file2.getBytes());
+//            pid++;
+//        } catch (Exception e) {
+//
 //        }
-
-        uploadFile(file.get(0), file.get(1));
-
+       // uploadFile(file.get(0), file.get(1));
         return "kkkk";
     }
 
-    public String uploadFile(MultipartFile multipartFile1, MultipartFile multipartFile2) throws IOException {
+    public String uploadFile(File File1, File File2) throws IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
-        FileSystemResource fileResource1 = new FileSystemResource(convertMultiPartToFile(multipartFile1));
-        FileSystemResource fileResource2 = new FileSystemResource(convertMultiPartToFile(multipartFile2));
+        List<File> problemFiles = new ArrayList<>();
+        List<File> solutionFiles = new ArrayList<>();
+        List<FileSystemResource> problemsResource = new ArrayList<>();
+        List<FileSystemResource> solutionResource = new ArrayList<>();
+
+        for(int i=0;;i++) {
+            problemFiles.add(new File(IMAGE_DIR + "problem" + i + ".jpg"));
+            solutionFiles.add(new File(IMAGE_DIR + "solution" + i + ".jpg"));
+            problemsResource.add(new FileSystemResource(problemFiles.get(i)));
+            solutionResource.add(new FileSystemResource(solutionFiles.get(i)));
+            if(!problemFiles.get(i).exists()){
+                break;
+            }
+        }
+
+        FileSystemResource fileResource1 = new FileSystemResource(File1);
+        FileSystemResource fileResource2 = new FileSystemResource(File2);
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
 
         body.add("problem", fileResource1);
-        body.add("solvingProcess", fileResource2);
+        body.add("solution", fileResource2);
+        body.add("problems", problemsResource);
+        body.add("solutions", solutionResource);
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
@@ -140,8 +177,8 @@ public class ProblemApiController {
         return result;
     }
 
-    private File convertMultiPartToFile(MultipartFile file) throws IOException {
-        File convFile = new File(file.getOriginalFilename());
+    private File convertMultiPartToFile(MultipartFile file, String type) throws IOException {
+        File convFile = new File(IMAGE_DIR + type + pid + ".jpg");
         FileOutputStream fos = new FileOutputStream(convFile);
         fos.write(file.getBytes());
         fos.close();
