@@ -4,7 +4,6 @@ import prompt
 import os
 from openaikey import client
 
-
 # 이미지를 base64로 인코딩하는 함수
 async def encode_image(image):
     contents = await image.read()
@@ -44,11 +43,15 @@ async def save_text_from_image(image, is_prob):
     }
     
     response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
-    # 'content' 부분만 추출하여 출력
     content = response.json()['choices'][0]['message']['content']
+
     if is_prob:
-        file = open('text/problem/'+ os.path.splitext(image.filename)[0] +'.txt', 'w', encoding='utf-8')
+        filePath = 'text/problem/'+ os.path.splitext(image.filename)[0] +'.txt'
     else:
-        file = open('text/solvingprocess/'+ os.path.splitext(image.filename)[0] +'.txt', 'w', encoding='utf-8')
+        filePath = 'text/solvingprocess/'+ os.path.splitext(image.filename)[0] +'.txt'
+    
+    file = open(filePath, 'w', encoding='utf-8')
     file.write(content)
     file.close()
+
+    return filePath

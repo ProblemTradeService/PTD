@@ -41,6 +41,7 @@ class ProblemAI:
         response = self.client.chat.completions.create(
             model="gpt-4-1106-preview",
             temperature=0.5,
+            top_p=0.5,
             messages=[
                 {"role": "system", "content": prompt.check_plagiarism_enhanced_prompt2},
                 {"role":"assistant", "content":"유사도:[낮음]"},
@@ -48,7 +49,7 @@ class ProblemAI:
                 "\n\n문제2: " + problem2 + "\n\n문제2 풀이 과정 : " + solving_process2 +"\n유사도: "},
         ])
         content = response.choices[0].message.content
-        print(content)
+        print('.' + content + '.')
 
     # 문제와 풀이과정을 사용하여 유사도 검사
     def check_similarity_enhanced(self, problem_image1, solving_process_image1, problem_image2, solving_process_image2,):
@@ -83,7 +84,7 @@ class ProblemAI:
                 {"role": "user", "content":"문제1 : " + information1 + "\n\n문제2 : " + information2 +"\n표절 수준: "},
         ])
         judge = response.choices[0].message.content
-        print('\n' + judge)
+        print('\n.' + judge +'.')
 
     # 두 문제가 유사한 유형인지 문제 텍스트만을 사용하여 비교
     def check_similarity_default(self, image1, image2):
@@ -104,8 +105,8 @@ class ProblemAI:
 ai = ProblemAI()
 
 #Wai.check_plagiarism_enhanced('AI/image/problem11.png', 'AI/image/solving_process11.png','AI/image/problem12.png', 'AI/image/solving_process12.png')
-for _ in range(10):
-    ai.check_plagiarism_with_text('AI/text/problem11.txt','AI/text/solving_process11.txt', 'AI/text/problem12.txt', 'AI/text/solving_process12.txt')
+
+ai.check_plagiarism_with_text('AI/text/problem11.txt','AI/text/solving_process11.txt', 'AI/text/problem13.txt', 'AI/text/solving_process13.txt')
 
 
 # parser = ImageParser(ai)
