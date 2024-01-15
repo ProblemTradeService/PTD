@@ -6,7 +6,7 @@ from collections import Counter
 
 def check_level(txtPath1 : TextPath, txtPath2 : TextPath, isPlagiarismCheck):
     # list for check level
-    resultList = list[str]
+    resultList = list()
     # number of check iteration
     iterNum = 10
 
@@ -25,6 +25,11 @@ def check_level(txtPath1 : TextPath, txtPath2 : TextPath, isPlagiarismCheck):
         promptText = prompt.check_plagiarism_prompt
     else:
         promptText = prompt.check_similarity_prompt
+
+    print(problem1)
+    print(solving_process1)
+    print(problem2)
+    print(solving_process2)
 
 
     print("----- check level test -----")

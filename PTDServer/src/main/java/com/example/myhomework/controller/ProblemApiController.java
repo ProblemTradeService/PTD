@@ -135,7 +135,7 @@ public class ProblemApiController {
 //        } catch (Exception e) {
 //
 //        }
-       // uploadFile(file.get(0), file.get(1));
+        uploadFile(newFile1, newFile2);
         return "kkkk";
     }
 
@@ -149,13 +149,13 @@ public class ProblemApiController {
         List<FileSystemResource> solutionResource = new ArrayList<>();
 
         for(int i=0;;i++) {
-            problemFiles.add(new File(IMAGE_DIR + "problem" + i + ".jpg"));
-            solutionFiles.add(new File(IMAGE_DIR + "solution" + i + ".jpg"));
-            problemsResource.add(new FileSystemResource(problemFiles.get(i)));
-            solutionResource.add(new FileSystemResource(solutionFiles.get(i)));
+            problemFiles.add(new File(IMAGE_DIR + "problem" + (i+1) + ".jpg"));
+            solutionFiles.add(new File(IMAGE_DIR + "solution" + (i+1) + ".jpg"));
             if(!problemFiles.get(i).exists()){
                 break;
             }
+            problemsResource.add(new FileSystemResource(problemFiles.get(i)));
+            solutionResource.add(new FileSystemResource(solutionFiles.get(i)));
         }
 
         FileSystemResource fileResource1 = new FileSystemResource(File1);
@@ -164,17 +164,23 @@ public class ProblemApiController {
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
 
         body.add("problem", fileResource1);
-        body.add("solution", fileResource2);
-        body.add("problems", problemsResource);
-        body.add("solutions", solutionResource);
+        body.add("solvingProcess", fileResource2);
+        for(FileSystemResource problem : problemsResource){
+            body.add("problems", problem);
+        }
+        for(FileSystemResource sol : solutionResource){
+            body.add("solvingProcesses", sol);
+        }
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
         String serverUrl = "http://localhost:8000/plagiarism";
 
-        String result = restTemplate.postForObject(serverUrl, requestEntity, String.class);
-        log.info(result);
-        return result;
+        List<String> result = restTemplate.postForObject(serverUrl, requestEntity, List.class);
+        for(String str : result){
+            log.info(str);
+        }
+        return null;
     }
 
     private File convertMultiPartToFile(MultipartFile file, String type) throws IOException {

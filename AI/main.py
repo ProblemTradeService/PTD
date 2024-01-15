@@ -3,29 +3,24 @@ import problemai
 from textpath import TextPath
 import os
 import shutil
+from typing import List
 
 
 async def check(problem, solvingProcess, problems, solvingProcesses, isPlagiarismCheck):
     txtPath = TextPath()
-    txtPathList = list[TextPath]
-    checkLevelList = list[str]
+    txtPathList = list() 
+    checkLevelList = list()
 
     # Text file path of the uploaded image
     txtPath.problemPath = await imageparser.save_text_from_image(problem, True)
     txtPath.solvingProcessPath = await imageparser.save_text_from_image(solvingProcess, False)
 
     # Text file path of the database image
-    for prob, sol in problems, solvingProcesses:
+    for prob, sol in zip(problems, solvingProcesses):
         path = TextPath()
         path.problemPath = await imageparser.save_text_from_image(prob, True)
         path.solvingProcessPath = await imageparser.save_text_from_image(sol, False)
         txtPathList.append(path)
-
-    print("------ text extract text ------")
-    for path in txtPath, txtPathList:
-        print(path.problemPath)
-        print(path.solvingProcessPath)
-    print("\n\n\n")
 
     # check plagiarism/similarity level for all problems from database
     for path in txtPathList:

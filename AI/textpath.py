@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
 class TextPath(BaseModel):
-    problemPath: str
-    solvingProcessPath: str
+    problemPath: str = None
+    solvingProcessPath: str = None

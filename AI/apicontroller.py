@@ -13,8 +13,11 @@ app = FastAPI()
 async def get_plagiarism_level(problem: UploadFile, solvingProcess: UploadFile, problems : list[UploadFile], solvingProcesses: list[UploadFile]):
     
     print("-----fastAPI post test -----" )
-    for file in problem, solvingProcess, problems, solvingProcesses:
+    for file in problem, solvingProcess:
         print(file.filename)
+    for prob, sol in zip(problems, solvingProcesses):
+        print(prob.filename)
+        print(sol.filename)
     print("\n\n\n")
     
     plagiarismLevelList = await main.check(problem, solvingProcess, problems, solvingProcesses, True)

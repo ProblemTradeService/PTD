@@ -105,8 +105,8 @@ class ProblemAI:
 ai = ProblemAI()
 
 #Wai.check_plagiarism_enhanced('AI/image/problem11.png', 'AI/image/solving_process11.png','AI/image/problem12.png', 'AI/image/solving_process12.png')
-
-ai.check_plagiarism_with_text('AI/text/problem11.txt','AI/text/solving_process11.txt', 'AI/text/problem13.txt', 'AI/text/solving_process13.txt')
+for _ in range(10):
+    ai.check_plagiarism_with_text('AI/text/problem11.txt','AI/text/solving_process11.txt', 'AI/text/problem12.txt', 'AI/text/solving_process12.txt')
 
 
 # parser = ImageParser(ai)
