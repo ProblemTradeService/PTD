@@ -27,6 +27,7 @@ def check_level(txtPath1 : TextPath, txtPath2 : TextPath, isPlagiarismCheck):
         promptText = prompt.check_similarity_prompt
 
 
+    print("----- check level test -----")
     # get response from gpt
     for _ in range(iterNum):
         response = client.chat.completions.create(
@@ -40,7 +41,12 @@ def check_level(txtPath1 : TextPath, txtPath2 : TextPath, isPlagiarismCheck):
                 "\n\n문제2: " + problem2 + "\n\n문제2 풀이 과정 : " + solving_process2 +"\n유사도: "},
         ])
         content = response.choices[0].message.content
+        print(content)
         resultList.append(content)
+    
+    level = find_most_common(resultList)
+    print("most common value: "+level + "\n")
+    print("\n\n\n")
 
     return find_most_common(resultList)
 
