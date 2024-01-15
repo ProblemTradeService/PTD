@@ -49,8 +49,8 @@ import org.springframework.http.MediaType;
 
 public class ProblemApiController {
     private Long pid = 1L;
-    //private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
-    private static final String IMAGE_DIR = "C:/Image/";
+    private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
+    //private static final String IMAGE_DIR = "C:/Image/";
     @Autowired
     private ProblemRepository problemRepository;
 
