@@ -6,7 +6,7 @@ from problem import Problem
 app = FastAPI()
 
 @app.post("/plagiarism")
-def get_plagiarism_level(file : Problem): #Problem, problems: list[Problem])
+def get_plagiarism_level(file : list[UploadFile]): #Problem, problems: list[Problem])
     print(file.problemImage.filename)
     print(file.solvingProcessImage.filename)
     
