@@ -8,7 +8,7 @@ def check_level(txtPath1 : TextPath, txtPath2 : TextPath, isPlagiarismCheck):
     # list for check level
     resultList = list()
     # number of check iteration
-    iterNum = 10
+    iterNum = 5
 
     # read text files from path
     with open(txtPath1.problemPath, 'r', encoding='utf-8') as f:
@@ -26,12 +26,6 @@ def check_level(txtPath1 : TextPath, txtPath2 : TextPath, isPlagiarismCheck):
     else:
         promptText = prompt.check_similarity_prompt
 
-    print(problem1)
-    print(solving_process1)
-    print(problem2)
-    print(solving_process2)
-
-
     print("----- check level test -----")
     # get response from gpt
     for _ in range(iterNum):
@@ -45,7 +39,7 @@ def check_level(txtPath1 : TextPath, txtPath2 : TextPath, isPlagiarismCheck):
                 {"role": "user", "content":"문제1: " + problem1 + "\n문제1 풀이 과정 : " + solving_process1 + \
                 "\n\n문제2: " + problem2 + "\n\n문제2 풀이 과정 : " + solving_process2 +"\n유사도: "},
         ])
-        content = response.choices[0].message.content
+        content = cut_string_to_bracket(response.choices[0].message.content)
         print(content)
         resultList.append(content)
     
@@ -53,7 +47,7 @@ def check_level(txtPath1 : TextPath, txtPath2 : TextPath, isPlagiarismCheck):
     print("most common value: "+level + "\n")
     print("\n\n\n")
 
-    return find_most_common(resultList)
+    return level
 
 
 # 리스트의 최빈값 반환
@@ -66,3 +60,17 @@ def find_most_common(lst):
     
     # 최빈값 반환 (동일한 빈도의 값이 여러 개 있을 경우 하나만 반환)
     return most_common[0][0] if most_common else None
+
+
+# cut response to '[result]'
+def cut_string_to_bracket(s):
+    # Find the position of the first ']'
+    bracket_pos = s.find(']')
+
+    # Check if ']' was found
+    if bracket_pos != -1:
+        # Return the substring from the beginning up to the ']'
+        return s[:bracket_pos + 1]
+    else:
+        # If ']' is not found, return the original string
+        return s
