@@ -1,3 +1,14 @@
+.exploreHeader {
+    width: 100%;
+}
+
+.searchTitle {   
+    text-align: center;
+    font-size: 60px;
+    color: black;
+    margin-top: -15px;
+}
+
 nav ul {
     list-style: none;
     text-align: center;
@@ -5,20 +16,36 @@ nav ul {
 
 nav ul li {
     display: inline-block;
-    padding: 20px;
-    margin: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
     font-weight: bold;
 }
 
 .wrapper {
-    
-    width: 1000px;
-    
+    max-width: 1200px;
+    width: 90%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto;
+    grid-template-rows: repeat(20,300px);
+    grid-gap: 20px 20px;
+    margin: auto; /* 수평으로 가운데 정렬 */
+    max-height: 600px;
+    overflow: auto;
 }
 
 .problems {
-    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 2px #3AAF46;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    
+}
+
+.problems img {
+    max-width: 100%;
+    width: auto;
+    object-fit: cover; 
 }
