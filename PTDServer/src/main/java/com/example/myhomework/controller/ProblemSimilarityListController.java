@@ -47,7 +47,7 @@ public class ProblemSimilarityListController {
     ProblemSimilarityListRepository problemSimilarityListRepository;
 
     @GetMapping("/api/problems/similarity")
-    public List<ProblemSimilarList> index(){
+    public List<ProblemSimilarList> getSimilarity(){
         return problemSimilarityService.index();
     }
 

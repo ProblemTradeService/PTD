@@ -62,18 +62,19 @@ public class ProblemApiController {
     private ProblemService problemService;
     private final RestTemplate restTemplate = new RestTemplate();
 
+
     @GetMapping("/api/problems")
-    public List<Problem> index(){
+    public List<Problem> showAllProblems(){
         return problemService.index();
     }
 
-    @GetMapping("/api/problems/pid/info/{pid}")
-    public Problem show(@PathVariable Long pid){
+    @GetMapping("/api/problems/info/pid/{pid}")
+    public Problem getInfoByPid(@PathVariable Long pid){
         return problemService.show(pid);
     }
 
-    @GetMapping("/api/problems/pid/image/{pid}")
-    public ResponseEntity<byte[]> getImage(@PathVariable("pid") Long pid) throws UnsupportedEncodingException{
+    @GetMapping("/api/problems/image/pid/{pid}")
+    public ResponseEntity<byte[]> getImageByPid(@PathVariable("pid") Long pid) throws UnsupportedEncodingException{
         String path=IMAGE_DIR + "problem" +pid +".jpg";
         HttpHeaders header=new HttpHeaders();
         Path filePath;
@@ -88,12 +89,13 @@ public class ProblemApiController {
         }
     }
 
-    @GetMapping("/api/problems/category/image/{category}")
-    public MultiValueMap<String, ResponseEntity<byte[]>> display(@PathVariable("category") String category) throws UnsupportedEncodingException {
+    @GetMapping("/api/problems/image/category/{category}")
+    public MultiValueMap<String, ResponseEntity<byte[]>> getImageByCategory(@PathVariable("category") String category) throws UnsupportedEncodingException {
         String decodedString = URLDecoder.decode(category, StandardCharsets.UTF_8.toString());
         List<Problem> problems = problemRepository.findCategory(category);
 
         MultiValueMap<String, ResponseEntity<byte[]>> responseMap=new LinkedMultiValueMap<>();
+
 
         for(Problem problem : problems){
             log.info(problem.toString());
@@ -114,8 +116,8 @@ public class ProblemApiController {
         return responseMap;
     }
 
-    @GetMapping("/api/problems/category/info/{category}")
-    public List<Problem> getCategoryInfo(@PathVariable("category") String category) throws UnsupportedEncodingException {
+    @GetMapping("/api/problems/info/category/{category}")
+    public List<Problem> getInfoByCategory(@PathVariable("category") String category) throws UnsupportedEncodingException {
         String decodedString = URLDecoder.decode(category, StandardCharsets.UTF_8.toString());
         List<Problem> problems = problemRepository.findCategory(category);
 
@@ -123,7 +125,7 @@ public class ProblemApiController {
     }
 
     @PostMapping("/api/problems")
-    public ResponseEntity<Problem> crate(@RequestBody ProblemForm dto){
+    public ResponseEntity<Problem> crateProblem(@RequestBody ProblemForm dto){
         Problem created=problemService.create(dto);
         return (created !=null)?
                 ResponseEntity.status(HttpStatus.OK).body(created):
@@ -131,7 +133,7 @@ public class ProblemApiController {
     }
 
     @PostMapping("/api/problems/image")
-    public String createFile(@RequestParam("problemfile") MultipartFile file1, @RequestParam("solutionfile") MultipartFile file2) throws IOException, InterruptedException {
+    public String createProblemFile(@RequestParam("problemfile") MultipartFile file1, @RequestParam("solutionfile") MultipartFile file2) throws IOException, InterruptedException {
         if(pid==0){
             Problem p= problemRepository.findFirstByOrderByIdDesc();
             pid=p.getId()+1L;
