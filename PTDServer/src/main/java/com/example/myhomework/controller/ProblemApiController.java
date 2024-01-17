@@ -3,10 +3,13 @@ package com.example.myhomework.controller;
 import com.example.myhomework.dto.FileForm;
 import com.example.myhomework.dto.MemberForm;
 import com.example.myhomework.dto.ProblemForm;
+import com.example.myhomework.dto.ProblemSimilarListForm;
 import com.example.myhomework.entity.Member;
 import com.example.myhomework.entity.Problem;
+import com.example.myhomework.entity.ProblemSimilarList;
 import com.example.myhomework.repository.MemberRepository;
 import com.example.myhomework.repository.ProblemRepository;
+import com.example.myhomework.repository.ProblemSimilarityListRepository;
 import com.example.myhomework.service.MemberService;
 import com.example.myhomework.service.ProblemService;
 import jakarta.annotation.Resource;
@@ -28,8 +31,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import java.io.FileOutputStream;
 
 
-
-import java.util.HashMap;
+import java.util.*;
 import javax.swing.text.html.HTML;
 import java.io.File;
 import java.io.IOException;
@@ -40,19 +42,21 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+
 import org.springframework.http.MediaType;
 @Slf4j
 @RestController
 
 public class ProblemApiController {
-    private Long pid = 1L;
-    private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
-    //private static final String IMAGE_DIR = "C:/Image/";
+
+    //private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
+    private static final String IMAGE_DIR = "C:/Image/";
     @Autowired
     private ProblemRepository problemRepository;
+
+    @Autowired
+    private ProblemSimilarityListRepository problemSimilarityListRepository;
+    private Long pid=0L;
 
     @Autowired
     private ProblemService problemService;
@@ -63,17 +67,12 @@ public class ProblemApiController {
         return problemService.index();
     }
 
-    @GetMapping("/api/problems/info/{pid}")
+    @GetMapping("/api/problems/pid/info/{pid}")
     public Problem show(@PathVariable Long pid){
         return problemService.show(pid);
     }
 
-    @GetMapping("/api/problems/special")
-    public List<Problem> showSpecial(){
-        return problemService.showSpecial();
-    }
-
-    @GetMapping("/api/problems/image/{pid}")
+    @GetMapping("/api/problems/pid/image/{pid}")
     public ResponseEntity<byte[]> getImage(@PathVariable("pid") Long pid) throws UnsupportedEncodingException{
         String path=IMAGE_DIR + "problem" +pid +".jpg";
         HttpHeaders header=new HttpHeaders();
@@ -89,24 +88,38 @@ public class ProblemApiController {
         }
     }
 
-    @GetMapping("/api/problems/{category}")
-    public ResponseEntity<byte[]> display(@PathVariable("category") String category) throws UnsupportedEncodingException {
+    @GetMapping("/api/problems/category/image/{category}")
+    public MultiValueMap<String, ResponseEntity<byte[]>> display(@PathVariable("category") String category) throws UnsupportedEncodingException {
         String decodedString = URLDecoder.decode(category, StandardCharsets.UTF_8.toString());
         List<Problem> problems = problemRepository.findCategory(category);
 
-        String path="C:/Image/problem"+problems.get(0).getId()+".jpg";
-        HttpHeaders header = new HttpHeaders();
-        Path filePath;
+        MultiValueMap<String, ResponseEntity<byte[]>> responseMap=new LinkedMultiValueMap<>();
 
-        try{
-            filePath=Paths.get(path);
-            header.setContentType(MediaType.IMAGE_JPEG);
-            byte[] imageBytes = Files.readAllBytes(filePath);
-            return new ResponseEntity<>(imageBytes, header, HttpStatus.OK);
-        }catch (IOException e){
-            e.printStackTrace();
-            return null;
+        for(Problem problem : problems){
+            log.info(problem.toString());
+            String path="C:/Image/problem"+problem.getId()+".jpg";
+            HttpHeaders header = new HttpHeaders();
+            Path filePath;
+
+            try {
+                filePath = Paths.get(path);
+                header.setContentType(MediaType.IMAGE_JPEG);
+                byte[] imageBytes = Files.readAllBytes(filePath);
+                ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(imageBytes, header, HttpStatus.OK);
+                responseMap.add("image", responseEntity);
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+        return responseMap;
+    }
+
+    @GetMapping("/api/problems/category/info/{category}")
+    public List<Problem> getCategoryInfo(@PathVariable("category") String category) throws UnsupportedEncodingException {
+        String decodedString = URLDecoder.decode(category, StandardCharsets.UTF_8.toString());
+        List<Problem> problems = problemRepository.findCategory(category);
+
+        return problems;
     }
 
     @PostMapping("/api/problems")
@@ -118,12 +131,17 @@ public class ProblemApiController {
     }
 
     @PostMapping("/api/problems/image")
-    public String createFile(@RequestParam("problemfile") MultipartFile file1, @RequestParam("solutionfile") MultipartFile file2) throws IOException {
+    public String createFile(@RequestParam("problemfile") MultipartFile file1, @RequestParam("solutionfile") MultipartFile file2) throws IOException, InterruptedException {
+        if(pid==0){
+            Problem p= problemRepository.findFirstByOrderByIdDesc();
+            pid=p.getId()+1L;
+        }
         String filePath1 = IMAGE_DIR + "problem" + pid + ".jpg";
         String filePath2 = IMAGE_DIR + "solution" + pid + ".jpg";
 
         File newFile1=convertMultiPartToFile(file1,"problem");
         File newFile2=convertMultiPartToFile(file2,"solution");
+
         pid++;
 
 //        Path imagePath1 = Paths.get(filePath1);
@@ -135,7 +153,22 @@ public class ProblemApiController {
 //        } catch (Exception e) {
 //
 //        }
-        uploadFile(newFile1, newFile2);
+        //uploadFile(newFile1, newFile2);
+
+        //DB에 있는 해당 문제 표절 수준 업데이트 및, DB SimilarList에 추가하기
+        Thread.sleep(30000);
+
+        Problem p= problemRepository.findFirstByOrderByIdDesc();
+        p.setPlaglevel("매우 높음");
+        log.info(p.toString());
+        problemRepository.save(p);
+
+        List<String> stringList = new ArrayList<>(Arrays.asList("매우 높음", "매우 낮음", "매우 높음","높음", "매우 낮음","보통","매우 낮음","매우 높음","높음","매우 높음","낮음","매우 낮음"));
+        for(int i=0;i<stringList.size();i++){
+            ProblemSimilarListForm dto=new ProblemSimilarListForm(p.getId(),(long)i+1,stringList.get(i),stringList.get(i));
+            ProblemSimilarList problemEntity=dto.toEntity();
+            problemSimilarityListRepository.save(problemEntity);
+        }
         return "kkkk";
     }
 

@@ -26,4 +26,7 @@ public class Problem {
     @Column
     private String category;
 
+    @Column
+    private String plaglevel;
+
 }
