@@ -3,10 +3,13 @@ package com.example.myhomework.controller;
 import com.example.myhomework.dto.FileForm;
 import com.example.myhomework.dto.MemberForm;
 import com.example.myhomework.dto.ProblemForm;
+import com.example.myhomework.dto.ProblemSimilarListForm;
 import com.example.myhomework.entity.Member;
 import com.example.myhomework.entity.Problem;
+import com.example.myhomework.entity.ProblemSimilarList;
 import com.example.myhomework.repository.MemberRepository;
 import com.example.myhomework.repository.ProblemRepository;
+import com.example.myhomework.repository.ProblemSimilarityListRepository;
 import com.example.myhomework.service.MemberService;
 import com.example.myhomework.service.ProblemService;
 import jakarta.annotation.Resource;
@@ -28,8 +31,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import java.io.FileOutputStream;
 
 
-
-import java.util.HashMap;
+import java.util.*;
 import javax.swing.text.html.HTML;
 import java.io.File;
 import java.io.IOException;
@@ -40,9 +42,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+
 import org.springframework.http.MediaType;
 @Slf4j
 @RestController
@@ -54,6 +54,8 @@ public class ProblemApiController {
     @Autowired
     private ProblemRepository problemRepository;
 
+    @Autowired
+    private ProblemSimilarityListRepository problemSimilarityListRepository;
     private Long pid=0L;
 
     @Autowired
@@ -154,11 +156,19 @@ public class ProblemApiController {
         //uploadFile(newFile1, newFile2);
 
         //DB에 있는 해당 문제 표절 수준 업데이트 및, DB SimilarList에 추가하기
-        Thread.sleep(5000);
+        Thread.sleep(30000);
+
         Problem p= problemRepository.findFirstByOrderByIdDesc();
         p.setPlaglevel("매우 높음");
         log.info(p.toString());
         problemRepository.save(p);
+
+        List<String> stringList = new ArrayList<>(Arrays.asList("매우 높음", "매우 낮음", "매우 높음","높음", "매우 낮음","보통","매우 낮음","매우 높음","높음","매우 높음","낮음","매우 낮음"));
+        for(int i=0;i<stringList.size();i++){
+            ProblemSimilarListForm dto=new ProblemSimilarListForm(p.getId(),(long)i+1,stringList.get(i),stringList.get(i));
+            ProblemSimilarList problemEntity=dto.toEntity();
+            problemSimilarityListRepository.save(problemEntity);
+        }
         return "kkkk";
     }
 
