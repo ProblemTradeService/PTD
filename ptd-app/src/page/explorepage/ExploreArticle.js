@@ -1,6 +1,5 @@
-import SearchButton from '../../asset/components/SearchButton';
 import './ExploreArticle.css';
-import ConditionSelect from '../../asset/components/ConditionSelect';
+import ProblemPreview from '../../asset/components/ProblemPreview';
 import pro_1 from "../../asset/components/image/pro_1.PNG";
 import pro_2 from "../../asset/components/image/pro_2.PNG";
 import pro_3 from "../../asset/components/image/pro_3.PNG";
@@ -11,37 +10,32 @@ import pro_7 from "../../asset/components/image/pro_7.PNG";
 import pro_8 from "../../asset/components/image/pro_8.PNG";
 import pro_9 from "../../asset/components/image/pro_9.PNG";
 import pro_10 from "../../asset/components/image/pro_10.PNG";
-import { Link } from "react-router-dom";
-
-
-
-function SortingSelector() {
-
-    return (
-        <ul>
-            <li><a href="/explore">추천순</a></li>
-            <li><a href="/explore">난이도순</a></li>
-            <li><a href="/explore">등록일순</a></li>
-            <li><a href="/explore">가격오름차순</a></li>
-            <li><a href="/explore">가격내림차순</a></li>
-        </ul>
-    )
-}
 
 function ProblemList() {
+
+    const problems = [
+        { id: 1, to: '/problem', imageSrc: pro_1, altText: 'prob' },
+        { id: 2, to: '/problem', imageSrc: pro_2, altText: 'prob' },
+        { id: 3, to: '/problem', imageSrc: pro_3, altText: 'prob' },
+        { id: 4, to: '/problem', imageSrc: pro_4, altText: 'prob' },
+        { id: 5, to: '/problem', imageSrc: pro_5, altText: 'prob' },
+        { id: 6, to: '/problem', imageSrc: pro_6, altText: 'prob' },
+        { id: 7, to: '/problem', imageSrc: pro_7, altText: 'prob' },
+        { id: 8, to: '/problem', imageSrc: pro_8, altText: 'prob' },
+        { id: 9, to: '/problem', imageSrc: pro_9, altText: 'prob' },
+        { id: 10, to: '/problem', imageSrc: pro_10, altText: 'prob' },
+    ];
+
     return(
         <div class="wrapper">
-            <div class="problems"> <Link to='/problem'><img src={pro_1} alt="prob"></img></Link> </div>
-            <div class="problems"> <Link to='/problem'><img src={pro_2} alt="prob"></img></Link> </div>
-            <div class="problems"> <img src={pro_3} alt="prob"/> </div>
-            <div class="problems"> <img src={pro_4} alt="prob"/> </div>
-            <div class="problems"> <img src={pro_5} alt="prob"/> </div>
-            <div class="problems"> <img src={pro_6} alt="prob"/> </div>
-            <div class="problems"> <img src={pro_7} alt="prob"/> </div>
-            <div class="problems"> <img src={pro_8} alt="prob"/> </div>
-            <div class="problems"> <img src={pro_9} alt="prob"/> </div>
-            <div class="problems"> <img src={pro_10} alt="prob"/> </div>
-            
+            {problems.map((problem) => (
+                <ProblemPreview
+                key={problem.id}
+                to={problem.to}
+                imageSrc={problem.imageSrc}
+                altText={problem.altText}
+                />
+            ))}
         </div>
     );
   }
@@ -50,21 +44,9 @@ function ProblemList() {
 
 
 function ExploreArticle() {
-    const exploreCategory = {
-        marginTop: '-40px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    }
+
     return (
         <article>
-            <h1 class="searchTitle">Search Problem</h1>
-            <div id="category-search" style={exploreCategory}>
-            <div style={{marginRight: '20px'}}><ConditionSelect/></div>
-                <SearchButton/>
-            </div>
-            <div class="Whereyouare">현재 위치 : 고등학교 {'>'} 미적분 {'>'} 수열의극한 {'>'} 급수</div>
-            <nav><SortingSelector></SortingSelector></nav>
             <ProblemList></ProblemList> <br/>
         </article>
     )

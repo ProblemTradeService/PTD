@@ -1,5 +1,4 @@
 import SearchButton from '../../asset/components/SearchButton';
-// import CategorySelector from "../../asset/components/CategorySelector";
 import ConditionSelect from '../../asset/components/ConditionSelect';
 
 function MainArticle() {
@@ -7,7 +6,7 @@ function MainArticle() {
     const h1Style = {
         textAlign: 'center',
         fontSize: '60px',
-        color: 'black'
+        color: 'black',
     }
 
     const catStyle ={
@@ -23,7 +22,6 @@ function MainArticle() {
                 <div style={{marginRight: '20px'}}><ConditionSelect/></div>
                 <SearchButton/>
             </div>
-            
         </article>
     )
 }

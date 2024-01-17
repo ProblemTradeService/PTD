@@ -5,8 +5,6 @@ import BackButton from '../../asset/components/BackButton';
 
 function UploadHeader() {
 
-
-
     return (
         <div>
             <BackButton/> <br/>

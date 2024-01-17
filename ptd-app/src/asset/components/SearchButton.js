@@ -1,4 +1,4 @@
-import image2 from "../../asset/components/image/image2.png";
+import image2 from "../../asset/components/image/search_button.png";
 import { Link } from 'react-router-dom';
 
 function SearchButton() {

@@ -1,19 +1,15 @@
-import CategorySelector2 from '../../asset/components/CategorySelector2';
+import ConditionSelect from '../../asset/components/ConditionSelect';
 import './UploadArticle.css'
 
 export function NextButton() {
 
     return (
         <div class="button-container">
-            <button id="next">NEXT</button>
-            <button id="cancel">CANCEL</button>
+            <input type="submit" value="UPLOAD"></input>
+            <input type="reset" value="CANCEL"></input>
         </div>
     );
 }
-
-
- 
-
 
 function UploadForm() {
     
@@ -22,8 +18,8 @@ function UploadForm() {
             <ol type="1" id="uploadProblem">
                 <li>
                     <div class="categorynext">
-                    <label for="category">카테고리</label>
-                    <CategorySelector2/>
+                        <label for="category">카테고리</label>
+                        <div class="condselect"><ConditionSelect/></div>
                     </div>
                 </li>
                 <li>

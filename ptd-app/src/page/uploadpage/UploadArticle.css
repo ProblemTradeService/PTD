@@ -1,6 +1,5 @@
 .button-container {
     position: fixed;
-
     font-size: 20px;
     right: 50%;
     bottom: 5%;
@@ -20,24 +19,19 @@
     justify-content: space-around;
 }
 
-#uploadProblem {
-    font-size: 35px;
-    margin: 15px;
-    display: absolute;
-    width: 100%;
-    height: 100%;
-    /* flex : 1; */
-    /* line-height: 200%; */
-  }
+#uploadForm li .condselect {
+  font-size: 20px !important;
+}
 
 #uploadForm li {
   margin-bottom: 25px;
-  white-space: nowrap;
-  /* padding: 10px; 각 아이템의 안쪽 여백 설정 */
-  /* border: 1px solid #ccc;원하는 줄 간격 크기로 조절 */
-  /* 추가적인 스타일을 필요에 따라 적용하세요 */
 }
 
+#uploadForm{
+  font-size: 35px;
+  margin-top: 15px;
+  white-space: nowrap;
+}
 
 #diff {
     margin-left: 110px;
@@ -74,7 +68,7 @@
   gap: 8px;
 }
 
-#next {
+input[type="submit"] {
   background-color: #3AAF46;
   color: white;
   width: 100px;
@@ -82,20 +76,22 @@
   margin-right: 20px;
   border: solid 1px #3AAF46;
   font-size: large;
+  border-radius: 10%;
   }
 
-#cancel{
+input[type="reset"] {
   background-color: white;
   color: black;
   width: 100px;
   height: 70px;
   border: solid 1px #3AAF46;
   font-size: large;
+  border-radius: 10%;
 }
 
 .categorynext {
   display: flex;
-  align-items: self-end;
+  align-items: center;
 }
 
 label[for="problemUpload"]{

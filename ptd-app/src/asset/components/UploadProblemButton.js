@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function UploadProblemButton() {
 
     const upButtonStyle = {
@@ -15,9 +17,9 @@ function UploadProblemButton() {
       };
 
     return (
-        <>
-        <button id="uploadButton"style={upButtonStyle}>Upload<br/>Problem</button>
-        </>
+        <Link to="/upload">
+            <button id="uploadButton"style={upButtonStyle}>Upload<br/>Problem</button>
+        </Link>
     )
 }
 

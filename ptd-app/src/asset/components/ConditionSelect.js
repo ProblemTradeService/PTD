@@ -160,12 +160,12 @@ const ConditionSelect = () => {
     control: (provided) => ({
       ...provided,
       width: 'auto', // 조절 필요한 폭으로 변경
-      height:  '50px',
+      height:  '120%',
       borderColor: 'black'
     }),
     singleValue: (provided) => ({
       ...provided,
-      fontSize: '20px', // 조절 필요한 폰트 크기로 변경
+      fontSize: 'auto', // 조절 필요한 폰트 크기로 변경
     }),
   };
 
