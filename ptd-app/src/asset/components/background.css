@@ -4,7 +4,7 @@
     overflow: hidden; /* 자식 요소들이 넘치는 경우 숨김 */
 
     /* 배경 이미지 설정 */
-    background-image: url("../../asset/components/image/background_image.PNG");
+    background-image: url("../../asset/image/background_image.PNG");
     background-size: cover;
     background-position: center;
 

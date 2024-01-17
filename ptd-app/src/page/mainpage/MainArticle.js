@@ -1,5 +1,5 @@
 import SearchButton from '../../asset/components/SearchButton';
-import ConditionSelect from '../../asset/components/ConditionSelect';
+import CategorySelector from '../../asset/components/CategorySelector';
 
 function MainArticle() {
 
@@ -19,7 +19,7 @@ function MainArticle() {
         <article>
             <h1 style={h1Style}>Problem Trade Platform</h1>
             <div id="category-search" style={catStyle}>
-                <div style={{marginRight: '20px'}}><ConditionSelect/></div>
+                <div style={{marginRight: '20px'}}><CategorySelector/></div>
                 <SearchButton/>
             </div>
         </article>

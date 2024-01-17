@@ -1,6 +1,10 @@
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { clearCategory } from '../../store/dataSlice'
+import { useNavigate } from "react-router-dom";
 
 function UploadProblemButton() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const upButtonStyle = {
         position: 'fixed',
@@ -16,10 +20,14 @@ function UploadProblemButton() {
         borderRadius: '10px'
       };
 
+    const showUploadPage = () => {
+        dispatch(clearCategory())
+        navigate("/upload")
+    }
+
     return (
-        <Link to="/upload">
-            <button id="uploadButton"style={upButtonStyle}>Upload<br/>Problem</button>
-        </Link>
+        <button id="uploadButton"style={upButtonStyle}onClick={showUploadPage}
+        >Upload<br/>Problem</button>
     )
 }
 

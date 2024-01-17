@@ -1,4 +1,4 @@
-import pro_1 from "../../asset/components/image/pro_1.PNG";
+import pro_1 from "../../asset/image/pro_1.PNG";
 import './ProblemArticle.css'
 
 function ProblemArticle() {

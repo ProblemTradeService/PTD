@@ -1,8 +1,8 @@
-import back_button from "../../asset/components/image/back_button.png";
+import back_button from "../../asset/image/back_button.png";
 
-function BackButton() {
+function BackButton(props) {
 
-    const BackButtonStyle = {
+  const BackButtonStyle = {
         position: 'fixed',
         width: '60px',
         height: '60px',
@@ -11,21 +11,17 @@ function BackButton() {
         backgroundColor: 'white',
         border: 'solid 1px #3AAF46',
         borderRadius: '10px'
-    }
+  }
 
     const imgStyle = {
       float: 'left',
       width: '50px',
   };
-    
 
     return (
-        
-          <button style={BackButtonStyle}>
-            <img src={back_button} style={imgStyle}  alt="back" />
-          </button>
-          
-       
+        <button style={BackButtonStyle} onClick={props.backButtonHandler}>
+          <img src={back_button} style={imgStyle} alt="back" />
+        </button>
       );
     }
 

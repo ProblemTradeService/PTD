@@ -2,7 +2,7 @@ import UploadProblemButton from "../../asset/components/UploadProblemButton";
 import SignOutButton from '../../asset/components/SignOutButton';
 import UserName from '../../asset/components/UserName';
 import SearchButton from '../../asset/components/SearchButton';
-import ConditionSelect from '../../asset/components/ConditionSelect';
+import CategorySelector from '../../asset/components/CategorySelector';
 import './ExploreArticle.css'
 
 
@@ -34,7 +34,7 @@ function ExploreHeader() {
             <UserName/><br/>
         <h1 class="searchTitle">Search Problem</h1>
             <div id="category-search" style={exploreCategory}>
-            <div style={{marginRight: '20px'}}><ConditionSelect/></div>
+            <div style={{marginRight: '20px'}}><CategorySelector/></div>
                 <SearchButton/>
             </div>
             <nav><SortingSelector></SortingSelector></nav>

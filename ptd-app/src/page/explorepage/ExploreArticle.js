@@ -1,17 +1,20 @@
 import './ExploreArticle.css';
 import ProblemPreview from '../../asset/components/ProblemPreview';
-import pro_1 from "../../asset/components/image/pro_1.PNG";
-import pro_2 from "../../asset/components/image/pro_2.PNG";
-import pro_3 from "../../asset/components/image/pro_3.PNG";
-import pro_4 from "../../asset/components/image/pro_4.PNG";
-import pro_5 from "../../asset/components/image/pro_5.PNG";
-import pro_6 from "../../asset/components/image/pro_6.PNG";
-import pro_7 from "../../asset/components/image/pro_7.PNG";
-import pro_8 from "../../asset/components/image/pro_8.PNG";
-import pro_9 from "../../asset/components/image/pro_9.PNG";
-import pro_10 from "../../asset/components/image/pro_10.PNG";
+import pro_1 from "../../asset/image/pro_1.PNG";
+import pro_2 from "../../asset/image/pro_2.PNG";
+import pro_3 from "../../asset/image/pro_3.PNG";
+import pro_4 from "../../asset/image/pro_4.PNG";
+import pro_5 from "../../asset/image/pro_5.PNG";
+import pro_6 from "../../asset/image/pro_6.PNG";
+import pro_7 from "../../asset/image/pro_7.PNG";
+import pro_8 from "../../asset/image/pro_8.PNG";
+import pro_9 from "../../asset/image/pro_9.PNG";
+import pro_10 from "../../asset/image/pro_10.PNG";
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 function ProblemList() {
+    const refreshSwitch = useSelector(state=>state.data.refreshSwitch)
 
     const problems = [
         { id: 1, to: '/problem', imageSrc: pro_1, altText: 'prob' },
@@ -26,8 +29,12 @@ function ProblemList() {
         { id: 10, to: '/problem', imageSrc: pro_10, altText: 'prob' },
     ];
 
+    useEffect(()=>{
+        console.log("refreshed");
+    },[refreshSwitch])
+
     return(
-        <div class="wrapper">
+        <div className="wrapper">
             {problems.map((problem) => (
                 <ProblemPreview
                 key={problem.id}

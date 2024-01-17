@@ -49,8 +49,8 @@ import org.springframework.http.MediaType;
 
 public class ProblemApiController {
 
-    //private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
-    private static final String IMAGE_DIR = "C:/Image/";
+    private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
+    //private static final String IMAGE_DIR = "C:/Image/";
     @Autowired
     private ProblemRepository problemRepository;
 
@@ -133,7 +133,7 @@ public class ProblemApiController {
     }
 
     @PostMapping("/api/problems/image")
-    public String createProblemFile(@RequestParam("problemfile") MultipartFile file1, @RequestParam("solutionfile") MultipartFile file2) throws IOException, InterruptedException {
+    public String createProblemFile(@RequestParam("problemFile") MultipartFile file1, @RequestParam("solutionFile") MultipartFile file2) throws IOException, InterruptedException {
         if(pid==0){
             Problem p= problemRepository.findFirstByOrderByIdDesc();
             pid=p.getId()+1L;
@@ -158,7 +158,7 @@ public class ProblemApiController {
         //uploadFile(newFile1, newFile2);
 
         //DB에 있는 해당 문제 표절 수준 업데이트 및, DB SimilarList에 추가하기
-        Thread.sleep(30000);
+        //Thread.sleep(30000);
 
         Problem p= problemRepository.findFirstByOrderByIdDesc();
         p.setPlaglevel("매우 높음");

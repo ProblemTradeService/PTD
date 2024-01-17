@@ -16,7 +16,6 @@ import java.io.Serializable;
 @EqualsAndHashCode
 public class ProblemSimilarityListPK implements Serializable {
     private Long pid1;
-
     private Long pid2;
 
 }
