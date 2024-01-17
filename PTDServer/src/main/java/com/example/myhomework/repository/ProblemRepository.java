@@ -17,6 +17,8 @@ public interface ProblemRepository extends CrudRepository<Problem, Long>{
     @Query(value="SELECT p FROM Problem p WHERE p.category = :category")
     List<Problem> findCategory(@Param("category") String category);
 
+    Problem findFirstByOrderByIdDesc();
+
     @Override
     ArrayList<Problem> findAll();
 }

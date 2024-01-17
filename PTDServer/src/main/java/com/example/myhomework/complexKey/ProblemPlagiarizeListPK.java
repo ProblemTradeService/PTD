@@ -14,9 +14,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class ProblemSimilarityListPK implements Serializable {
+public class ProblemPlagiarizeListPK implements Serializable {
     private Long pid1;
 
     private Long pid2;
-
 }
