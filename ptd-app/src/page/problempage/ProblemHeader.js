@@ -18,9 +18,9 @@ function ProblemHeader() {
 
     return (
         <div>
-            <BackButton></BackButton> <br/>
-            <SignOutButton></SignOutButton> <br/>
-            <UserName></UserName> <br/>
+            <BackButton></BackButton>
+            <SignOutButton></SignOutButton>
+            <UserName></UserName>
             <h1 style={problemTitle}>#1325 문제</h1>
         </div>
     )

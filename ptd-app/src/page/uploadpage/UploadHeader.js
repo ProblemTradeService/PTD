@@ -6,11 +6,11 @@ import BackButton from '../../asset/components/BackButton';
 function UploadHeader() {
 
     return (
-        <div>
-            <BackButton/> <br/>
-            <SignOutButton/> <br/>
-            <UserName/> <br/>
-        </div>
+        <>
+            <BackButton/><br/>
+            <SignOutButton/>
+            <UserName/>
+        </>
     )
 }
 

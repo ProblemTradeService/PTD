@@ -1,4 +1,5 @@
 import pro_1 from "../../asset/components/image/pro_1.PNG";
+import NextCancelButton from "../../asset/components/NextCancelButton";
 import './ProblemArticle.css'
 
 function ProblemArticle() {
@@ -40,6 +41,7 @@ function ProblemArticle() {
             </ul>
             </div>
             </div>
+            <div><NextCancelButton submitText={'구매하기'} resetText={'뒤로가기'}></NextCancelButton></div>
         </article>
     )
 }

@@ -1,15 +1,6 @@
 import ConditionSelect from '../../asset/components/ConditionSelect';
 import './UploadArticle.css'
-
-export function NextButton() {
-
-    return (
-        <div class="button-container">
-            <input type="submit" value="UPLOAD"></input>
-            <input type="reset" value="CANCEL"></input>
-        </div>
-    );
-}
+import NextCancelButton from '../../asset/components/NextCancelButton';
 
 function UploadForm() {
     
@@ -74,9 +65,9 @@ function UploadArticle() {
 
     return (
         <article>
-            <div><UploadForm></UploadForm></div>
-            <div><NextButton></NextButton></div>
             <h1 style={uploadTitle}>Upload Problem</h1>
+            <div><UploadForm></UploadForm></div>
+            <div><NextCancelButton submitText={'UPLOAD'} resetText={'CANCEL'}></NextCancelButton></div>
         </article>
     )
 }
