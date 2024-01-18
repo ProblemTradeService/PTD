@@ -32,9 +32,9 @@ function ExploreHeader() {
             <UploadProblemButton/> <br/>
             <SignOutButton/>
             <UserName/><br/>
-        <h1 class="searchTitle">Search Problem</h1>
+            <h1 class="searchTitle">Search Problem</h1>
             <div id="category-search" style={exploreCategory}>
-            <div style={{marginRight: '20px'}}><CategorySelector/></div>
+                <div style={{marginRight: '20px'}}><CategorySelector/></div>
                 <SearchButton/>
             </div>
             <nav><SortingSelector></SortingSelector></nav>

@@ -99,7 +99,7 @@ public class ProblemApiController {
 
         for(Problem problem : problems){
             log.info(problem.toString());
-            String path="C:/Image/problem"+problem.getId()+".jpg";
+            String path=IMAGE_DIR + "problem"+problem.getId()+".jpg";
             HttpHeaders header = new HttpHeaders();
             Path filePath;
 
@@ -158,7 +158,7 @@ public class ProblemApiController {
         //uploadFile(newFile1, newFile2);
 
         //DB에 있는 해당 문제 표절 수준 업데이트 및, DB SimilarList에 추가하기
-        //Thread.sleep(30000);
+        Thread.sleep(3000);
 
         Problem p= problemRepository.findFirstByOrderByIdDesc();
         p.setPlaglevel("매우 높음");
@@ -174,7 +174,7 @@ public class ProblemApiController {
         return "kkkk";
     }
 
-    public String uploadFile(File File1, File File2) throws IOException {
+    public List<String> uploadFile(File File1, File File2) throws IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
@@ -215,7 +215,7 @@ public class ProblemApiController {
         for(String str : result){
             log.info(str);
         }
-        return null;
+        return result;
     }
 
     private File convertMultiPartToFile(MultipartFile file, String type) throws IOException {

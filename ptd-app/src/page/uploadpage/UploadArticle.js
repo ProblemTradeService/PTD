@@ -1,88 +1,27 @@
-import CategorySelector from '../../asset/components/CategorySelector';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearCategory } from '../../store/dataSlice';
-import { postProblem } from '../../api/api_functions'
-import { useNavigate } from "react-router-dom";
-import './UploadArticle.css'
+import { postProblem } from '../../api/PostAPI'
+import { useState } from 'react';
+import UploadForm from './UploadForm';
+import UploadWaiting from './UploadWaiting';
+import UploadConfirm from './UploadConfirm';
 
-export function NextButton() {
-
-    return (
-        <div className="button-container">
-            <input type="submit" value="UPLOAD"></input>
-            <input type="reset" value="CANCEL"></input>
-        </div>
-    );
-}
-
-function UploadForm() {
-
-    return (
-        <fieldset id="uploadForm">
-            <ol type="1" id="uploadProblem">
-                <li>
-                    <div className="categorynext">
-                        <label htmlFor="category">카테고리</label>
-                        <div className="condselect"><CategorySelector/></div>
-                    </div>
-                </li>
-                <li>
-                    <div className="problemUpload">
-                    <label htmlFor="problemUpload">문제 업로드</label>
-                    <input type="file" name="problemImage" accept="image/*"></input>
-                    </div>
-                </li>
-                <li>
-                    <div className="answerUpload">
-                    <label htmlFor="answerUpload">정답 업로드</label>
-                    <input type="file" name="answerImage" accept="image/*"></input>
-                    </div>
-                </li>
-                <li>
-                    <div className="explanationUpload">
-                    <label htmlFor="explanationUpload">해설 업로드</label>
-                    <input type="file" name="solutionImage" accept="image/*"></input>
-                    </div>
-                </li>
-                <li>
-                    <div className="diff">
-                    <label htmlFor="difficulty">난이도</label>
-                    <select id="diff" name="diff">
-                        <option value="1">1</option>
-                        <option value="2" >2</option>
-                        <option value="3" >3</option>
-                        <option value="4" >4</option>
-                        <option value="5" >5</option>
-                    </select>
-                    </div>
-                </li>
-                <li>
-                    <div className="Priceinput">
-                    <label htmlFor="Price">가격</label>
-                    <input type="number" id="Priceinput" name="price"></input>
-                    <span id="ethLabel">ETH</span>
-                    </div>
-                </li>
-            </ol>
-        </fieldset>
-    )
-}
+const State = {
+    UploadForm: 0,
+    UploadWaiting: 1,
+    UploadConfirm: 2
+};
 
 function UploadArticle() {
     const dispatch = useDispatch();
     const category = useSelector(state=>state.data.category);
-    const navigate = useNavigate();
-
-    const uploadTitle ={
-        textAlign: 'center',
-        fontSize: '60px',
-        color: 'black'
-    }
+    const [state, setState] = useState(2);
+    const [pid, setPid] = useState(null);
+    let content = null;
 
     // 모든 값이 입력되었는지 확인
     const isAllFieldsFilled = (target) => {
         let allFieldsFilled = true;
-
 
         Array.from(target.elements).forEach(element => {
             // 요소가 file 타입 input인지 확인
@@ -105,23 +44,41 @@ function UploadArticle() {
         return true
     }
 
+    // 제출 및 리셋
     const submit = (event) => {
         event.preventDefault();
 
         if(!isAllFieldsFilled(event.target)) return;
         
-        postProblem(event.target);
+        postProblem(event.target, category).then(toConfirmState);
 
-        navigate('/');
+        setState(State.UploadWaiting);
     }
+    const reset = () => {
+        dispatch(clearCategory());
+    }
+
+    const toConfirmState = (pid) => {
+        setPid(pid);
+        setState(State.UploadConfirm)
+    }
+
+    // 상태에 따른 내용 변환
+    switch(state){
+        case State.UploadForm:
+            content = <UploadForm submit={submit} reset={reset}/>
+            break;
+        case State.UploadWaiting:
+            content = <UploadWaiting/>
+            break;
+        case State.UploadConfirm:
+            content = <UploadConfirm pid = {pid}/>
+    }
+
 
     return (
         <article>
-            <form onSubmit={submit}onReset={()=>dispatch(clearCategory())}>
-                <UploadForm/>
-                <NextButton/>
-            </form>
-            <h1 style={uploadTitle}>Upload Problem</h1>
+            {content}
         </article>
     )
 }
