@@ -130,6 +130,7 @@ public class ProblemService {
         //제일 표절도 높은거 갱신하기
         String plagLevel= findFlagLevel(stringList);
         p.setPlaglevel(plagLevel);
+        p.setStatus("판매중");
         problemRepository.save(p);
         log.info(plagLevel);
 
