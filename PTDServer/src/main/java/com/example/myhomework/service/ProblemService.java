@@ -40,8 +40,8 @@ import java.util.List;
 
 public class ProblemService {
 
-    //private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
-    private static final String IMAGE_DIR = "C:/Image/";
+    private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
+    //private static final String IMAGE_DIR = "C:/Image/";
 
     private Long pid=0L;
 
@@ -87,7 +87,7 @@ public class ProblemService {
 
         for(Problem problem : problems){
             log.info(problem.toString());
-            String path="C:/Image/problem"+problem.getId()+".jpg";
+            String path = IMAGE_DIR + "/problem"+problem.getId()+".jpg";
             HttpHeaders header = new HttpHeaders();
             Path filePath;
 
@@ -113,7 +113,7 @@ public class ProblemService {
         Problem p= problemRepository.findFirstByOrderByIdDesc();
         int idx=0;
         if(pid==0){
-            pid=p.getId()+1L;
+            pid=p.getId();
         }
 
         String filePath1 = IMAGE_DIR + "problem" + pid + ".jpg";
@@ -124,12 +124,12 @@ public class ProblemService {
 
         pid++;
 
-        //uploadFile(newFile1, newFile2,null,"plagiarize"); // 앞에 List<String> plagList 각자 문제 문자열 배열 이걸로 받기
+        List<String> stringList = uploadFile(newFile1, newFile2,null,"plagiarize"); // 앞에 List<String> plagList 각자 문제 문자열 배열 이걸로 받기
 
         //DB에 있는 해당 문제 표절 수준 업데이트 및, DB SimilarList에 추가하기
-        Thread.sleep(10000);
+        //Thread.sleep(10000);
 
-        List<String> stringList = new ArrayList<>(Arrays.asList("매우 낮음", "매우 낮음", "보통","보통", "매우 낮음","보통","매우 낮음","매우 낮음","낮음","매우 낮음","낮음","매우 낮음"));
+        //List<String> stringList = new ArrayList<>(Arrays.asList("매우 낮음", "매우 낮음", "보통","보통", "매우 낮음","보통","매우 낮음","매우 낮음","낮음","매우 낮음","낮음","매우 낮음"));
         p=problemRepository.findFirstByOrderByIdDesc();
         for(int i=0;i<stringList.size();i++){
             ProblemSimilarListForm dto=new ProblemSimilarListForm(p.getId(),(long)i+1,null,stringList.get(i));
@@ -149,10 +149,10 @@ public class ProblemService {
             similarProblems.remove(similarProblems.size() - 1);
         }
 
-        //uploadFile(newFile1, newFile2, similarProblems,"similarity"); //앞에 List<String> similarList (Type 이라는 매개변수 추가 필요해보임)
-        Thread.sleep(10000);
+        List<String> similarLevel = uploadFile(newFile1, newFile2, similarProblems,"similarity"); //앞에 List<String> similarList (Type 이라는 매개변수 추가 필요해보임)
+        //Thread.sleep(10000);
         //비슷한거 리스트
-        List<String> similarLevel=new ArrayList<>(Arrays.asList("높음","매우 높음"));
+        //List<String> similarLevel=new ArrayList<>(Arrays.asList("높음","매우 높음","높음","매우 높음","높음","매우 높음"));
 
         for(Problem problem : similarProblems){
             ProblemSimilarList problemSimilarList = problemSimilarityListRepository.findById(new ProblemSimilarityListPK(p.getId(),problem.getId())).orElse(null);
@@ -166,19 +166,19 @@ public class ProblemService {
     public String findFlagLevel(List<String> stringList){
         int flagLevel=0;
         for(int i=0; i<stringList.size();i++){
-            if(stringList.get(i).equals("매우 높음")){
+            if(stringList.get(i).equals("[매우 높음]")){
                 flagLevel=5;
             }
-            else if(stringList.get(i).equals("높음") && flagLevel<=4){
+            else if(stringList.get(i).equals("[높음]") && flagLevel<=4){
                 flagLevel=4;
             }
-            else if(stringList.get(i).equals("보통") && flagLevel<=3){
+            else if(stringList.get(i).equals("[보통]") && flagLevel<=3){
                 flagLevel=3;
             }
-            else if(stringList.get(i).equals("낮음") && flagLevel<=2){
+            else if(stringList.get(i).equals("[낮음]") && flagLevel<=2){
                 flagLevel=2;
             }
-            else if(stringList.get(i).equals("매우 낮음") && flagLevel<=1){
+            else if(stringList.get(i).equals("[매우 낮음]") && flagLevel<=1){
                 flagLevel=1;
             }
         }
@@ -197,7 +197,7 @@ public class ProblemService {
         return null;
     }
 
-    public String uploadFile(File File1, File File2, List<Problem> problems, String type) throws IOException {
+    public List<String> uploadFile(File File1, File File2, List<Problem> problems, String type) throws IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
@@ -216,7 +216,13 @@ public class ProblemService {
                 problemsResource.add(new FileSystemResource(problemFiles.get(i)));
                 solutionResource.add(new FileSystemResource(solutionFiles.get(i)));
             }
+
+            if(!problemsResource.isEmpty()) {
+                problemsResource.remove(problemsResource.size() - 1);
+                solutionResource.remove(solutionResource.size()-1);
+            }
         }
+
         else if(type.equals("similarity")){
             for(Problem problem : problems){
                 problemFiles.add(new File(IMAGE_DIR + "problem" + problem.getId() + ".jpg"));
@@ -252,7 +258,7 @@ public class ProblemService {
         for(String str : result){
             log.info(str);
         }
-        return null;
+        return result;
     }
 
     private File convertMultiPartToFile(MultipartFile file, String type) throws IOException {

@@ -8,7 +8,7 @@ def check_level(txtPath1 : TextPath, txtPath2 : TextPath, isPlagiarismCheck):
     # list for check level
     resultList = list()
     # number of check iteration
-    iterNum = 5
+    iterNum = 1
 
     # read text files from path
     with open(txtPath1.problemPath, 'r', encoding='utf-8') as f:
@@ -64,13 +64,14 @@ def find_most_common(lst):
 
 # cut response to '[result]'
 def cut_string_to_bracket(s):
-    # Find the position of the first ']'
-    bracket_pos = s.find(']')
+    # Find the position of the first '[', ']'
+    start_bracket_pos = s.find('[')
+    end_bracket_pos = s.find(']')
 
     # Check if ']' was found
-    if bracket_pos != -1:
+    if start_bracket_pos != -1:
         # Return the substring from the beginning up to the ']'
-        return s[:bracket_pos + 1]
+        return s[start_bracket_pos:end_bracket_pos + 1]
     else:
         # If ']' is not found, return the original string
         return s

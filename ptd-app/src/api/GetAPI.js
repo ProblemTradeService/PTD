@@ -32,9 +32,11 @@ export async function getProblem(pid) {
         .then(response => data.info = response.data)
         .catch(error => console.log(error));
 
-    await axios.get(`/api/problems/image/pid/${pid}`)
-        .then(response => data.image = response.data)
+    await axios.get(`/api/problems/image/pid/${pid}`, {
+        responseType:'blob'
+    })
+        .then(response => data.image = URL.createObjectURL(response.data))
         .catch(error => console.log(error));
-
+        
     return data;
 }

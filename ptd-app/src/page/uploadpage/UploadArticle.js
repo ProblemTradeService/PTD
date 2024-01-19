@@ -15,7 +15,7 @@ const State = {
 function UploadArticle() {
     const dispatch = useDispatch();
     const category = useSelector(state=>state.data.category);
-    const [state, setState] = useState(2);
+    const [state, setState] = useState(0);
     const [pid, setPid] = useState(null);
     let content = null;
 

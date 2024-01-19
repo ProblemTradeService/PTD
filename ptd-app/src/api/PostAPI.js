@@ -24,5 +24,6 @@ export async function postProblem(target, category) {
     await axios.post("/api/problems/image",formdata, {headers: {"Content-Type": "multipart/form-data"}})
         .then(response => console.log(response.data))
         .catch(error => console.log(error))
+
     return result;
 }

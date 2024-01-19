@@ -7,30 +7,31 @@ function UploadConfirm(props) {
     const [problemImage, setProblemImage] = useState(null);
     const [modalShow, setModalShow] = useState(false);
 
-    let pid = 13
-
     useEffect(()=>{
         getProblem(props.pid).then(setProblem);
     },[])
 
+    console.log(problemImage);
+
     const setProblem = (data) => {
         setProblemInfo(data.info);
-        setProblemImage(data.image);
+        setProblemImage(data.image)
     }
 
 
-    //if(problemInfo === null || problemImage === null) return;
+    if(problemInfo === null || problemImage === null) return;
     return (
     <>
         <h1>업로드 확인</h1>
-        {/* <div>
+        <div>
+            <img src={problemImage} style={{height:"30vh"}}/>
             <h3>{problemInfo.id}</h3>
             <h3>{problemInfo.category}</h3>
             <h3>{problemInfo.level}</h3>
             <h3>{problemInfo.owner}</h3>
             <h3>{problemInfo.plaglevel}</h3>
             {problemInfo.price}            
-        </div> */}
+        </div>
     </>
     )
 }

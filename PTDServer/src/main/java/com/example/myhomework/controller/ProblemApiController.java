@@ -97,7 +97,7 @@ public class ProblemApiController {
     }
 
     @PostMapping("/api/problems/image")
-    public String createProblemFile(@RequestParam("problemfile") MultipartFile file1, @RequestParam("solutionfile") MultipartFile file2) throws IOException, InterruptedException {
+    public String createProblemFile(@RequestParam("problemFile") MultipartFile file1, @RequestParam("solutionFile") MultipartFile file2) throws IOException, InterruptedException {
         String s=problemService.createProblemFile(file1,file2);
         return s;
     }
