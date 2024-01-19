@@ -1,11 +1,11 @@
-import pro_1 from "../../asset/components/image/pro_1.PNG";
+import pro_1 from "../../asset/image/pro_1.PNG";
 import NextCancelButton from "../../asset/components/NextCancelButton";
 import './ProblemArticle.css'
 
 function ProblemArticle() {
 
     return (
-        <article class="proarticle">
+        <div class="proarticle">
             <div class="container">
             <div class='img-container'>
                 <img class='proImg' src={pro_1} alt='pro'></img>
@@ -42,7 +42,7 @@ function ProblemArticle() {
             </div>
             </div>
             <div><NextCancelButton submitText={'구매하기'} resetText={'뒤로가기'}></NextCancelButton></div>
-        </article>
+        </div>
     )
 }
 

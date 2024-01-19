@@ -158,7 +158,7 @@ public class ProblemService {
     public void getImage(List<Problem> problems,  MultiValueMap<String, ResponseEntity<byte[]>> responseMap){
         for(Problem problem : problems){
             log.info(problem.toString());
-            String path="C:/Image/problem"+problem.getId()+".jpg";
+            String path=IMAGE_DIR+ "problem"+problem.getId()+".jpg";
             HttpHeaders header = new HttpHeaders();
             Path filePath;
 

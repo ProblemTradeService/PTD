@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProblem } from "../../api/GetAPI";
+import ProblemArticle from "../problempage/ProblemArticle";
 
 
 function UploadConfirm(props) {
@@ -22,7 +23,8 @@ function UploadConfirm(props) {
     if(problemInfo === null || problemImage === null) return;
     return (
     <>
-        <h1>업로드 확인</h1>
+        <ProblemArticle/>
+        
         <div>
             <img src={problemImage} style={{height:"30vh"}}/>
             <h3>{problemInfo.id}</h3>
