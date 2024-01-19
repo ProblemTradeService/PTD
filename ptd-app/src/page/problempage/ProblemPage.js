@@ -7,6 +7,7 @@ function ProblemPage() {
         <div className="backGround">
             <ProblemHeader/>
             <ProblemArticle/>
+            
         </div>
     )
 }

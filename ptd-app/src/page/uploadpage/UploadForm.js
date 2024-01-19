@@ -1,16 +1,6 @@
 import CategorySelector from '../../asset/components/CategorySelector';
+import NextCancelButton from '../../asset/components/NextCancelButton';
 import './UploadForm.css'
-
-
-function NextButton() {
-
-    return (
-        <div className="button-container">
-            <input type="submit" value="UPLOAD"></input>
-            <input type="reset" value="CANCEL"></input>
-        </div>
-    );
-}
 
 function UploadForm(props) {
 
@@ -70,7 +60,7 @@ function UploadForm(props) {
                 </li>
             </ol>
         </fieldset>
-        <NextButton/>
+        <div><NextCancelButton submitText={'UPLOAD'} resetText={'CANCEL'}></NextCancelButton></div>
     </form>
     <h1 style={uploadTitle}>Upload Problem</h1>
     </>

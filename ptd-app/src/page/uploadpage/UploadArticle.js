@@ -5,6 +5,8 @@ import { useState } from 'react';
 import UploadForm from './UploadForm';
 import UploadWaiting from './UploadWaiting';
 import UploadConfirm from './UploadConfirm';
+import ConditionSelect from '../../asset/components/ConditionSelect';
+import './UploadArticle.css'
 
 const State = {
     UploadForm: 0,

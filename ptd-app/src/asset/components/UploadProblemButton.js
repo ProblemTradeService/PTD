@@ -7,17 +7,21 @@ function UploadProblemButton() {
     const navigate = useNavigate()
 
     const upButtonStyle = {
-        position: 'fixed',
+        position: 'relative',
         width: '100px',
         height: '80px',
-        fontSize: '22px',
+        fontSize: '25px',
         fontWeight: 'bold',
-        left: '15px',
-        top: '15px',
-        backgroundColor: 'white',
-        border: 'solid 1.5px',
-        borderColor: '#3AAF46',
-        borderRadius: '10px'
+        color: 'white',
+        fontFamily: 'HK Grotesk',
+  
+        textAlign: 'center',
+        backgroundColor: '#7C14FD',
+        borderRadius: '25px',
+        boxShadow: '0px 26px 46px 0px rgba(124, 20, 253, 0.35)',
+
+        left: '20px',
+        top: '20px',
       };
 
     const showUploadPage = () => {
@@ -27,7 +31,7 @@ function UploadProblemButton() {
 
     return (
         <button id="uploadButton"style={upButtonStyle}onClick={showUploadPage}
-        >Upload<br/>Problem</button>
+        >문제 구매하기</button>
     )
 }
 
