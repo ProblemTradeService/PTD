@@ -1,39 +1,23 @@
 import { useEffect, useState } from "react";
 import { getProblem } from "../../api/GetAPI";
-import ProblemArticle from "../problempage/ProblemArticle";
+import ProblemDetail from "../problempage/ProblemDetail";
+import NextCancelButton from "../../asset/components/NextCancelButton";
 
 
 function UploadConfirm(props) {
-    const [problemInfo, setProblemInfo] = useState(null);
-    const [problemImage, setProblemImage] = useState(null);
-    const [modalShow, setModalShow] = useState(false);
+    
+    const [problem, setProblem] = useState(null);
 
     useEffect(()=>{
-        getProblem(props.pid).then(setProblem);
+        getProblem(props.pid).then((data)=>setProblem(data));
     },[])
 
-    console.log(problemImage);
 
-    const setProblem = (data) => {
-        setProblemInfo(data.info);
-        setProblemImage(data.image)
-    }
-
-
-    if(problemInfo === null || problemImage === null) return;
+    if(!problem) return
     return (
     <>
-        <ProblemArticle/>
-        
-        <div>
-            <img src={problemImage} style={{height:"30vh"}}/>
-            <h3>{problemInfo.id}</h3>
-            <h3>{problemInfo.category}</h3>
-            <h3>{problemInfo.level}</h3>
-            <h3>{problemInfo.owner}</h3>
-            <h3>{problemInfo.plaglevel}</h3>
-            {problemInfo.price}            
-        </div>
+        <ProblemDetail problem={problem}/>
+        <NextCancelButton submitText={'확인'}/>
     </>
     )
 }

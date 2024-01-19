@@ -15,7 +15,7 @@ const State = {
 function UploadArticle() {
     const dispatch = useDispatch();
     const category = useSelector(state=>state.data.category);
-    const [state, setState] = useState(0);
+    const [state, setState] = useState(2);
     const [pid, setPid] = useState(null);
     let content = null;
 
@@ -72,7 +72,7 @@ function UploadArticle() {
             content = <UploadWaiting/>
             break;
         case State.UploadConfirm:
-            content = <UploadConfirm pid = {pid}/>
+            content = <UploadConfirm pid = {5}/>
     }
 
     return (

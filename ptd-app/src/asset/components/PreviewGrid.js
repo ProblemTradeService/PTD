@@ -2,11 +2,11 @@ import React from 'react';
 import ProblemPreview from './ProblemPreview';
 import { Grid, Container } from '@mui/material';
 
-const PreviewGrid = (props) => {
+const PreviewGrid = ({problems}) => {
     
     const board = <Grid container spacing={2}>
-        {Array.from({ length: props.problems.length }, (_, index) => (
-            <ProblemPreview key={index} cardIndex={index} problem={props.problems[index]}/>
+        {Array.from({ length: problems.length }, (_, index) => (
+            <ProblemPreview key={index} cardIndex={index} problem={problems[index]}/>
         ))}
     </Grid>
 

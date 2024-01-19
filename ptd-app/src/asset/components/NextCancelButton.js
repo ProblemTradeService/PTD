@@ -35,7 +35,6 @@ const resetStyle ={
     return (
         <div class="button-container" style={nextCancelStyle}>
             <input type="submit" style={submitStyle} value={submitText}></input>
-            <input type="reset" style={resetStyle} value={resetText}></input>
         </div>
     );
 }

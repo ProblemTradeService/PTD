@@ -23,20 +23,23 @@ export async function getCategoryProblems(category) {
 }
 
 export async function getProblem(pid) {
-    let data ={
-        info: null,
-        image: null
-    }
+    let info;
+    let img;
 
     await axios.get(`/api/problems/info/pid/${pid}`)
-        .then(response => data.info = response.data)
+        .then(response => info = response.data)
         .catch(error => console.log(error));
 
     await axios.get(`/api/problems/image/pid/${pid}`, {
         responseType:'blob'
     })
-        .then(response => data.image = URL.createObjectURL(response.data))
+        .then(response => img = URL.createObjectURL(response.data))
         .catch(error => console.log(error));
-        
+
+    let data = {
+        ...info,
+        image: img
+    }
+    
     return data;
 }

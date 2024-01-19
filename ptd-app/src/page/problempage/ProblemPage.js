@@ -1,12 +1,12 @@
 import ProblemHeader from "./ProblemHeader";
-import ProblemArticle from "./ProblemArticle";
+import ProblemDetail from "./ProblemDetail";
 import "../../asset/components/background.css"
 
 function ProblemPage() {
     return (
         <div className="backGround">
             <ProblemHeader/>
-            <ProblemArticle/>
+            <ProblemDetail/>
         </div>
     )
 }
