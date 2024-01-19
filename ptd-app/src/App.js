@@ -8,6 +8,9 @@ import ProblemPage from './page/problempage/ProblemPage';
 import MyPage from './page/mypage/MyPage';
 import SignInPage from './page/signinpage/SignInPage';
 import CompletePage from './page/uploadcomplete/CompletePage';
+import BoughtPage from './page/boughtpage/BoughtPage';
+import SellingPage from './page/sellingpage/SellingPage';
+import WaitingPage from './page/waitingpage/WaitingPage';
 
 function App() {
   return (
@@ -19,6 +22,9 @@ function App() {
       <Route exact path='/mypage' element={<MyPage/>}></Route>
       <Route exact path='/sign' element={<SignInPage/>}></Route>
       <Route exact path='/complete' element={<CompletePage/>}></Route>
+      <Route exact path='/bought' element={<BoughtPage/>}></Route>
+      <Route exact path='/selling' element={<SellingPage/>}></Route>
+      <Route exact path='/waiting' element={<WaitingPage/>}></Route>
     </Routes>
   );
 }
