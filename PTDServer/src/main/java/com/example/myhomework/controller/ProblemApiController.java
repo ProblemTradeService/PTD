@@ -86,6 +86,12 @@ public class ProblemApiController {
         return problems;
     }
 
+    @GetMapping("/api/problems/my/{owner}/{status}")
+    public List<Problem> getMyProblem(@PathVariable String owner, @PathVariable String status) throws UnsupportedEncodingException {
+        List<Problem> problems=problemService.getMyProblem(owner,status);
+        return problems;
+    }
+
     @PostMapping("/api/problems")
     public ResponseEntity<Problem> crateProblem(@RequestBody ProblemForm dto){
         Problem created=problemService.create(dto);

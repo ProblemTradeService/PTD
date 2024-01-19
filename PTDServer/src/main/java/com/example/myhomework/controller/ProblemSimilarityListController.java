@@ -51,21 +51,35 @@ public class ProblemSimilarityListController {
         return problemSimilarityService.index();
     }
 
-    @GetMapping("/api/problems/similar/{pid}")
+    @GetMapping("/api/problems/similar/info/{pid}")
+    public List<ProblemSimilarList> getSimilarProblemInfo(@PathVariable Long pid){
+        List<ProblemSimilarList> problemSimilarLists = problemSimilarityListRepository.findSimilarProblem(pid);
+        return problemSimilarLists;
+    }
+
+    @GetMapping("/api/problems/similar/image/{pid}")
     public MultiValueMap<String, ResponseEntity<byte[]>> getSimilarProblem(@PathVariable Long pid){
         List<ProblemSimilarList> problemSimilarLists = problemSimilarityListRepository.findSimilarProblem(pid);
-        List<Long> pidList= new ArrayList<>();
-        for(int i=0;i<problemSimilarLists.size();i++){
-            pidList.add(problemSimilarLists.get(i).getProblemPK().getPid2());
-        }
-        log.info(pidList.toString());
-        //pidList에 해당하는 이미지 전송
 
         MultiValueMap<String, ResponseEntity<byte[]>> responseMap=new LinkedMultiValueMap<>();
+        getImage(problemSimilarLists,responseMap);
 
-        for(Long problemId : pidList) {
-            log.info(problemId.toString());
-            String path = "C:/Image/problem" + problemId + ".jpg";
+        return responseMap;
+    }
+
+    @PostMapping("/api/problems/similarity")
+    public ResponseEntity<ProblemSimilarList> create(@RequestBody ProblemSimilarListForm dto){
+        log.info(dto.toString());
+        ProblemSimilarList created=problemSimilarityService.create(dto);
+        return (created !=null)?
+                ResponseEntity.status(HttpStatus.OK).body(created):
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    public void getImage(List<ProblemSimilarList> problemSimlarList,  MultiValueMap<String, ResponseEntity<byte[]>> responseMap) {
+        for (ProblemSimilarList problemSimilar : problemSimlarList) {
+            log.info(problemSimlarList.toString());
+            String path = "C:/Image/problem" + problemSimilar.getProblemPK().getPid2() + ".jpg";
             HttpHeaders header = new HttpHeaders();
             Path filePath;
 
@@ -79,15 +93,5 @@ public class ProblemSimilarityListController {
                 e.printStackTrace();
             }
         }
-        return responseMap;
-    }
-
-    @PostMapping("/api/problems/similarity")
-    public ResponseEntity<ProblemSimilarList> create(@RequestBody ProblemSimilarListForm dto){
-        log.info(dto.toString());
-        ProblemSimilarList created=problemSimilarityService.create(dto);
-        return (created !=null)?
-                ResponseEntity.status(HttpStatus.OK).body(created):
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 }

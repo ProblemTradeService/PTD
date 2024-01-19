@@ -27,11 +27,14 @@ public class ProblemForm {
     @JsonProperty
     private String plaglevel;
 
+    @JsonProperty
+    private String status;
+
     //@JsonProperty
     //private MultipartFile file;
 
 
     public Problem toEntity() {
-        return new Problem(id,level,price,owner,category,plaglevel);
+        return new Problem(id,level,price,owner,category,plaglevel,status);
     }
 }

@@ -29,4 +29,7 @@ public class Problem {
     @Column
     private String plaglevel;
 
+    @Column
+    private String status;
+
 }

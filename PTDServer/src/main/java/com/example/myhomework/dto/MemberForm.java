@@ -20,7 +20,13 @@ public class MemberForm {
     @JsonProperty
     private String password;
 
+    @JsonProperty
+    private String username;
+
+    @JsonProperty
+    private Long money;
+
     public Member toEntity() {
-        return new Member(id,email,password);
+        return new Member(id,email,password,username,money);
     }
 }
