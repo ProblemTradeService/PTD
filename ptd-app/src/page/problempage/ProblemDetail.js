@@ -1,7 +1,7 @@
 import pro_1 from "../../asset/image/pro_1.PNG";
-import './ProblemArticle.css'
+import './ProblemDetail.css'
 
-function ProblemArticle() {
+function ProblemDetail() {
 
     return (
         <article class="proarticle">
@@ -44,4 +44,4 @@ function ProblemArticle() {
     )
 }
 
-export default ProblemArticle;
+export default ProblemDetail;

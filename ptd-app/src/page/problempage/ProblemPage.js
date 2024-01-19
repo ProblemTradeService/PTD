@@ -1,5 +1,5 @@
 import ProblemHeader from "./ProblemHeader";
-import ProblemArticle from "./ProblemArticle";
+import ProblemArticle from "./ProblemDetail";
 import "../../asset/components/background.css"
 
 function ProblemPage() {
