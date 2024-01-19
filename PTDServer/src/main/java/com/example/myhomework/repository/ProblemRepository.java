@@ -19,6 +19,9 @@ public interface ProblemRepository extends CrudRepository<Problem, Long>{
 
     Problem findFirstByOrderByIdDesc();
 
+    @Query(value="SELECT p FROM Problem p WHERE p.owner = :owner and p.status= :status")
+    List<Problem> findMyProblem(@Param("owner") String owner,@Param("status") String status);
+
     @Override
     ArrayList<Problem> findAll();
 }

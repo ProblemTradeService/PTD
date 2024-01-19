@@ -20,4 +20,10 @@ public class Member {
     @Column
     private String password;
 
+    @Column
+    private String username;
+
+    @Column
+    private Long money;
+
 }

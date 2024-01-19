@@ -84,29 +84,20 @@ public class ProblemService {
         List<Problem> problems = problemRepository.findCategory(category);
 
         MultiValueMap<String, ResponseEntity<byte[]>> responseMap=new LinkedMultiValueMap<>();
+        getImage(problems,responseMap);
 
-        for(Problem problem : problems){
-            log.info(problem.toString());
-            String path = IMAGE_DIR + "/problem"+problem.getId()+".jpg";
-            HttpHeaders header = new HttpHeaders();
-            Path filePath;
-
-            try {
-                filePath = Paths.get(path);
-                header.setContentType(MediaType.IMAGE_JPEG);
-                byte[] imageBytes = Files.readAllBytes(filePath);
-                ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(imageBytes, header, HttpStatus.OK);
-                responseMap.add("image", responseEntity);
-            }catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         return responseMap;
     }
 
     public List<Problem> getInfoByCategory(String category) throws UnsupportedEncodingException {
         String decodedString = URLDecoder.decode(category, StandardCharsets.UTF_8.toString());
         return problemRepository.findCategory(category);
+    }
+
+    public List<Problem> getMyProblem(String owner, String status) throws UnsupportedEncodingException {
+        String decodedString = URLDecoder.decode(status, StandardCharsets.UTF_8.toString());
+        List<Problem> problems = problemRepository.findMyProblem(owner,status);
+        return problems;
     }
 
     public String createProblemFile(MultipartFile file1, MultipartFile file2) throws IOException, InterruptedException {
@@ -161,6 +152,26 @@ public class ProblemService {
             idx++;
         }
         return null;
+    }
+
+
+    public void getImage(List<Problem> problems,  MultiValueMap<String, ResponseEntity<byte[]>> responseMap){
+        for(Problem problem : problems){
+            log.info(problem.toString());
+            String path="C:/Image/problem"+problem.getId()+".jpg";
+            HttpHeaders header = new HttpHeaders();
+            Path filePath;
+
+            try {
+                filePath = Paths.get(path);
+                header.setContentType(MediaType.IMAGE_JPEG);
+                byte[] imageBytes = Files.readAllBytes(filePath);
+                ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(imageBytes, header, HttpStatus.OK);
+                responseMap.add("image", responseEntity);
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public String findFlagLevel(List<String> stringList){
