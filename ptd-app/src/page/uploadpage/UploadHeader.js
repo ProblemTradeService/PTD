@@ -1,21 +1,24 @@
-import { SignOutButton } from "../mainpage/MainHeader";
-import { UserName } from "../mainpage/MainHeader";
-import './UploadHeader.css'
-
-export function BackButton() {
-    return (
-        <button id="back">BACK</button>
-    )
-    
-}
+import SignOutButton from '../../asset/components/SignOutButton';
+import UserName from '../../asset/components/UserName';
+import BackButton from '../../asset/components/BackButton';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { clearCategory } from '../../store/dataSlice';
 
 function UploadHeader() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const backButtonHandler = () => {
+        dispatch(clearCategory());
+        navigate('/');
+    }
+
     return (
         <div>
-            <BackButton></BackButton> <br/>
-            <SignOutButton></SignOutButton> <br/>
-            <UserName></UserName> <br/>
-            <h1>Upload Problem</h1>
+            <BackButton backButtonHandler={backButtonHandler}/> <br/>
+            <SignOutButton/> <br/>
+            <UserName/> <br/>
         </div>
     )
 }

@@ -1,48 +1,38 @@
-import { CategorySelector, SearchButton } from "../mainpage/MainArticle";
 import './ExploreArticle.css';
-import '../mainpage/MainArticle.css';
-import pro_1 from "../image/pro_1.PNG";
+import ProblemPreview from '../../asset/components/ProblemPreview';
+import PreviewGrid from '../../asset/components/PreviewGrid';
+import pro_1 from "../../asset/image/pro_1.PNG";
+import pro_2 from "../../asset/image/pro_2.PNG";
+import pro_3 from "../../asset/image/pro_3.PNG";
+import pro_4 from "../../asset/image/pro_4.PNG";
+import pro_5 from "../../asset/image/pro_5.PNG";
+import pro_6 from "../../asset/image/pro_6.PNG";
+import pro_7 from "../../asset/image/pro_7.PNG";
+import pro_8 from "../../asset/image/pro_8.PNG";
+import pro_9 from "../../asset/image/pro_9.PNG";
+import pro_10 from "../../asset/image/pro_10.PNG";
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { getCategoryProblems } from '../../api/GetAPI';
 
-function SortingSelector() {
-
-    return (
-        <ul>
-            <li><a href="/explore">추천순</a></li>
-            <li><a href="/explore">난이도순</a></li>
-            <li><a href="/explore">등록일순</a></li>
-            <li><a href="/explore">가격오름차순</a></li>
-            <li><a href="/explore">가격내림차순</a></li>
-        </ul>
-    )
-}
-
-function ProblemList() {
-    return(
-        <div class="wrapper">
-            <div class="problems"> <img src={pro_1} alt="pro"/> </div>
-            <div class="problems"> <img src='image\pro_2.png' alt="pro"/> </div>
-            <div class="problems"> <img src='image\pro_3.png' alt="pro"/> </div>
-            <div class="problems"> <img src='image\pro_4.png' alt="pro"/> </div>
-        </div>
-    );
-  }
-  
-    
 
 
 function ExploreArticle() {
+    const refreshSwitch = useSelector(state=>state.data.refreshSwitch)
+    const category = useSelector(state=>state.data.category)
+    const [problems, setProblems] = useState(null)
 
-    return (
+    useEffect(()=>{
+        getCategoryProblems(category).then(response=>{setProblems(response)});
+    },[refreshSwitch])
+
+    if(!problems) return;
+    return(
         <article>
-            <h1>Search Problem</h1>
-            <div id="category-search">
-                <CategorySelector></CategorySelector>
-                <SearchButton></SearchButton>
-            </div>
-            <nav><SortingSelector></SortingSelector></nav>
-            <ProblemList></ProblemList> <br/>
+            <PreviewGrid problems = {problems}/>
         </article>
-    )
-}
+    );
+  }
+
 
 export default ExploreArticle;

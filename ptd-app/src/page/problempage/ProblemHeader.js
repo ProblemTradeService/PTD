@@ -1,15 +1,27 @@
-import { BackButton } from "../uploadpage/UploadHeader";
-import { SignOutButton } from "../mainpage/MainHeader";
-import { UserName } from "../mainpage/MainHeader";
+import SignOutButton from '../../asset/components/SignOutButton';
+import UserName from '../../asset/components/UserName';
+import BackButton from '../../asset/components/BackButton';
 
 
 function ProblemHeader() {
+
+    const problemTitle = {
+        textAlign: 'center',
+        fontSize: '60px',
+        color: 'black',
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        right: '0',
+        zIndex: 1000,
+    }
+
     return (
         <div>
             <BackButton></BackButton> <br/>
             <SignOutButton></SignOutButton> <br/>
             <UserName></UserName> <br/>
-            <h1>Problem #1325</h1>
+            <h1 style={problemTitle}>#1325 문제</h1>
         </div>
     )
 }

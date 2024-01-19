@@ -1,68 +1,84 @@
-import { CategorySelector } from '../mainpage/MainArticle';
-import './UploadArticle.css'
+import { useSelector, useDispatch } from 'react-redux';
+import { clearCategory } from '../../store/dataSlice';
+import { postProblem } from '../../api/PostAPI'
+import { useState } from 'react';
+import UploadForm from './UploadForm';
+import UploadWaiting from './UploadWaiting';
+import UploadConfirm from './UploadConfirm';
 
-export function NextButton() {
-
-    return (
-        <div class="button-container">
-            <button id="next">NEXT</button>
-            <button id="cancel">CANCEL</button>
-        </div>
-    );
-}
-
-
-function UploadForm() {
-
-    return (
-        <fieldset id="uploadForm">
-            
-            <ul id="uploadProblem">
-                <li>
-                    <label for="category">카테고리 </label>
-                    
-                </li>
-                <li>
-                    <label for="problemUpload">문제 업로드</label>
-                </li>
-                <li>
-                    <label for="answerUpload">정답 업로드</label>
-                </li>
-                <li>
-                    <label for="explanationUpload">해설 업로드</label>
-                </li>
-                <li>
-                    <label for="difficulty">난이도</label>
-                    
-                    <select id="diff">
-                        <option value="diff_1" >1</option>
-                        <option value="diff_2" >2</option>
-                        <option value="diff_3" >3</option>
-                        <option value="diff_4" >4</option>
-                        <option value="diff_5" >5</option>
-                    </select>
-                </li>
-                <li>
-                    <label for="Price">가격</label>
-                    <input type="number" id="Priceinput"></input>
-                    <span id="ethLabel">ETH</span>
-                </li>
-            </ul>
-        </fieldset>
-    )
-}
+const State = {
+    UploadForm: 0,
+    UploadWaiting: 1,
+    UploadConfirm: 2
+};
 
 function UploadArticle() {
+    const dispatch = useDispatch();
+    const category = useSelector(state=>state.data.category);
+    const [state, setState] = useState(0);
+    const [pid, setPid] = useState(null);
+    let content = null;
+
+    // 모든 값이 입력되었는지 확인
+    const isAllFieldsFilled = (target) => {
+        let allFieldsFilled = true;
+
+        Array.from(target.elements).forEach(element => {
+            // 요소가 file 타입 input인지 확인
+            if (element.type === 'file') {
+                // file input에 파일이 선택되지 않았다면
+                if (!element.files.length) {
+                    allFieldsFilled = false;
+                }
+            }
+        });
+        if((Object.keys(category[3]).length === 0) || !target.price.value || !target.diff.value){
+            allFieldsFilled = false;
+        }
+
+
+        if (!allFieldsFilled) {
+          alert("모든 필드가 채워지지 않았습니다.");
+          return false
+        }
+        return true
+    }
+
+    // 제출 및 리셋
+    const submit = (event) => {
+        event.preventDefault();
+
+        if(!isAllFieldsFilled(event.target)) return;
+        
+        postProblem(event.target, category).then(toConfirmState);
+
+        setState(State.UploadWaiting);
+    }
+    const reset = () => {
+        dispatch(clearCategory());
+    }
+
+    const toConfirmState = (pid) => {
+        setPid(pid);
+        setState(State.UploadConfirm)
+    }
+
+    // 상태에 따른 내용 변환
+    switch(state){
+        case State.UploadForm:
+            content = <UploadForm submit={submit} reset={reset}/>
+            break;
+        case State.UploadWaiting:
+            content = <UploadWaiting/>
+            break;
+        case State.UploadConfirm:
+            content = <UploadConfirm pid = {pid}/>
+    }
+
 
     return (
         <article>
-            <UploadForm></UploadForm>
-            {/* CategorySelector<br/>
-            ProblemPreview<br/>
-            난이도 <br/>
-            핵심개념 <br/>
-            가격 <br/> */}
-            <NextButton></NextButton><br/>
+            {content}
         </article>
     )
 }
