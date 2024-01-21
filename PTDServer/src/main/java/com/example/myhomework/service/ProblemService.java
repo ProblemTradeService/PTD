@@ -40,8 +40,8 @@ import java.util.List;
 
 public class ProblemService {
 
-    private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
-    //private static final String IMAGE_DIR = "C:/Image/";
+    //private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
+    private static final String IMAGE_DIR = "C:/PTD/images/";
 
     private Long pid=0L;
 
@@ -104,7 +104,7 @@ public class ProblemService {
         Problem p= problemRepository.findFirstByOrderByIdDesc();
         int idx=0;
         if(pid==0){
-            pid=p.getId();
+            pid=p.getId()+1L;
         }
 
         String filePath1 = IMAGE_DIR + "problem" + pid + ".jpg";
@@ -159,7 +159,7 @@ public class ProblemService {
     public void getImage(List<Problem> problems,  MultiValueMap<String, ResponseEntity<byte[]>> responseMap){
         for(Problem problem : problems){
             log.info(problem.toString());
-            String path="C:/Image/problem"+problem.getId()+".jpg";
+            String path=IMAGE_DIR+problem.getId()+".jpg";
             HttpHeaders header = new HttpHeaders();
             Path filePath;
 

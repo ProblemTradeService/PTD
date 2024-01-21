@@ -17,11 +17,17 @@ INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (1,
 INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (2,1,'보통','높음');
 INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (2,2,'매우 높음','매우 낮음');
 INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (3,1,'매우 높음','매우 낮음');
-INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (3,2,'보통','낮음');
+INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (3,2,'보통','높음');
 INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (3,3,'매우 높음','매우 낮음');
 INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (4,1,'매우 낮음','높음');
 INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (4,2,'매우 높음','높음');
 INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (4,3,'매우 낮음','매우 낮음');
 INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (4,4,'매우 높음','매우 낮음');
+INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (5,1,'매우 낮음','높음');
+INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (5,2,'매우 높음','높음');
+INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (5,3,'매우 낮음','보통');
+INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (5,4,'높음','매우 높음');
+INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (5,5,'매우 높음','매우 높음');
+
 
 
