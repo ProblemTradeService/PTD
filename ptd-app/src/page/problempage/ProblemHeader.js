@@ -1,6 +1,7 @@
 import SignOutButton from '../../asset/components/SignOutButton';
 import UserName from '../../asset/components/UserName';
 import BackButton from '../../asset/components/BackButton';
+import { useNavigate } from 'react-router-dom';
 
 
 function ProblemHeader() {
@@ -16,12 +17,17 @@ function ProblemHeader() {
         zIndex: 1000,
     }
 
+    const navigate = useNavigate();
+
+    const backButtonHandler = () => {
+        navigate('/explore');
+    }
+
     return (
         <div>
-            <BackButton></BackButton>
+            <BackButton backButtonHandler={backButtonHandler}></BackButton>
             <SignOutButton></SignOutButton>
             <UserName></UserName>
-            <h1 style={problemTitle}>#1325 문제</h1>
         </div>
     )
 }

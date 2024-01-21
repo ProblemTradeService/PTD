@@ -43,3 +43,25 @@ export async function getProblem(pid) {
     
     return data;
 }
+
+export async function getSimilarProblems(pid) {
+    let responseInfo;
+    let responseImage
+    let problems =[]
+
+    await axios.get(`/api/problems/similar/info/${pid}`)
+        .then(response => {responseInfo=response.data})
+        .catch(error => console.log(error));
+    
+    await axios.get(`/api/problems/similar/image/${pid}`)
+        .then(response => {responseImage=response.data.image.map(element=>element.body);})
+        .catch(error => console.log(error));
+    
+
+    for (let i = 0; i < responseInfo.length; i++) {
+        const problem = { ...responseInfo[i], image: 'data:image/jpeg;base64,' + responseImage[i]};
+        problems.push(problem);
+    }
+
+    return problems;
+}

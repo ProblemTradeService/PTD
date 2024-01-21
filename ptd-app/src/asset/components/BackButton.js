@@ -1,6 +1,6 @@
 import back_button from "../../asset/image/back_button.png";
 
-function BackButton(props) {
+function BackButton({backButtonHandler}) {
 
   const BackButtonStyle = {
         position: 'fixed',
@@ -13,13 +13,13 @@ function BackButton(props) {
         borderRadius: '10px'
   }
 
-    const imgStyle = {
+  const imgStyle = {
       float: 'left',
       width: '50px',
   };
 
     return (
-        <button style={BackButtonStyle} onClick={props.backButtonHandler}>
+        <button style={BackButtonStyle} onClick={backButtonHandler}>
           <img src={back_button} style={imgStyle} alt="back" />
         </button>
       );

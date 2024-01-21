@@ -8,7 +8,7 @@ function UserName() {
     };
 
     return (
-        <a id='user' href="/" style={userNameStyle}>김철수</a>
+        <a id='user' href="/mypage" style={userNameStyle}>김철수</a>
     )
 }
 

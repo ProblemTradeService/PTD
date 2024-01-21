@@ -37,7 +37,7 @@ function PlagiarismModal({open, setOpen, pid}) {
             표절 문제
             </Typography>
             <hr style={{ color: 'purple', backgroundColor: 'purple', height: 2 }} />
-            <PreviewGrid problems={problems}/>
+            <PreviewGrid problems={problems} onPlagModal={true}/>
         </Box>
     </Modal>
   );
