@@ -4,6 +4,8 @@ import main
 # fastAPI 서버 실행 코드
 # uvicorn apicontroller:app --reload
 
+# 안되면 이거로
+# python -m uvicorn apicontroller:app --reload
 
 app = FastAPI()
 

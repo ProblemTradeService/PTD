@@ -40,6 +40,9 @@ import java.util.List;
 @Slf4j
 @RestController
 public class ProblemSimilarityListController {
+
+    @Autowired
+    ProblemRepository problemRepository;
     @Autowired
     ProblemSimilarityService problemSimilarityService;
 
@@ -54,9 +57,10 @@ public class ProblemSimilarityListController {
     }
 
     @GetMapping("/api/problems/similar/info/{pid}")
-    public List<ProblemSimilarList> getSimilarProblemInfo(@PathVariable Long pid){
+    public List<Problem> getSimilarProblemInfo(@PathVariable Long pid){
         List<ProblemSimilarList> problemSimilarLists = problemSimilarityListRepository.findSimilarProblem(pid);
-        return problemSimilarLists;
+        List<Problem> problems=getInfo(problemSimilarLists);
+        return problems;
     }
 
     @GetMapping("/api/problems/similar/image/{pid}")
@@ -69,6 +73,22 @@ public class ProblemSimilarityListController {
         return responseMap;
     }
 
+    @GetMapping("/api/problems/plagiarize/info/{pid}")
+    public List<Problem> getPlagiarizeProblemInfo(@PathVariable Long pid){
+        List<ProblemSimilarList> problemPlagiarizeLists = problemSimilarityListRepository.findPlagiarizeProblem(pid);
+        List<Problem> problems=getInfo(problemPlagiarizeLists);
+        return problems;
+    }
+
+    @GetMapping("/api/problems/plagiarize/image/{pid}")
+    public MultiValueMap<String, ResponseEntity<byte[]>> getPlagiarizeProblemImage(@PathVariable Long pid){
+        List<ProblemSimilarList> problemPlagiarizeLists = problemSimilarityListRepository.findPlagiarizeProblem(pid);
+
+        MultiValueMap<String, ResponseEntity<byte[]>> responseMap=new LinkedMultiValueMap<>();
+        getImage(problemPlagiarizeLists,responseMap);
+        return responseMap;
+    }
+
     @PostMapping("/api/problems/similarity")
     public ResponseEntity<ProblemSimilarList> create(@RequestBody ProblemSimilarListForm dto){
         log.info(dto.toString());
@@ -76,6 +96,16 @@ public class ProblemSimilarityListController {
         return (created !=null)?
                 ResponseEntity.status(HttpStatus.OK).body(created):
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    public List<Problem> getInfo(List<ProblemSimilarList> problemSimilarLists){
+        List<Problem> problems=new ArrayList<>();
+        for(ProblemSimilarList problemSimilar : problemSimilarLists){
+            Long pid=problemSimilar.getProblemPK().getPid2();
+            Problem p=problemRepository.findById(pid).orElse(null);
+            problems.add(p);
+        }
+        return problems;
     }
 
     public void getImage(List<ProblemSimilarList> problemSimlarList,  MultiValueMap<String, ResponseEntity<byte[]>> responseMap) {

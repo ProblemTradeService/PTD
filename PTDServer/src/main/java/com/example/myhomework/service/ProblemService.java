@@ -40,8 +40,8 @@ import java.util.List;
 
 public class ProblemService {
 
-    private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
-    //private static final String IMAGE_DIR = "C:/Image/";
+    //private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
+    private static final String IMAGE_DIR = "C:/PTD/images/";
 
     private Long pid=0L;
 
@@ -104,7 +104,7 @@ public class ProblemService {
         Problem p= problemRepository.findFirstByOrderByIdDesc();
         int idx=0;
         if(pid==0){
-            pid=p.getId();
+            pid=p.getId()+1L;
         }
 
         String filePath1 = IMAGE_DIR + "problem" + pid + ".jpg";
@@ -130,6 +130,7 @@ public class ProblemService {
         //제일 표절도 높은거 갱신하기
         String plagLevel= findFlagLevel(stringList);
         p.setPlaglevel(plagLevel);
+        p.setStatus("판매중");
         problemRepository.save(p);
         log.info(plagLevel);
 
