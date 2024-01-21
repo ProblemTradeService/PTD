@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, startTransition } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -29,14 +29,18 @@ function PlagiarismModal({open, setOpen, pid}) {
         })
     }
 
-    const setGridContent = () => [
-        setContent(<PreviewGrid problems={problems} onPreviewClick={onPreviewClickHandler}/>)
-    ]
+    const setGridContent = () => {
+        if(problems)
+            setContent(<PreviewGrid problems={problems} onPreviewClick={onPreviewClickHandler}/>);
+
+    }
 
     useEffect(()=>{
-        //getPlagiarismProblems(pid).then(data=>setProblems(data));
+        getPlagiarismProblems(pid).then(data=>setProblems(data));
+    },[]);
+    useEffect(()=>{
         setGridContent();
-    },[])
+    },[open]);
 
     return (
     <Modal

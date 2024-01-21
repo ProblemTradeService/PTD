@@ -21,7 +21,7 @@ function ProblemPage() {
     useEffect(()=>{
         getProblem(pid).then((data)=>setProblem(data));
         getSimilarProblems(pid).then((data)=>setSimilarProblems(data));
-    },[])
+    },[location])
 
 
 

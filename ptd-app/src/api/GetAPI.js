@@ -10,7 +10,9 @@ export async function getCategoryProblems(category) {
         .catch(error => console.log(error));
     
     await axios.get("/api/problems/image/category/"+category[3].label)
-        .then(response => {responseImage=response.data.image.map(element=>element.body);})
+        .then(response => {
+            if(Object.keys(response.data).length>0)
+                responseImage=response.data.image.map(element=>element.body);})
         .catch(error => console.log(error));
     
 
@@ -54,7 +56,9 @@ export async function getSimilarProblems(pid) {
         .catch(error => console.log(error));
     
     await axios.get(`/api/problems/similar/image/${pid}`)
-        .then(response => {responseImage=response.data.image.map(element=>element.body);})
+        .then(response => {
+            if(Object.keys(response.data).length>0)
+                responseImage=response.data.image.map(element=>element.body);})
         .catch(error => console.log(error));
     
 
@@ -76,7 +80,9 @@ export async function getPlagiarismProblems(pid) {
         .catch(error => console.log(error));
     
     await axios.get(`/api/problems/plagiarize/image/${pid}`)
-        .then(response => {responseImage=response.data.image.map(element=>element.body);})
+        .then(response => {
+            if(Object.keys(response.data).length>0)
+                responseImage=response.data.image.map(element=>element.body);})
         .catch(error => console.log(error));
     
 
@@ -85,5 +91,5 @@ export async function getPlagiarismProblems(pid) {
         problems.push(problem);
     }
 
-    return [];
+    return problems;
 }

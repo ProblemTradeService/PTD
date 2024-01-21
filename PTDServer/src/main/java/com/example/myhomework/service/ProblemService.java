@@ -40,8 +40,8 @@ import java.util.List;
 
 public class ProblemService {
 
-    //private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
-    private static final String IMAGE_DIR = "C:/PTD/images/";
+    private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
+    //private static final String IMAGE_DIR = "C:/PTD/images/";
 
     private Long pid=0L;
 
