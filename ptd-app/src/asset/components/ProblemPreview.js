@@ -1,16 +1,9 @@
 import { Grid, Card, CardActionArea, CardContent, Typography } from '@mui/material';
-import { useNavigate, useLocation } from 'react-router-dom';
 
-function ProblemPreview({problem, cardIndex, onPlagModal}) {
-    const location = useLocation();
-    const pathname = location.pathname;
-    const rootPath = pathname.split('/')[1];
-    const navigate = useNavigate();
+function ProblemPreview({problem, cardIndex, onPreviewClick}) {
 
     const click = () => {
-        if(!onPlagModal){
-            navigate('problem/'+problem.id);
-        }         
+        onPreviewClick(problem.id)      
     }
 
     return(

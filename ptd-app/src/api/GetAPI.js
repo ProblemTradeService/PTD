@@ -45,8 +45,8 @@ export async function getProblem(pid) {
 }
 
 export async function getSimilarProblems(pid) {
-    let responseInfo;
-    let responseImage
+    let responseInfo =[];
+    let responseImage =[];
     let problems =[]
 
     await axios.get(`/api/problems/similar/info/${pid}`)
@@ -54,7 +54,8 @@ export async function getSimilarProblems(pid) {
         .catch(error => console.log(error));
     
     await axios.get(`/api/problems/similar/image/${pid}`)
-        .then(response => {responseImage=response.data.image.map(element=>element.body);})
+        .then(response => {
+            if(response.data) responseImage=response.data.image.map(element=>element.body);})
         .catch(error => console.log(error));
     
 
@@ -64,4 +65,8 @@ export async function getSimilarProblems(pid) {
     }
 
     return problems;
+}
+
+export async function getPlagiarismProblems(pid) {
+    return [];
 }

@@ -3,10 +3,12 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import PreviewGrid from './PreviewGrid'
+import { getPlagiarismProblems, getProblem } from '../../api/GetAPI';
+import ProblemDetail from '../../page/problempage/ProblemDetail';
 
 function PlagiarismModal({open, setOpen, pid}) {
-    const [problems, setProblems] = useState([])
-
+    const [problems, setProblems] = useState([]);
+    const [content, setContent] = useState(null);
 
     const boxSx = {
         position: 'absolute',
@@ -21,8 +23,19 @@ function PlagiarismModal({open, setOpen, pid}) {
         textAlign: 'center'
     };
 
-    useEffect(()=>{
+    const onPreviewClickHandler =(pid) => {
+        getProblem(pid).then((prob) => {
+            setContent(<ProblemDetail problem={prob}/>)
+        })
+    }
 
+    const setGridContent = () => [
+        setContent(<PreviewGrid problems={problems} onPreviewClick={onPreviewClickHandler}/>)
+    ]
+
+    useEffect(()=>{
+        getPlagiarismProblems(pid).then(data=>setProblems(data));
+        setGridContent();
     },[])
 
     return (
@@ -37,7 +50,7 @@ function PlagiarismModal({open, setOpen, pid}) {
             표절 문제
             </Typography>
             <hr style={{ color: 'purple', backgroundColor: 'purple', height: 2 }} />
-            <PreviewGrid problems={problems} onPlagModal={true}/>
+            {content}
         </Box>
     </Modal>
   );
