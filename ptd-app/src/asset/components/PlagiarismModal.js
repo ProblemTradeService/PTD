@@ -34,7 +34,7 @@ function PlagiarismModal({open, setOpen, pid}) {
     ]
 
     useEffect(()=>{
-        getPlagiarismProblems(pid).then(data=>setProblems(data));
+        //getPlagiarismProblems(pid).then(data=>setProblems(data));
         setGridContent();
     },[])
 

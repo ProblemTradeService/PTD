@@ -13,7 +13,7 @@ INSERT INTO Problem (id,level,price,owner,category,plaglevel) VALUES (5,3,30000,
 -- INSERT INTO Problem (id,level,price,owner,category,plaglevel) VALUES (11,5,60000,'ku','수열의 극한','매우 낮음');
 -- INSERT INTO Problem (id,level,price,owner,category,plaglevel) VALUES (12,3,80000,'koko','속도와 가속도','보통');
 
-INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (1,1,'매우 높음','매우 낮음');
+--INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (1,1,'매우 높음','매우 낮음');
 INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (2,1,'보통','높음');
 INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (2,2,'매우 높음','매우 낮음');
 INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (3,1,'매우 높음','매우 낮음');
@@ -24,9 +24,9 @@ INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (4,
 INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (4,3,'매우 낮음','매우 낮음');
 INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (4,4,'매우 높음','매우 낮음');
 INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (5,1,'매우 높음','높음');
-INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (5,2,'매우 높음','높음');
+INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (5,2,'매우 낮음','높음');
 INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (5,3,'매우 낮음','매우 낮음');
 INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (5,4,'매우 높음','매우 낮음');
-INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (5,5,'매우 높음','매우 낮음');
+--INSERT INTO Problem_Similar_List (pid1, pid2, similarity, plagiarize) VALUES (5,5,'매우 높음','매우 낮음');
 
 
