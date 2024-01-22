@@ -1,6 +1,7 @@
+import BackButton from "../../asset/components/BackButton";
+import HeaderBar from "../../asset/components/HeaderBar";
 import NextCancelButton from "../../asset/components/NextCancelButton";
-import SignOutButton from "../../asset/components/SignOutButton";
-import UserName from "../../asset/components/UserName";
+import { Link } from 'react-router-dom';
 
 function MyPage() {
     const h1Style = {
@@ -10,38 +11,52 @@ function MyPage() {
     }
 
     const mylistStyle ={
+        width: '750px',
+        height: '55vh',
+        position: 'absolute',
+        top: '55%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
         display: 'flex',
-        flexDirection: 'column',
+        backgroundColor: 'white',
+        border: '1px white solid',
+        borderRadius: '20px',
+        textAlign: 'center', // 텍스트 가운데 정렬
+        display: 'flex',
         alignItems: 'center',
-        textAlign: 'center',
+        flexDirection: 'column',
         justifyContent: 'center',
-        
+        boxShadow: '0px 69px 114px rgba(124, 20, 253, 0.08)', 
     }
 
-    const listStyle ={
-        listStyleType: 'square',
-        fontSize: '50px',
-  
-    }
+    const purplerec ={
+        width: '100%',
+        height: '6px',
+        background: '#B070FF',
+        borderTopLeftRadius: '20px',
+        borderTopRightRadius: '20px',
+        position: 'absolute',
+        top: '0%',
+        left: '50%', /* 가로 중앙에 위치 */
+        transform: 'translateX(-50%)',
+      }
 
     const liStyle = {
-        marginBottom: '50px'
+        fontSize: '50px',
     }
 
     return(
         <div className="backGround">
-            <SignOutButton></SignOutButton><br/>
-            <UserName></UserName>
-            <h1 style={h1Style}>My Page</h1>
+            <HeaderBar/>
+            <Link to="/"><BackButton/></Link>
+            <h1 style={h1Style}>마이페이지</h1>
 
             <div style={mylistStyle}>
-            <ul style={listStyle}>
-                <li style={liStyle}><a href="/mypage">구매 완료 문제</a></li>
-                <li style={liStyle}><a href="/mypage">판매 중인 문제</a></li>
-                <li style={liStyle}><a href="/mypage">판매 대기 문제</a></li>
-            </ul>
+                <div style={purplerec}></div>
+                <li style={liStyle}><a href="/bought" style={{textDecoration:'none'}}>구매한 문제</a></li>
             </div>
-            <NextCancelButton></NextCancelButton>
+            <div><Link to="/">
+                <NextCancelButton submitText="돌아가기"></NextCancelButton></Link></div>
         </div>
     )
 }

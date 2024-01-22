@@ -13,9 +13,9 @@ function CategorySelector() {
   const customStyles = {
     control: (provided) => ({
       ...provided,
-      width: 'auto', // 조절 필요한 폭으로 변경
+      width: '150px', // 조절 필요한 폭으로 변경
       height:  '120%',
-      borderColor: 'black'
+      borderColor: '#7C14FD'
     }),
     singleValue: (provided) => ({
       ...provided,

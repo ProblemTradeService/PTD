@@ -4,18 +4,15 @@ function BackButton(props) {
 
   const BackButtonStyle = {
         position: 'fixed',
-        width: '60px',
-        height: '60px',
-        left: '15px',
-        top: '15px',
+        left: '5px',
+        top: '8px',
         backgroundColor: 'white',
-        border: 'solid 1px #3AAF46',
-        borderRadius: '10px'
+        border: 'white',        
   }
 
     const imgStyle = {
       float: 'left',
-      width: '50px',
+      width: '30px',
   };
 
     return (

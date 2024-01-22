@@ -2,13 +2,19 @@ function UserName() {
     
     const userNameStyle = {
     position: 'fixed',
-    right: '10px',
-    top: '30px',
-    fontSize: '20px',  
+    right: '30px',
+    top: '10px',
+    color: '#000',
+    fontFamily: "HK Grotesk",
+    fontSize: '18px',
+    fontStyle: 'normal',
+    fontWeight: '600',
+    lineHeight: 'normal', 
+    textDecoration: 'none', 
     };
 
     return (
-        <a id='user' href="/" style={userNameStyle}>김철수</a>
+        <a id='user' href="/mypage" style={userNameStyle}>김철수</a>
     )
 }
 

@@ -1,8 +1,8 @@
 import pro_1 from "../../asset/image/pro_1.PNG";
 import NextCancelButton from "../../asset/components/NextCancelButton";
-import './ProblemArticle.css'
+import './ProblemDetail.css'
 
-function ProblemArticle() {
+function ProblemDetail() {
 
     return (
         <div class="proarticle">
@@ -36,14 +36,13 @@ function ProblemArticle() {
                 <li>
                     <label for="Price">가격 : </label>
                     <label>10</label>
-                    <label> ETH</label>
                 </li>
             </ul>
             </div>
             </div>
-            <div><NextCancelButton submitText={'구매하기'} resetText={'뒤로가기'}></NextCancelButton></div>
+            <NextCancelButton submitText={'구매하기'} ></NextCancelButton>
         </div>
     )
 }
 
-export default ProblemArticle;
+export default ProblemDetail;

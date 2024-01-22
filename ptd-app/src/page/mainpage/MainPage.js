@@ -5,7 +5,7 @@ import '../../asset/components/background.css';
 function MainPage() {
 
     return(
-        <div className="backGround">
+        <div>
             <MainHeader/>
             <MainArticle/>
         </div>

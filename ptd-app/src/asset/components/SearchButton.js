@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { refresh } from "../../store/dataSlice"
 
-function SearchButton() {
+function SearchButton({SearchText, style}) {
     const navigate = useNavigate();
     const category = useSelector(state=>state.data.category)
     const dispatch = useDispatch();
@@ -14,8 +14,18 @@ function SearchButton() {
     };
   
     const searchButtonStyle = {
-        border: 'none',
-        backgroundColor: 'white',
+        position: 'relative',
+        //width: '200px',//
+        //height: '100px',//
+        //fontSize: '25px',//
+        //fontWeight: 'bold',//
+        color: 'white',
+        fontFamily: 'HK Grotesk',
+        textAlign: 'center',
+        backgroundColor: '#7C14FD',
+        borderRadius: '25px',
+        boxShadow: '0px 26px 46px 0px rgba(124, 20, 253, 0.35)',
+        border: '1px solid #7C14FD'
     };
 
     const searchProblems = () => {
@@ -28,8 +38,9 @@ function SearchButton() {
     }
 
     return (
-        <button id="SearchButton" style={searchButtonStyle} onClick={searchProblems}>
-          <img src={image2} style={imgStyle} alt="Search" />
+        <button id="SearchButton" style={{...searchButtonStyle,...style}} onClick={searchProblems}>
+            {SearchText}
+          
         </button>
     );
   }

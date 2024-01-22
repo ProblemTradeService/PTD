@@ -4,21 +4,17 @@ import './UploadForm.css'
 
 function UploadForm(props) {
 
-    const uploadTitle ={
-        textAlign: 'center',
-        fontSize: '60px',
-        color: 'black'
-    }
-
     return (
     <>
+    <h1 class="uploadTitle">문제 업로드</h1>
     <form onSubmit={props.submit} onReset={props.reset}>
     <fieldset id="uploadForm">
-            <ol type="1" id="uploadProblem">
+        <div class="purplerec"></div>
+            <ol id="uploadProblem">
                 <li>
                     <div className="categorynext">
-                        <label htmlFor="category">카테고리</label>
-                        <div className="condselect"><CategorySelector/></div>
+                        <div><label htmlFor="category">카테고리</label></div>
+                    <div className="catselect"><CategorySelector/></div>
                     </div>
                 </li>
                 <li>
@@ -55,14 +51,14 @@ function UploadForm(props) {
                     <div className="Priceinput">
                     <label htmlFor="Price">가격</label>
                     <input type="number" id="Priceinput" name="price"></input>
-                    <span id="ethLabel">ETH</span>
+                    
                     </div>
                 </li>
             </ol>
         </fieldset>
-        <div><NextCancelButton submitText={'UPLOAD'} resetText={'CANCEL'}></NextCancelButton></div>
+        <div><NextCancelButton submitText={'UPLOAD'}></NextCancelButton></div>
     </form>
-    <h1 style={uploadTitle}>Upload Problem</h1>
+   
     </>
     )
 }

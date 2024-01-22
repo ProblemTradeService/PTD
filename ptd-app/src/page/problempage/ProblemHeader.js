@@ -1,27 +1,13 @@
-import SignOutButton from '../../asset/components/SignOutButton';
-import UserName from '../../asset/components/UserName';
 import BackButton from '../../asset/components/BackButton';
-
+import HeaderBar from '../../asset/components/HeaderBar';
+import { Link } from 'react-router-dom';
 
 function ProblemHeader() {
 
-    const problemTitle = {
-        textAlign: 'center',
-        fontSize: '60px',
-        color: 'black',
-        position: 'fixed',
-        top: '0',
-        left: '0',
-        right: '0',
-        zIndex: 1000,
-    }
-
     return (
         <div>
-            <BackButton></BackButton>
-            <SignOutButton></SignOutButton>
-            <UserName></UserName>
-            <h1 style={problemTitle}>#1325 문제</h1>
+            <HeaderBar/>
+            <Link to="/explore"><BackButton/></Link>
         </div>
     )
 }

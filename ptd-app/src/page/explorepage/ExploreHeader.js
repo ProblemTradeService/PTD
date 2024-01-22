@@ -1,44 +1,52 @@
-import UploadProblemButton from "../../asset/components/UploadProblemButton";
-import SignOutButton from '../../asset/components/SignOutButton';
-import UserName from '../../asset/components/UserName';
 import SearchButton from '../../asset/components/SearchButton';
 import CategorySelector from '../../asset/components/CategorySelector';
+import HeaderBar from '../../asset/components/HeaderBar';
+import BackButton from '../../asset/components/BackButton';
+import { Link } from 'react-router-dom';
 import './ExploreArticle.css'
-
-
-function SortingSelector() {
-
-    return (
-        <ul>
-            <li><a href="/explore">등록일순</a></li>
-            <li><a href="/explore">난이도순</a></li>
-            <li><a href="/explore">가격오름차순</a></li>
-            <li><a href="/explore">가격내림차순</a></li>
-        </ul>
-    )
-}
 
 function ExploreHeader() {
     
     const exploreCategory = {
-        marginTop: '-40px',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        width: '800px',
+        height: '90px',
+        border: '1px solid #FAF6FF',
+        borderRadius: '20px',
+        background: '#FAF6FF',
+        margin: 'auto',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        marginTop: '-35px',
+        
+    }
+
+    const searchButton ={
+        height: '45px',
+        width: '50px',
+        marginLeft: '20px',
+        borderRadius: '10px',
+        border: '1px solid #7C14FD',
+        background: '#7C14FD',
+        marginTop: '5px',
+        boxShadow: 'none',
     }
 
     return (
+        <>
+        <HeaderBar/>
+        <Link to="/"><BackButton/></Link>
         <div class="exploreHeader">
-            <UploadProblemButton/> <br/>
-            <SignOutButton/>
-            <UserName/><br/>
-            <h1 class="searchTitle">Search Problem</h1>
+            <h1 class="searchTitle">문제 검색</h1>
             <div id="category-search" style={exploreCategory}>
-                <div style={{marginRight: '20px'}}><CategorySelector/></div>
-                <SearchButton/>
+                <div><CategorySelector/></div>
+                <SearchButton  SearchText={'찾기'} style={searchButton}/>
             </div>
-            <nav><SortingSelector></SortingSelector></nav>
         </div>
+        </>
     )
 }
 
