@@ -2,15 +2,50 @@ import './BoughtPage.css';
 import "../../asset/components/background.css"
 import HeaderBar from '../../asset/components/HeaderBar';
 import BackButton from '../../asset/components/BackButton';
-import DetailButton from '../../asset/components/DetailButton';
+import ProblemDetail from '../problempage/ProblemDetail';
+import PreviewGrid from '../../asset/components/PreviewGrid';
+import { getProblem, getUserProblems } from '../../api/GetAPI';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import NextCancelButton from '../../asset/components/NextCancelButton';
 
 function BoughtPage () {
+    const [problems, setProblems] = useState([]);
+    const [content, setContent] = useState(null);
+    const userName = useSelector(state=>state.data.userName);
+
+    const onPreviewClickHandler =(pid) => {
+        getProblem(pid).then((prob) => {
+            setContent(
+            <>
+            <ProblemDetail problem={prob}/>
+            <NextCancelButton submitText={'목록으로'} onClickHandler={onClickHandler}/>
+            </>
+            )
+        })
+    }
+
+    const setGridContent = (probList) => {      
+        if(probList)
+            setContent(<PreviewGrid problems={probList} onPreviewClick={onPreviewClickHandler}/>);
+    }
+
+    const onClickHandler = () =>{
+        setGridContent(problems);
+    }
+
+    useEffect(()=>{
+        getUserProblems(userName).then(data=>{
+            setProblems(data);
+            setGridContent(data);
+        })
+    },[]);
+
     return(
         <>
-        
         <HeaderBar/>
-        <Link to="/mypage"><BackButton/></Link>
+        <Link to="/"><BackButton/></Link>
         <div className="backGround"></div>
 
         <div class="rectangle">
@@ -18,37 +53,7 @@ function BoughtPage () {
             <div class="purplerec"></div>
             <div class="plist">구매목록</div>
             <div class="smallrec"></div>
-        
-        <table class="table">
-            <tr>  
-            <td class="font">문제번호</td>
-	        <td class="font">날짜</td>
-	        <td class="font">금액</td>
-            <td class="font">자세히</td>
-            </tr>
-
-            <tr class="row1">
-            <td class="col1">#1325</td>
-            <td class="col2">2024-01-01</td>
-            <td class="col3">10ETH</td>
-            <td class="col4"><DetailButton/></td>
-            </tr>
-
-            <tr>
-            <td class="font1">#1326</td>
-            <td class="font1">2024-01-02</td>
-            <td class="font1">20ETH</td>
-            <td class="font1"><DetailButton/></td>
-            </tr>
-
-            <tr class="row1">
-            <td class="col1">#1326</td>
-            <td class="col2">2024-01-03</td>
-            <td class="col3">30ETH</td>
-            <td class="col4"><DetailButton/></td>
-            </tr>
-        </table>
-        {/* <div class="inforec"></div> */}
+            {content}
         </div>
         </>
     )

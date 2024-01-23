@@ -8,7 +8,7 @@ def check_level(txtPath1 : TextPath, txtPath2 : TextPath, isPlagiarismCheck):
     # list for check level
     resultList = list()
     # number of check iteration
-    iterNum = 1
+    iterNum = 3
 
     # read text files from path
     with open(txtPath1.problemPath, 'r', encoding='utf-8') as f:
@@ -39,6 +39,7 @@ def check_level(txtPath1 : TextPath, txtPath2 : TextPath, isPlagiarismCheck):
                 {"role": "user", "content":"문제1: " + problem1 + "\n문제1 풀이 과정 : " + solving_process1 + \
                 "\n\n문제2: " + problem2 + "\n\n문제2 풀이 과정 : " + solving_process2 +"\n유사도: "},
         ])
+        print(response.choices[0].message.content)
         content = cut_string_to_bracket(response.choices[0].message.content)
         print(content)
         resultList.append(content)

@@ -13,8 +13,7 @@ function App() {
       <Route exact path='/' element={<MainPage/>}></Route>
       <Route exact path='/upload' element={<UploadPage/>}></Route>
       <Route exact path='/explore' element={<ExplorePage/>}></Route>
-      <Route exact path='/mypage' element={<MyPage/>}></Route>
-      <Route exact path='/bought' element={<BoughtPage/>}></Route>
+      <Route exact path='/mypage' element={<BoughtPage/>}></Route>
       <Route path="/explore/problem/*" element={<ProblemPage/>}></Route>
     </Routes>
   );

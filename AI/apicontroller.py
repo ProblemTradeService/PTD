@@ -11,7 +11,7 @@ app = FastAPI()
 
 
 # 표절 수준 측정 요청 api
-@app.post("/plagiarism")
+@app.post("/plagiarize")
 async def get_plagiarism_level(problem: UploadFile, solvingProcess: UploadFile, problems : list[UploadFile], solvingProcesses: list[UploadFile]):
     
     print("-----fastAPI post test -----" )
@@ -31,7 +31,7 @@ async def get_plagiarism_level(problem: UploadFile, solvingProcess: UploadFile, 
     return plagiarismLevelList
 
 # 유사도 수준 측정 요청 api
-@app.post("similarity")
+@app.post("/similarity")
 async def get_similarity_level(problem: UploadFile, solvingProcess: UploadFile, problems : list[UploadFile], solvingProcesses: list[UploadFile]):
     similarityLevelList = await main.check(problem, solvingProcess, problems, solvingProcesses, False)
     return similarityLevelList

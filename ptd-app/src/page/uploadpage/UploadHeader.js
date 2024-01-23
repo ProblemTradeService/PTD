@@ -16,9 +16,8 @@ function UploadHeader() {
 
     return (
         <div>
-            <BackButton backButtonHandler={backButtonHandler}/>
             <HeaderBar/>
-            
+            <BackButton backButtonHandler={backButtonHandler}/>
         </div>
     )
 }

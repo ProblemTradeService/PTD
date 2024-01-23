@@ -1,5 +1,4 @@
 import './ProblemDetail.css'
-import NextCancelButton from "../../asset/components/NextCancelButton";
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import PlagiarismModal from '../../asset/components/PlagiarismModal';
@@ -58,7 +57,6 @@ function ProblemDetail({problem}) {
             </div>
             </div>
             <PlagiarismModal open={modalShow} setOpen={handleClose} pid={problem.id}/> 
-            <NextCancelButton submitText={'구매하기'} ></NextCancelButton>
         </div>
     )
 }
