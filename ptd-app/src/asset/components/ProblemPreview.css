@@ -1,0 +1,8 @@
+.typoStyle{
+    padding-Left: 3em;
+    background-Color: #FAF6FF;
+    display: flex;
+    justify-Content: space-between;
+    align-Items: center; 
+}
+

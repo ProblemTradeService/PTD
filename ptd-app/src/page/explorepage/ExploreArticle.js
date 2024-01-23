@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { getCategoryProblems } from '../../api/GetAPI';
 
 
-
 function ExploreArticle() {
     const refreshSwitch = useSelector(state=>state.data.refreshSwitch)
     const category = useSelector(state=>state.data.category)
