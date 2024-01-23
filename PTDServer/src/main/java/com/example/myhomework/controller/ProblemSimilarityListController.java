@@ -48,7 +48,10 @@ public class ProblemSimilarityListController {
 
     @Autowired
     ProblemSimilarityListRepository problemSimilarityListRepository;
-
+    
+    private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
+    //private static final String IMAGE_DIR = "C:/PTD/images/";
+    //private static final String IMAGE_DIR = "/Users/UOS/Desktop/project/PTD/images/";
 
 
     @GetMapping("/api/problems/similarity")
@@ -108,7 +111,7 @@ public class ProblemSimilarityListController {
 
     public void getImage(List<ProblemSimilarList> problemSimlarList,  MultiValueMap<String, ResponseEntity<byte[]>> responseMap) {
         for (ProblemSimilarList problemSimilar : problemSimlarList) {
-            String path = "C:/Image/problem" + problemSimilar.getProblemPK().getPid2() + ".jpg";
+            String path = IMAGE_DIR + "/problem" + problemSimilar.getProblemPK().getPid2() + ".jpg";
             Problem p=problemRepository.findById(problemSimilar.getProblemPK().getPid2()).orElse(null);
             if(!p.getStatus().equals("판매중"))
                 continue;
