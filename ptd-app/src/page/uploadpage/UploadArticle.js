@@ -72,7 +72,7 @@ function UploadArticle() {
             content = <UploadWaiting/>
             break;
         case State.UploadConfirm:
-            content = <UploadConfirm pid = {5}/>
+            content = <UploadConfirm pid = {pid}/>
     }
 
     return (

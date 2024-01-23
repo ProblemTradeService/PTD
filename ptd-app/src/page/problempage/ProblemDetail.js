@@ -12,7 +12,7 @@ function ProblemDetail({problem}) {
 
     const buttonSx = {
         ml:2,
-        mb:2,
+        mb:1,
         backgroundColor:'#b428b4',
         color: 'white',
         '&:hover': {
