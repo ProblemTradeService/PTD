@@ -1,10 +1,7 @@
 package com.example.myhomework.controller;
 
 import com.example.myhomework.complexKey.ProblemSimilarityListPK;
-import com.example.myhomework.dto.FileForm;
-import com.example.myhomework.dto.MemberForm;
-import com.example.myhomework.dto.ProblemForm;
-import com.example.myhomework.dto.ProblemSimilarListForm;
+import com.example.myhomework.dto.*;
 import com.example.myhomework.entity.Member;
 import com.example.myhomework.entity.Problem;
 import com.example.myhomework.entity.ProblemSimilarList;
@@ -106,5 +103,16 @@ public class ProblemApiController {
     public String createProblemFile(@RequestParam("problemFile") MultipartFile file1, @RequestParam("solutionFile") MultipartFile file2) throws IOException, InterruptedException {
         String s=problemService.createProblemFile(file1,file2);
         return s;
+    }
+
+    @PostMapping("/api/deal")
+    public boolean dealProblem(@RequestBody DealForm dto) throws IOException{
+        String response = problemService.dealProblem(dto.getPid(),dto.getSeller(),dto.getBuyer(),dto.getPrice());
+        if(response.equals("success")){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

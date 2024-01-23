@@ -14,7 +14,7 @@ public interface ProblemRepository extends CrudRepository<Problem, Long>{
     @Query(value="SELECT * FROM Problem WHERE Problem.level = 4 ",nativeQuery = true)
     List<Problem> find();
 
-    @Query(value="SELECT p FROM Problem p WHERE p.category = :category")
+    @Query(value="SELECT p FROM Problem p WHERE p.category = :category and p.status LIKE '판매중'")
     List<Problem> findCategory(@Param("category") String category);
 
     Problem findFirstByOrderByIdDesc();

@@ -7,9 +7,11 @@ import com.example.myhomework.dto.ProblemSimilarListForm;
 import com.example.myhomework.entity.Member;
 import com.example.myhomework.entity.Problem;
 import com.example.myhomework.entity.ProblemSimilarList;
+import com.example.myhomework.entity.UserBalance;
 import com.example.myhomework.repository.MemberRepository;
 import com.example.myhomework.repository.ProblemRepository;
 import com.example.myhomework.repository.ProblemSimilarityListRepository;
+import com.example.myhomework.repository.UserBalanceRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -46,6 +48,12 @@ public class ProblemService {
     private Long pid=0L;
 
     private final RestTemplate restTemplate = new RestTemplate();
+
+    @Autowired
+    private UserBalanceRepository userBalanceRepository;
+
+    @Autowired
+    private UserBalanceService userBalanceService;
 
     @Autowired
     private ProblemSimilarityListRepository problemSimilarityListRepository;
@@ -155,11 +163,33 @@ public class ProblemService {
         return null;
     }
 
+    public String dealProblem(Long pid, String seller, String buyer, Long price){
+        UserBalance buyerBalance = userBalanceRepository.findUserName(buyer);
+        log.info(buyerBalance.toString());
+        UserBalance sellerBalance = userBalanceRepository.findUserName(seller);
+        if(buyerBalance.getBalance()<price){
+            return "fail";
+        }
+        else{
+            // 셀러 price만큼 돈 상승
+            sellerBalance.setBalance(sellerBalance.getBalance()+price);
+            userBalanceRepository.save(sellerBalance);
+            // 바이어 price만큼 돈 차감
+            buyerBalance.setBalance(buyerBalance.getBalance()-price);
+            userBalanceRepository.save(buyerBalance);
+            // 문제 번호의 소유주 buyer로 바꾸기
+            Problem p = problemRepository.findById(pid).orElse(null);
+            p.setOwner(buyer);
+            p.setStatus("보유중");
+            problemRepository.save(p);
+            return "success";
+        }
+    }
 
     public void getImage(List<Problem> problems,  MultiValueMap<String, ResponseEntity<byte[]>> responseMap){
         for(Problem problem : problems){
             log.info(problem.toString());
-            String path=IMAGE_DIR+problem.getId()+".jpg";
+            String path=IMAGE_DIR+"problem"+problem.getId()+".jpg";
             HttpHeaders header = new HttpHeaders();
             Path filePath;
 
@@ -264,7 +294,8 @@ public class ProblemService {
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
-        String serverUrl = "http://localhost:8000/plagiarism";
+        String AiUrl="http://localhost:8000/";
+        String serverUrl = AiUrl+type;
 
         List<String> result = restTemplate.postForObject(serverUrl, requestEntity, List.class);
         for(String str : result){

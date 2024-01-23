@@ -56,9 +56,7 @@ public class ProblemSimilarityListController {
 
     @GetMapping("/api/problems/similar/info/{pid}")
     public List<Problem> getSimilarProblemInfo(@PathVariable Long pid){
-        List<ProblemSimilarList> problemSimilarLists = problemSimilarityListRepository.findSimilarProblem(pid);
-        List<Problem> problems=getInfo(problemSimilarLists);
-        return problems;
+        return problemSimilarityService.getSimilarProblemInfo(pid);
     }
 
     @GetMapping("/api/problems/similar/image/{pid}")
@@ -108,8 +106,11 @@ public class ProblemSimilarityListController {
 
     public void getImage(List<ProblemSimilarList> problemSimlarList,  MultiValueMap<String, ResponseEntity<byte[]>> responseMap) {
         for (ProblemSimilarList problemSimilar : problemSimlarList) {
-            log.info(problemSimlarList.toString());
             String path = "C:/Image/problem" + problemSimilar.getProblemPK().getPid2() + ".jpg";
+            Problem p=problemRepository.findById(problemSimilar.getProblemPK().getPid2()).orElse(null);
+            if(!p.getStatus().equals("판매중"))
+                continue;
+            log.info(problemSimilar.toString());
             HttpHeaders header = new HttpHeaders();
             Path filePath;
 
