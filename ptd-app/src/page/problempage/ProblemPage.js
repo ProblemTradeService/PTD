@@ -1,6 +1,7 @@
 import ProblemHeader from "./ProblemHeader";
 import ProblemDetail from "./ProblemDetail";
 import PreviewGrid from "../../asset/components/PreviewGrid"
+import NextCancelButton from "../../asset/components/NextCancelButton";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { getProblem, getSimilarProblems } from "../../api/GetAPI";
@@ -25,13 +26,27 @@ function ProblemPage() {
 
 
 
+
+      const previewGridStyle = {
+        display: 'flex',
+        flexDirection: 'column',
+        
+
+      };
+
+ 
     if(!problem) return
     return (
+        
         <div className="backGround">
-            <ProblemHeader/>
-            <ProblemDetail problem={problem}/>
-            <PreviewGrid problems={similarProblems} onPreviewClick={onPreviewClickHandler}/>
+        <ProblemHeader/>
+            <div style={previewGridStyle}></div>
+            <div><ProblemDetail problem={problem} /></div>
+            <div ><PreviewGrid problems={similarProblems} onPreviewClick={onPreviewClickHandler} /></div>
+        
+        <div><NextCancelButton submitText={'구매하기'}></NextCancelButton></div>
         </div>
+        
     )
 }
 export default ProblemPage;

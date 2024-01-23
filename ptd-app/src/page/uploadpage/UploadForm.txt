@@ -10,35 +10,34 @@ function UploadForm(props) {
     <form onSubmit={props.submit} onReset={props.reset}>
     <fieldset id="uploadForm">
         <div class="purplerec"></div>
-            <table id="uploadProblem">
-                <tr>
+            <ol id="uploadProblem">
+                <li>
                     <div className="categorynext">
-                        <td class="co1"><label htmlFor="category">카테고리</label></td>
-                    <td class="co2" className="catselect"><CategorySelector/></td>
+                        <div><label htmlFor="category">카테고리</label></div>
+                    <div className="catselect"><CategorySelector/></div>
                     </div>
-                </tr>
-                <tr>
+                </li>
+                <li>
                     <div className="problemUpload">
-                    <td class="co1" htmlFor="problemUpload">문제</td>
-                    <td class="co2"> <input type="file" name="problemImage" accept="image/*"></input></td>
+                    <label htmlFor="problemUpload">문제 업로드</label>
+                    <input type="file" name="problemImage" accept="image/*"></input>
                     </div>
-                </tr>
+                </li>
                 {/* <li>
                     <div className="answerUpload">
                     <label htmlFor="answerUpload">정답 업로드</label>
                     <input type="file" name="answerImage" accept="image/*"></input>
                     </div>
                 </li> */}
-                <tr>
+                <li>
                     <div className="explanationUpload">
-                    <td class="co1" htmlFor="explanationUpload">해설</td>
-                    <td class="co2"><input type="file" name="solutionImage" accept="image/*"></input></td>
+                    <label htmlFor="explanationUpload">해설 업로드</label>
+                    <input type="file" name="solutionImage" accept="image/*"></input>
                     </div>
-                </tr>
-                <tr>
+                </li>
+                <li>
                     <div className="diff">
-                    <td class="co1" htmlFor="difficulty">난이도</td>
-                    <td class="co2">
+                    <label htmlFor="difficulty">난이도</label>
                     <select id="diff" name="diff">
                         <option value="1">1</option>
                         <option value="2" >2</option>
@@ -46,19 +45,18 @@ function UploadForm(props) {
                         <option value="4" >4</option>
                         <option value="5" >5</option>
                     </select>
-                    </td>
                     </div>
-                </tr>
-                <tr>
+                </li>
+                <li>
                     <div className="Priceinput">
-                    <td class="co1" htmlFor="Price">가격</td>
-                    <td class="co2"><input type="number" id="Priceinput" name="price"></input></td>
+                    <label htmlFor="Price">가격</label>
+                    <input type="number" id="Priceinput" name="price"></input>
                     
                     </div>
-                </tr>
-            </table>
+                </li>
+            </ol>
         </fieldset>
-        <div><NextCancelButton submitText={'업로드하기'}></NextCancelButton></div>
+        <div><NextCancelButton submitText={'UPLOAD'}></NextCancelButton></div>
     </form>
    
     </>

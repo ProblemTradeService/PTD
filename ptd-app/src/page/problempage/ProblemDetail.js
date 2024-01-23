@@ -58,7 +58,7 @@ function ProblemDetail({problem}) {
             </div>
             </div>
             <PlagiarismModal open={modalShow} setOpen={handleClose} pid={problem.id}/> 
-            <NextCancelButton submitText={'구매하기'} ></NextCancelButton>
+
         </div>
     )
 }
