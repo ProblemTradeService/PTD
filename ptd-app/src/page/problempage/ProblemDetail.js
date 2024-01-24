@@ -56,7 +56,7 @@ function ProblemDetail({problem}) {
             </ul>
             </div>
             </div>
-            <PlagiarismModal open={modalShow} setOpen={handleClose} pid={problem.id}/> 
+            <PlagiarismModal open={modalShow} setOpen={handleClose} pid={problem.id}/>
         </div>
     )
 }

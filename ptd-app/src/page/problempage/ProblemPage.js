@@ -39,14 +39,26 @@ function ProblemPage() {
 
 
 
+
+      const previewGridStyle = {
+        display: 'flex',
+        flexDirection: 'column',
+        
+
+      };
+
+ 
     if(!problem) return
     return (
+        
         <div className="backGround">
-            <ProblemHeader/>
-            <ProblemDetail problem={problem}/>
-            <NextCancelButton submitText={'구매하기'} onClickHandler={onPurchaseButtonHandler}/>
-            <PreviewGrid problems={similarProblems} onPreviewClick={onPreviewClickHandler}/>
+        <ProblemHeader/>
+        <div style={previewGridStyle}></div>
+        <div><ProblemDetail problem={problem} /></div>
+        <div ><PreviewGrid problems={similarProblems} onPreviewClick={onPreviewClickHandler} /></div>
+        <div><NextCancelButton submitText={'구매하기'} onClickHandler={onPurchaseButtonHandler}/></div>
         </div>
+        
     )
 }
 export default ProblemPage;
