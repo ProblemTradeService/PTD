@@ -4,8 +4,10 @@
     overflow: hidden; /* 자식 요소들이 넘치는 경우 숨김 */
 
     /* 배경 이미지 설정 */
-    background-image: url("../../asset/image/background_image.PNG");
+    background-color: rgba(124, 20, 253, 0.03);
+    background-image: url("../../asset/image/background_image.png");
     background-size: cover;
     background-position: center;
+    
 
 }

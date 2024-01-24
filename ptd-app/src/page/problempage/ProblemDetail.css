@@ -1,45 +1,35 @@
 .container {    
-    position: absolute;
     display: flex;
-    flex-direction: row; 
+    width: 70vw;
+    height: 60vh; 
     align-items: center;
     justify-content: center;
-    width: 70%;
-    height: 60%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: auto;
+    margin-top: 60px;
+    /* border: 1px solid black; */
 }
 
-.img-container  {
-    width: 50%;
+ .img-container  {
+    width: 60%;
     height: 90%;
-    /* border: 1px solid black; */
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
+    /* border: 1px solid black; */
     background-color: white;
-    border-top: 1px solid rgba(124, 20, 253, 0.2);
-    border-bottom: 1px solid rgba(124, 20, 253, 0.2);
+    border-top: 1px solid rgba(124, 20, 253, 0.5);
+    border-bottom: 1px solid rgba(124, 20, 253, 0.5);
 }
 
 .proImg {
-    width: 95%;
-    height: 95%;
+    width: 90%;
+    height: 90%;
     object-fit: contain;
-    position: absolute;
-    top: 50%;
-    left: 50%; 
-    transform: translate(-50%, -50%);
-
+    /* border: 1px solid black; */
 }
 
-.similarityLevel {
-    font-size: 25px;
-    font-weight: bold;
-    color: red;
-}
+
+
 
 .data-container {
     width: 40%;
@@ -49,28 +39,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-top: 1px solid rgba(124, 20, 253, 0.2);
-    border-bottom: 1px solid rgba(124, 20, 253, 0.2);
+    border-top: 1px solid rgba(124, 20, 253, 0.5);
+    border-bottom: 1px solid rgba(124, 20, 253, 0.5);
+
 }
 
 #problemDetail {
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    margin-left: 10px;
     font-size: 20px;
     font-weight: bold;
- 
-    height: 90%;
-   
+    white-space: nowrap;
+    height: 75%;
+    border-collapse: collapse;
 }
 
-
-#problemDetail > li {
-    list-style-type: none;
-    margin-bottom: 20px;
-    margin-left: -20px;
+#simLevel {
+    font-size: 25px;
+    font-weight: bold;
+    color: #7C14FD;
 }
 
+.c2 {
+    padding-left: 10px;   
+}

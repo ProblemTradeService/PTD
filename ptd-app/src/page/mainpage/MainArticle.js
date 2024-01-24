@@ -50,7 +50,7 @@ function MainArticle() {
 
     return(
         <article>
-            <h1 style={h1Style}>문제 거래 플랫폼</h1>
+            <h1 style={h1Style}>메뉴 선택</h1>
             <div style={catsearchrec}>
                 <div style={catposition}><CategorySelector/></div>
                 

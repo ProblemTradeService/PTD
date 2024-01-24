@@ -38,24 +38,20 @@ function ProblemPage() {
     },[location])
 
 
+    const pageStyle ={
+        overflowY: 'auto',
+        height: '80vh'
+    }
 
-
-      const previewGridStyle = {
-        display: 'flex',
-        flexDirection: 'column',
-        
-
-      };
-
- 
     if(!problem) return
     return (
         
         <div className="backGround">
         <ProblemHeader/>
-        <div style={previewGridStyle}></div>
+        <div style={pageStyle}>
         <div><ProblemDetail problem={problem} /></div>
-        <div ><PreviewGrid problems={similarProblems} onPreviewClick={onPreviewClickHandler} /></div>
+        <div><PreviewGrid problems={similarProblems} onPreviewClick={onPreviewClickHandler} /></div>
+        </div>
         <div><NextCancelButton submitText={'구매하기'} onClickHandler={onPurchaseButtonHandler}/></div>
         </div>
         

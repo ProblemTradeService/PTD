@@ -33,6 +33,7 @@ function ExploreHeader() {
         background: '#7C14FD',
         marginTop: '5px',
         boxShadow: 'none',
+        fontWeight: 'bold',
     }
 
     return (
