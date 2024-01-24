@@ -31,9 +31,9 @@ export async function postProblem(target, category) {
 export async function postUserDeal( _buyer, _id) {
     let result;
 
-    await axios.post("api/deal", {
-        buyer: _buyer,
-        id: _id
+    await axios.post("/api/deal", {
+        id: _id,
+        buyer: _buyer
     }).then(response=>{result = response.data})
     .catch(error => alert(error.msg));
 

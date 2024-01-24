@@ -14,15 +14,9 @@ import org.apache.catalina.User;
 
 public class DealForm {
     @JsonProperty
-    private Long pid;
-
-    @JsonProperty
-    private String seller;
+    private Long id;
 
     @JsonProperty
     private String buyer;
-
-    @JsonProperty
-    private Long price;
 
 }

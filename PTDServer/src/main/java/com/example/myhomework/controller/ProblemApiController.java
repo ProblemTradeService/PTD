@@ -107,7 +107,7 @@ public class ProblemApiController {
 
     @PostMapping("/api/deal")
     public boolean dealProblem(@RequestBody DealForm dto) throws IOException{
-        String response = problemService.dealProblem(dto.getPid(),dto.getSeller(),dto.getBuyer(),dto.getPrice());
+        String response = problemService.dealProblem(dto.getId(),dto.getBuyer());
         if(response.equals("success")){
             return true;
         }

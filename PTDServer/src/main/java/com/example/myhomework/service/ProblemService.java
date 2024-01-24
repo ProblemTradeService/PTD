@@ -164,22 +164,22 @@ public class ProblemService {
         return null;
     }
 
-    public String dealProblem(Long pid, String seller, String buyer, Long price){
+    public String dealProblem(Long id, String buyer){
+        Problem p = problemRepository.findById(id).orElse(null);
         UserBalance buyerBalance = userBalanceRepository.findUserName(buyer);
         log.info(buyerBalance.toString());
-        UserBalance sellerBalance = userBalanceRepository.findUserName(seller);
-        if(buyerBalance.getBalance()<price){
+        UserBalance sellerBalance = userBalanceRepository.findUserName(p.getOwner());
+        if(buyerBalance.getBalance()<p.getPrice()){
             return "fail";
         }
         else{
             // 셀러 price만큼 돈 상승
-            sellerBalance.setBalance(sellerBalance.getBalance()+price);
+            sellerBalance.setBalance(sellerBalance.getBalance()+p.getPrice());
             userBalanceRepository.save(sellerBalance);
             // 바이어 price만큼 돈 차감
-            buyerBalance.setBalance(buyerBalance.getBalance()-price);
+            buyerBalance.setBalance(buyerBalance.getBalance()-p.getPrice());
             userBalanceRepository.save(buyerBalance);
             // 문제 번호의 소유주 buyer로 바꾸기
-            Problem p = problemRepository.findById(pid).orElse(null);
             p.setOwner(buyer);
             p.setStatus("보유중");
             problemRepository.save(p);

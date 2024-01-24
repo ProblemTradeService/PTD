@@ -69,7 +69,7 @@ public class ProblemSimilarityListController {
         List<ProblemSimilarList> problemSimilarLists = problemSimilarityListRepository.findSimilarProblem(pid);
 
         MultiValueMap<String, ResponseEntity<byte[]>> responseMap=new LinkedMultiValueMap<>();
-        getImage(problemSimilarLists,responseMap);
+        getImage(problemSimilarLists,responseMap, false);
 
         return responseMap;
     }
@@ -86,7 +86,7 @@ public class ProblemSimilarityListController {
         List<ProblemSimilarList> problemPlagiarizeLists = problemSimilarityListRepository.findPlagiarizeProblem(pid);
 
         MultiValueMap<String, ResponseEntity<byte[]>> responseMap=new LinkedMultiValueMap<>();
-        getImage(problemPlagiarizeLists,responseMap);
+        getImage(problemPlagiarizeLists,responseMap, true);
         return responseMap;
     }
 
@@ -109,11 +109,11 @@ public class ProblemSimilarityListController {
         return problems;
     }
 
-    public void getImage(List<ProblemSimilarList> problemSimlarList,  MultiValueMap<String, ResponseEntity<byte[]>> responseMap) {
+    public void getImage(List<ProblemSimilarList> problemSimlarList,  MultiValueMap<String, ResponseEntity<byte[]>> responseMap, boolean isPlag) {
         for (ProblemSimilarList problemSimilar : problemSimlarList) {
             String path = IMAGE_DIR + "/problem" + problemSimilar.getProblemPK().getPid2() + ".jpg";
             Problem p=problemRepository.findById(problemSimilar.getProblemPK().getPid2()).orElse(null);
-            if(!p.getStatus().equals("판매중"))
+            if(!p.getStatus().equals("판매중") && !isPlag)
                 continue;
             log.info(problemSimilar.toString());
             HttpHeaders header = new HttpHeaders();

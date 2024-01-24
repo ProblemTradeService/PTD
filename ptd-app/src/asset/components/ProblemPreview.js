@@ -18,7 +18,7 @@ function ProblemPreview({problem, cardIndex, onPreviewClick}) {
                 <img src={problem.image} style={{ width: '100%', height: 'auto' }}  alt="Card Image"/>
                 난이도: {problem.level}<br/>
                 카테고리: #{problem.category} <br/>
-                문제번호: #1{problem.id}
+                문제번호: #{problem.id}
             </CardContent>
             </CardActionArea>
         </Card>

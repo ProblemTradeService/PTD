@@ -26,7 +26,7 @@ function BoughtPage () {
         })
     }
 
-    const setGridContent = (probList) => {      
+    const setGridContent = (probList) => {   
         if(probList)
             setContent(<PreviewGrid problems={probList} onPreviewClick={onPreviewClickHandler}/>);
     }
@@ -38,9 +38,11 @@ function BoughtPage () {
     useEffect(()=>{
         getUserProblems(userName).then(data=>{
             setProblems(data);
-            setGridContent(data);
         })
     },[]);
+    useEffect(()=>{
+        setGridContent(problems);
+    },[problems]);
 
     return(
         <>
