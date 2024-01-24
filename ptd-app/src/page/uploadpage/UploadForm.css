@@ -34,7 +34,10 @@
 
 #uploadProblem {
   width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
   background-color: #FAF6FF;
+  border-radius: 20px;
 }
 table {
   /* border-collapse: separate; */
@@ -49,26 +52,21 @@ table {
   font-weight: bold;
   height: 50px;
   text-align: center;
-  background-color: #B070FF;
+  background-color: rgba(176, 112, 255, 0.9);
   border-radius: 10px;
   box-sizing: border-box;
   color: white;
-  
-  
- 
- 
+
 }
 .co2 {
   height: 50px;
-  margin-left: 20px;
-  /* flex-grow: 1; */
-  
-/* border: 1px solid black; */
+  padding-left: 10px;
+  /* border: 1px solid black; */
+  align-items: center;
 }
 
 #diff,#Priceinput {
   height: 100%;
-   /* 요소를 부모 요소 너비에 맞추기 위해 */
   padding: 8px; /* 원하는 패딩 크기 설정 */
   box-sizing: border-box; /* border와 padding을 요소의 크기에 포함시킴 */
 }

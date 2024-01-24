@@ -12,16 +12,12 @@ function UploadForm(props) {
         <div class="purplerec"></div>
             <table id="uploadProblem">
                 <tr>
-                    <div className="categorynext">
-                        <td class="co1"><label htmlFor="category">카테고리</label></td>
+                    <td class="co1"><label htmlFor="category">카테고리</label></td>
                     <td class="co2" className="catselect"><CategorySelector/></td>
-                    </div>
                 </tr>
                 <tr>
-                    <div className="problemUpload">
                     <td class="co1" htmlFor="problemUpload">문제</td>
                     <td class="co2"> <input type="file" name="problemImage" accept="image/*"></input></td>
-                    </div>
                 </tr>
                 {/* <li>
                     <div className="answerUpload">
@@ -30,13 +26,10 @@ function UploadForm(props) {
                     </div>
                 </li> */}
                 <tr>
-                    <div className="explanationUpload">
                     <td class="co1" htmlFor="explanationUpload">해설</td>
                     <td class="co2"><input type="file" name="solutionImage" accept="image/*"></input></td>
-                    </div>
                 </tr>
                 <tr>
-                    <div className="diff">
                     <td class="co1" htmlFor="difficulty">난이도</td>
                     <td class="co2">
                     <select id="diff" name="diff">
@@ -47,20 +40,15 @@ function UploadForm(props) {
                         <option value="5" >5</option>
                     </select>
                     </td>
-                    </div>
                 </tr>
                 <tr>
-                    <div className="Priceinput">
                     <td class="co1" htmlFor="Price">가격</td>
                     <td class="co2"><input type="number" id="Priceinput" name="price"></input></td>
-                    
-                    </div>
                 </tr>
             </table>
         </fieldset>
         <div><NextCancelButton submitText={'업로드하기'}></NextCancelButton></div>
     </form>
-   
     </>
     )
 }
