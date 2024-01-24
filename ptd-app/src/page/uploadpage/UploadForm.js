@@ -23,12 +23,6 @@ function UploadForm(props) {
                     <td class="co2"> <input type="file" name="problemImage" accept="image/*"></input></td>
                     </div>
                 </tr>
-                {/* <li>
-                    <div className="answerUpload">
-                    <label htmlFor="answerUpload">정답 업로드</label>
-                    <input type="file" name="answerImage" accept="image/*"></input>
-                    </div>
-                </li> */}
                 <tr>
                     <div className="explanationUpload">
                     <td class="co1" htmlFor="explanationUpload">해설</td>

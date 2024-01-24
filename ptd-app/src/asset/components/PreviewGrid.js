@@ -11,7 +11,7 @@ const PreviewGrid = ({problems,onPreviewClick}) => {
     </Grid>
 
   return (
-    <Container style={{ maxHeight: '70vh', maxWidth: '95vw', overflowY: 'auto', paddingBottom: '4em' }}>
+    <Container style={{ maxHeight: '70vh', maxWidth: '45vw', overflowY: 'auto', paddingBottom: '4em' }}>
       {board}
     </Container>
   );

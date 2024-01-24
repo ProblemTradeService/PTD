@@ -25,7 +25,6 @@ function ProblemDetail({problem}) {
             <div class='img-container'>
                 <img class='proImg' src={problem.image} alt='pro'></img>
             </div>
-
             <div class='data-container'>
             <ul id="problemDetail">
                 <li>

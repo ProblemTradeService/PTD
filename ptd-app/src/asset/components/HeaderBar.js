@@ -42,7 +42,7 @@ function HeaderBar () {
                 <a id='home' href="/" style={nav1}>홈</a>
                 <a id='explore' href="/explore" style={nav1}>구매하기</a>
                 <a id='upload' href="/upload" style={nav1}>판매하기</a>
-                <a id='money' style={nav1}>$ {balance}</a>
+                <a id='money' style={nav1}>₩{balance}</a>
             </div>
         <SignOutButton/>
         <UserName/>

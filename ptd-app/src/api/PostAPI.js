@@ -39,3 +39,11 @@ export async function postUserDeal( _buyer, _id) {
 
     return result;
 }
+
+export async function deleteProblem(pid) {
+    try{
+        axios.delete(`/api/delete/${pid}`);
+    } catch (error){
+        console.log(error)
+    }
+}

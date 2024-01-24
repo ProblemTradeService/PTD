@@ -15,7 +15,7 @@ function PlagiarismModal({open, setOpen, pid}) {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: '80%', // 화면의 대부분을 차지
+        width: '60%', // 화면의 대부분을 차지
         height: '80%',
         bgcolor: 'background.paper',
         boxShadow: 24,
