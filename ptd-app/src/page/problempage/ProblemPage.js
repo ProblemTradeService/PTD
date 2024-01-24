@@ -43,6 +43,24 @@ function ProblemPage() {
         height: '80vh'
     }
 
+    const purpleLineStyle = {
+        // borderTop: '1px solid rgba(124, 20, 253, 0.5)',
+        // borderBottom: '1px solid rgba(124, 20, 253, 0.5)',
+        width: '43%',
+        height: '4%',
+        margin: '0 auto',
+        marginBottom: '20px',
+        display: 'flex',
+        textAlign: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',   
+        backgroundColor:'rgba(124, 20, 253, 0.5)',
+        color: 'white',
+        fontWeight: 'bold'
+    };
+
+
+
     if(!problem) return
     return (
         
@@ -50,6 +68,10 @@ function ProblemPage() {
         <ProblemHeader/>
         <div style={pageStyle}>
         <div><ProblemDetail problem={problem} /></div>
+        
+        {similarProblems.length > 0 && <div style={purpleLineStyle}>유사한 문제 목록</div>}
+        
+
         <div><PreviewGrid problems={similarProblems} onPreviewClick={onPreviewClickHandler} /></div>
         </div>
         <div><NextCancelButton submitText={'구매하기'} onClickHandler={onPurchaseButtonHandler}/></div>

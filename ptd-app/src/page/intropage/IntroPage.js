@@ -18,6 +18,7 @@ function IntroPage () {
         left: '50%', 
         transform: 'translate(-50%, -50%)',
         // backgroundColor: 'rgba(124, 20, 253, 0.03)',
+        overflow: 'hidden',
     }
 
 

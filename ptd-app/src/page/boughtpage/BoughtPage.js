@@ -19,8 +19,10 @@ function BoughtPage () {
         getProblem(pid).then((prob) => {
             setContent(
             <>
-            <ProblemDetail problem={prob}/>
-            <NextCancelButton submitText={'목록으로'} onClickHandler={onClickHandler}/>
+            
+            <div style={{ marginTop: '-5%' }}><ProblemDetail problem={prob} /></div>
+            <NextCancelButton submitText={'목록으로'} onClickHandler={onClickHandler} />
+            
             </>
             )
         })
@@ -47,16 +49,20 @@ function BoughtPage () {
     return(
         <>
         <HeaderBar/>
-        <Link to="/"><BackButton/></Link>
+        <Link to="/main"><BackButton/></Link>
         <div className="backGround"></div>
 
         <div class="rectangle">
-            
-            <div class="purplerec"></div>
+        <div class="purplerec">
+
             <div class="plist">구매목록</div>
             <div class="smallrec"></div>
+            
             {content}
         </div>
+        </div>
+            
+        
         </>
     )
 }
