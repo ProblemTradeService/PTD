@@ -46,8 +46,8 @@ import org.springframework.http.MediaType;
 @RestController
 
 public class ProblemApiController {
-    private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
-    //private static final String IMAGE_DIR = "C:/Image/";
+   //private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
+    private static final String IMAGE_DIR = "C:/Image/";
     @Autowired
     private ProblemRepository problemRepository;
 
@@ -91,6 +91,11 @@ public class ProblemApiController {
         return problems;
     }
 
+    @GetMapping("/api/problems/upload/cancel/{pid}")
+    public String problemUploadCancel(@PathVariable Long pid){
+        String s=problemService.problemUploadCancel(pid);
+        return s;
+    }
     @PostMapping("/api/problems")
     public ResponseEntity<Problem> crateProblem(@RequestBody ProblemForm dto){
         Problem created=problemService.create(dto);
