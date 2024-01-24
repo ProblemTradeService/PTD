@@ -42,7 +42,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.springframework.http.MediaType;
-@Slf4jz
+@Slf4j
 @RestController
 
 public class ProblemApiController {
