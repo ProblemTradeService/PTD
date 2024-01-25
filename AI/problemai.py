@@ -8,7 +8,7 @@ def check_level(txtPath1 : TextPath, txtPath2 : TextPath, isPlagiarismCheck):
     # list for check level
     resultList = list()
     # number of check iteration
-    iterNum = 3
+    iterNum = 1
 
     # read text files from path
     with open(txtPath1.problemPath, 'r', encoding='utf-8') as f:

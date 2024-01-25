@@ -41,9 +41,8 @@ import java.util.List;
 @Service
 
 public class ProblemService {
-
-    //private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
-    private static final String IMAGE_DIR = "C:/PTD/images/";
+    private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
+    //private static final String IMAGE_DIR = "C:/PTD/images/";
     //private static final String IMAGE_DIR = "/Users/UOS/Desktop/project/PTD/images/";
 
     private Long pid=0L;
@@ -124,7 +123,7 @@ public class ProblemService {
         Problem p= problemRepository.findFirstByOrderByIdDesc();
         int idx=0;
         if(pid==0){
-            pid=p.getId()+1L;
+            pid=p.getId();
         }
 
         String filePath1 = IMAGE_DIR + "problem" + pid + ".jpg";
@@ -155,6 +154,7 @@ public class ProblemService {
 
         //제일 표절도 높은거 갱신하기
         String plagLevel= findFlagLevel(stringList);
+        log.info(plagLevel);
         p.setPlaglevel(plagLevel);
         p.setStatus("판매중");
         problemRepository.save(p);
@@ -256,15 +256,15 @@ public class ProblemService {
         }
         switch (flagLevel){
             case 1:
-                return "매우 낮음";
+                return "[매우 낮음]";
             case 2:
-                return "낮음";
+                return "[낮음]";
             case 3:
-                return "보통";
+                return "[보통]";
             case 4:
-                return "높음";
+                return "[높음]";
             case 5:
-                return "매우 높음";
+                return "[매우 높음]";
         }
         return null;
     }

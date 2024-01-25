@@ -46,8 +46,7 @@ import org.springframework.http.MediaType;
 @RestController
 
 public class ProblemApiController {
-   //private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
-    private static final String IMAGE_DIR = "C:/Image/";
+
     @Autowired
     private ProblemRepository problemRepository;
 

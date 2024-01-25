@@ -42,7 +42,7 @@ export async function postUserDeal( _buyer, _id) {
 
 export async function deleteProblem(pid) {
     try{
-        axios.delete(`/api/delete/${pid}`);
+        axios.get(`/api/problems/upload/cancel/${pid}`);
     } catch (error){
         console.log(error)
     }
