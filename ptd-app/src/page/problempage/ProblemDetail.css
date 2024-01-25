@@ -1,6 +1,6 @@
 .container {    
     display: flex;
-    width: 85%;
+    width: 80%;
     height: 60vh; 
     align-items: center;
     justify-content: center;
@@ -10,7 +10,7 @@
 }
 
  .img-container  {
-    width: 60%;
+    width: 55%;
     height: 90%;
     display: flex;
     align-items: center;
@@ -32,7 +32,7 @@
 
 
 .data-container {
-    width: 40%;
+    width: 45%;
     height: 90%;
     background-color: #FAF6FF;
 
@@ -41,15 +41,17 @@
     justify-content: center;
     border-top: 1px solid rgba(124, 20, 253, 0.5);
     border-bottom: 1px solid rgba(124, 20, 253, 0.5);
+   
 
 }
 
 #problemDetail {
     font-size: 20px;
     font-weight: bold;
-    white-space: nowrap;
+    
     height: 75%;
     border-collapse: collapse;
+    text-align: left;
 }
 
 #simLevel {

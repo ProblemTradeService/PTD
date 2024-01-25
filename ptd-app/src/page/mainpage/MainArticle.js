@@ -56,8 +56,8 @@ function MainArticle() {
                 
                 
             </div>
-            <div style={sbposition}><SearchButton SearchText={'문제 구매하기'} style={searchButton}/> </div>
-            <div style={upposition}><UploadProblemButton UploadText={'문제 판매하기'} style={searchButton}/></div>
+            <div style={sbposition}><SearchButton SearchText={'문제 검색'} style={searchButton}/> </div>
+            <div style={upposition}><UploadProblemButton UploadText={'문제 업로드'} style={searchButton}/></div>
         </article>
     )
 }

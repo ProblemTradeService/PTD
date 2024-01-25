@@ -50,7 +50,7 @@ function ProblemDetail({problem}) {
                 </tr>
                 <tr>
                     <td class="c1" for="Price">가격 : </td>
-                    <td class="c2" >{problem.price}</td>
+                    <td class="c2" >{problem.price}원</td>
                 </tr>
             </table>
             </div>

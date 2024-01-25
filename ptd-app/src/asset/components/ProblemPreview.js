@@ -19,7 +19,7 @@ function ProblemPreview({problem, cardIndex, onPreviewClick}) {
     <>
     <Grid item md={12} key={cardIndex}>
         <Card onClick={click}>
-            <CardActionArea>
+            <CardActionArea  style={{ border: '1px solid #B070FF' }}>
             <CardContent>
                 <Container fixed style={{height:"30vh"}}>
                 <div style={imgDiv}>
@@ -27,10 +27,11 @@ function ProblemPreview({problem, cardIndex, onPreviewClick}) {
                 </div>
                 </Container> 
                 <Divider sx={{mb:2, mt:2}}/>
-                <Typography>표절 수준: {problem.plaglevel}</Typography>
-                <Typography>판매자: {problem.owner}</Typography>
+                <Typography  style={{ textAlign: 'center', fontWeight: 'bold', color: '#7C14FD'}}>
+                ▶ 표절 수준: {problem.plaglevel} ◀</Typography>
+                {/* <Typography>판매자: {problem.owner}</Typography>
                 <Typography>가격: {problem.price}원</Typography>
-                <Typography>난이도: {problem.level}</Typography>
+                <Typography>난이도: {problem.level}</Typography> */}
             </CardContent>
             </CardActionArea>
         </Card>

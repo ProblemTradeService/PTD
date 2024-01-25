@@ -37,7 +37,7 @@ function UploadForm(props) {
                 </tr>
                 <tr>
                     <td class="co1" htmlFor="Price">가격</td>
-                    <td class="co2"><input type="number" id="Priceinput" name="price"></input></td>
+                    <td class="co2"><input type="number" id="Priceinput" name="price"/><span style={{ fontSize: '17px' }}> 원</span></td>
                 </tr>
             </table>
         </fieldset>

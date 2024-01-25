@@ -19,8 +19,16 @@ function BoughtPage () {
         getProblem(pid).then((prob) => {
             setContent(
             <>
-            <ProblemDetail problem={prob}/>
-            <NextCancelButton submitText={'목록으로'} onClickHandler={onClickHandler}/>
+            
+            <div style={{ marginTop: '-5%' }}><ProblemDetail problem={prob} /></div>
+            {/* <NextCancelButton submitText={'목록으로'} onClickHandler={onClickHandler} /> */}
+            <div style ={{ textAlign: 'center', }}>
+            <button onClick={onClickHandler} onClickHandler={onClickHandler}
+            style={{width: '200px', height: '60px', fontSize: '25px', fontWeight: 'bold',
+            color: 'white', fontFamily: 'HK Grotesk', textAlign: 'center', backgroundColor: '#7C14FD',
+            borderRadius: '25px', boxShadow: '0px 26px 46px 0px rgba(124, 20, 253, 0.35)',
+            border: '1px solid #7C14FD'}}>
+                목록으로</button></div>
             </>
             )
         })
@@ -47,16 +55,20 @@ function BoughtPage () {
     return(
         <>
         <HeaderBar/>
-        <Link to="/"><BackButton/></Link>
+        <Link to="/main"><BackButton/></Link>
         <div className="backGround"></div>
 
         <div class="rectangle">
-            
-            <div class="purplerec"></div>
+        <div class="purplerec">
+
             <div class="plist">구매목록</div>
             <div class="smallrec"></div>
+            
             {content}
         </div>
+        </div>
+            
+        
         </>
     )
 }
