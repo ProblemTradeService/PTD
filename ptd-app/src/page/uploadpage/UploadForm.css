@@ -70,8 +70,11 @@ table {
   height: 100%;
   padding: 8px; /* 원하는 패딩 크기 설정 */
   box-sizing: border-box; /* border와 padding을 요소의 크기에 포함시킴 */
+  font-size: 16px;
 }
-
+#Priceinput {
+  width: 140px;
+}
 
 /* #uploadForm tr {
   margin-bottom: 25px;

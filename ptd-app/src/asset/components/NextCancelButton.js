@@ -13,7 +13,7 @@ function NextCancelButton({ submitText, onClickHandler}) {
     };
 
     const submitStyle = {
-        position: 'relative',
+        
         width: '200px',
         height: '60px',
         fontSize: '25px',

@@ -21,8 +21,14 @@ function BoughtPage () {
             <>
             
             <div style={{ marginTop: '-5%' }}><ProblemDetail problem={prob} /></div>
-            <NextCancelButton submitText={'목록으로'} onClickHandler={onClickHandler} />
-            
+            {/* <NextCancelButton submitText={'목록으로'} onClickHandler={onClickHandler} /> */}
+            <div style ={{ textAlign: 'center', }}>
+            <button onClick={onClickHandler} onClickHandler={onClickHandler}
+            style={{width: '200px', height: '60px', fontSize: '25px', fontWeight: 'bold',
+            color: 'white', fontFamily: 'HK Grotesk', textAlign: 'center', backgroundColor: '#7C14FD',
+            borderRadius: '25px', boxShadow: '0px 26px 46px 0px rgba(124, 20, 253, 0.35)',
+            border: '1px solid #7C14FD'}}>
+                목록으로</button></div>
             </>
             )
         })
