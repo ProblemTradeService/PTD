@@ -42,8 +42,8 @@ import java.util.List;
 
 public class ProblemService {
 
-    private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
-    //private static final String IMAGE_DIR = "C:/PTD/images/";
+    //private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
+    private static final String IMAGE_DIR = "C:/PTD/images/";
     //private static final String IMAGE_DIR = "/Users/UOS/Desktop/project/PTD/images/";
 
     private Long pid=0L;
@@ -109,6 +109,17 @@ public class ProblemService {
         return problems;
     }
 
+    public String problemUploadCancel(Long pid) {
+        Problem problem=problemRepository.findById(pid).orElse(null);
+        problemRepository.delete(problem);
+        List<ProblemSimilarList> problemSimilarList=problemSimilarityListRepository.findByPid1(pid);
+        for(int i=0;i<problemSimilarList.size();i++){
+            problemSimilarityListRepository.delete(problemSimilarList.get(i));
+        }
+        problemRemove(pid);
+        return null;
+    }
+
     public String createProblemFile(MultipartFile file1, MultipartFile file2) throws IOException, InterruptedException {
         Problem p= problemRepository.findFirstByOrderByIdDesc();
         int idx=0;
@@ -124,7 +135,12 @@ public class ProblemService {
 
         pid++;
 
-        List<String> stringList = uploadFile(newFile1, newFile2,null,"plagiarize"); // 앞에 List<String> plagList 각자 문제 문자열 배열 이걸로 받기
+        List<Problem> problems=problemRepository.findAll();
+        if(!problems.isEmpty()) {
+            problems.remove(problems.size() - 1);
+        }
+        log.info(problems.toString());
+        List<String> stringList = uploadFile(newFile1, newFile2,problems,"plagiarize"); // 앞에 List<String> plagList 각자 문제 문자열 배열 이걸로 받기
 
         //DB에 있는 해당 문제 표절 수준 업데이트 및, DB SimilarList에 추가하기
         //Thread.sleep(10000);
@@ -136,6 +152,7 @@ public class ProblemService {
             ProblemSimilarList problemEntity=dto.toEntity();
             problemSimilarityListRepository.save(problemEntity);
         }
+
         //제일 표절도 높은거 갱신하기
         String plagLevel= findFlagLevel(stringList);
         p.setPlaglevel(plagLevel);
@@ -187,6 +204,18 @@ public class ProblemService {
         }
     }
 
+    public void problemRemove(Long pid){
+        String filePath=IMAGE_DIR+"problem"+pid+".jpg";
+        String filePath2=IMAGE_DIR+"solution"+pid+".jpg";
+        try{
+            Path path=Paths.get(filePath);
+            Path path2=Paths.get(filePath2);
+            Files.delete(path);
+            Files.delete(path2);
+        } catch (IOException e){
+
+        }
+    }
     public void getImage(List<Problem> problems,  MultiValueMap<String, ResponseEntity<byte[]>> responseMap){
         for(Problem problem : problems){
             log.info(problem.toString());
@@ -250,20 +279,16 @@ public class ProblemService {
         List<FileSystemResource> solutionResource = new ArrayList<>();
 
         if(type.equals("plagiarize")) {
-            for (int i = 0; ; i++) {
-                problemFiles.add(new File(IMAGE_DIR + "problem" + (i + 1) + ".jpg"));
-                solutionFiles.add(new File(IMAGE_DIR + "solution" + (i + 1) + ".jpg"));
-                if (!problemFiles.get(i).exists()) {
-                    break;
+                for (Problem problem : problems) {
+                    problemFiles.add(new File(IMAGE_DIR + "problem" + problem.getId() + ".jpg"));
+                    solutionFiles.add(new File(IMAGE_DIR + "solution" + problem.getId() + ".jpg"));
                 }
-                problemsResource.add(new FileSystemResource(problemFiles.get(i)));
-                solutionResource.add(new FileSystemResource(solutionFiles.get(i)));
-            }
-
-            if(!problemsResource.isEmpty()) {
-                problemsResource.remove(problemsResource.size() - 1);
-                solutionResource.remove(solutionResource.size()-1);
-            }
+                for (File f : problemFiles) {
+                    problemsResource.add(new FileSystemResource(f));
+                }
+                for (File f : solutionFiles) {
+                    solutionResource.add(new FileSystemResource(f));
+                }
         }
 
         else if(type.equals("similarity")){
@@ -297,7 +322,7 @@ public class ProblemService {
 
         String AiUrl="http://localhost:8000/";
         String serverUrl = AiUrl+type;
-
+        log.info(requestEntity.toString());
         List<String> result = restTemplate.postForObject(serverUrl, requestEntity, List.class);
         for(String str : result){
             log.info(str);

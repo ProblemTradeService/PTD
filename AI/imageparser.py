@@ -22,7 +22,7 @@ async def save_text_from_image(image, is_prob):
     
     payload = {
         "model": "gpt-4-vision-preview",
-        "temperature":"0.5",
+        "temperature":"0.8",
         "messages": [
             {
                 "role":"system", 

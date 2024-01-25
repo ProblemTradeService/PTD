@@ -15,6 +15,9 @@ public interface ProblemSimilarityListRepository extends CrudRepository<ProblemS
     @Query(value="SELECT * FROM PROBLEM_SIMILAR_LIST s WHERE s.pid1 = :pid and s.SIMILARITY LIKE '%높음'", nativeQuery = true)
     ArrayList<ProblemSimilarList> findSimilarProblem(@Param("pid") Long pid);
 
+    @Query(value="SELECT * FROM PROBLEM_SIMILAR_LIST s WHERE s.pid1 = :pid",nativeQuery = true)
+    ArrayList<ProblemSimilarList> findByPid1(@Param("pid") Long pid);
+
     @Query(value="SELECT * FROM PROBLEM_SIMILAR_LIST s WHERE s.pid1 = :pid and s.PLAGIARIZE LIKE '%높음'", nativeQuery = true)
     ArrayList<ProblemSimilarList> findPlagiarizeProblem(@Param("pid") Long pid);
 
