@@ -30,8 +30,10 @@ function PlagiarismModal({open, setOpen, pid}) {
     }
 
     const setGridContent = () => {
-        if(problems)
+        if(problems.length>0)
             setContent(<PreviewGrid problems={problems} onPreviewClick={onPreviewClickHandler}/>);
+        else
+            setContent(<Typography color="text.secondary" sx={{mt:4}}>표절 문제가 존재하지 않습니다.</Typography>)
 
     }
 
