@@ -16,8 +16,8 @@ function SignOutButton() {
         display: 'flex',
         justifyContent: 'flex-end',
         position: 'relative',
-        right: '80px',
-        bottom: '20%'
+        right: '23px',
+        bottom: '-20%'
     };
 
     return (
