@@ -41,7 +41,7 @@ import java.util.List;
 @Service
 
 public class ProblemService {
-    private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
+    private static final String IMAGE_DIR = "/home/uosselab/바탕화면/PTD/Images/";
     //private static final String IMAGE_DIR = "/Users/UOS/Desktop/project/PTD/images/";
     //private static final String IMAGE_DIR = "C:/PTD/images/";
 

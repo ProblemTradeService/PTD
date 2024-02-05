@@ -71,7 +71,7 @@ public class ProblemSimilarityService {
     public void getImage(List<ProblemSimilarList> problemSimlarList,  MultiValueMap<String, ResponseEntity<byte[]>> responseMap) {
         for (ProblemSimilarList problemSimilar : problemSimlarList) {
             log.info(problemSimlarList.toString());
-            String path = "C:/Image/problem" + problemSimilar.getProblemPK().getPid2() + ".jpg";
+            String path = "/home/uosselab/바탕화면/PTD/Images/problem" + problemSimilar.getProblemPK().getPid2() + ".jpg";
             HttpHeaders header = new HttpHeaders();
             Path filePath;
 

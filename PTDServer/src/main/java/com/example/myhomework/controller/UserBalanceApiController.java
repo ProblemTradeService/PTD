@@ -15,7 +15,7 @@ import com.example.myhomework.repository.ProblemSimilarityListRepository;
 import com.example.myhomework.service.MemberService;
 import com.example.myhomework.service.ProblemService;
 import com.example.myhomework.service.UserBalanceService;
-import jakarta.annotation.Resource;
+import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -27,11 +27,8 @@ function ProblemPreview({problem, cardIndex, onPreviewClick}) {
                 </div>
                 </Container> 
                 <Divider sx={{mb:2, mt:2}}/>
-                <Typography  style={{ textAlign: 'center', fontWeight: 'bold', color: '#7C14FD'}}>
-                ▶ 표절 수준: {problem.plaglevel} ◀</Typography>
-                {/* <Typography>판매자: {problem.owner}</Typography>
-                <Typography>가격: {problem.price}원</Typography>
-                <Typography>난이도: {problem.level}</Typography> */}
+                {/* <Typography  style={{ textAlign: 'center', fontWeight: 'bold', color: '#7C14FD'}}>
+                ▶ 표절 수준: {problem.plaglevel} ◀</Typography> */}
             </CardContent>
             </CardActionArea>
         </Card>

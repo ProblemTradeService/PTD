@@ -10,7 +10,7 @@ import com.example.myhomework.repository.ProblemRepository;
 import com.example.myhomework.repository.ProblemSimilarityListRepository;
 import com.example.myhomework.service.MemberService;
 import com.example.myhomework.service.ProblemService;
-import jakarta.annotation.Resource;
+import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;

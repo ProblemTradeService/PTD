@@ -12,7 +12,7 @@ import com.example.myhomework.repository.ProblemSimilarityListRepository;
 import com.example.myhomework.service.MemberService;
 import com.example.myhomework.service.ProblemService;
 import com.example.myhomework.service.ProblemSimilarityService;
-import jakarta.annotation.Resource;
+import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -49,7 +49,7 @@ public class ProblemSimilarityListController {
     @Autowired
     ProblemSimilarityListRepository problemSimilarityListRepository;
     
-    private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
+    private static final String IMAGE_DIR = "/home/uosselab/바탕화면/PTD/Images/";
     //private static final String IMAGE_DIR = "C:/PTD/images/";
     //private static final String IMAGE_DIR = "/Users/UOS/Desktop/project/PTD/images/";
 
