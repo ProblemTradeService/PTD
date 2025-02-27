@@ -5,7 +5,7 @@
 - 한국 교육시장에서 수학은 중요한 분야 중 하나입니다.
 - 이에 따라 수학 문제 거래의 수요 증가하고 있습니다.
 - 하지만 인터넷 상에서 출처가 불분명한 문제들이 거래되는 사례도 늘어나고 있습니다.
-- 수학 문제 출처가 불분명하여 문제 거래가 악용될 가능성이 있으므로 이를 해결하고자 합니다다.
+- 수학 문제 출처가 불분명하여 문제 거래가 악용될 가능성이 있으므로 이를 해결하고자 합니다.
 
 <br>
 
@@ -31,10 +31,14 @@
 ### Backend and DB
 - Spring Boot
 - MySQL
+- FastAPI
 
 ### Frontend
 - React
 - Redux
+
+### AI
+- openai 
 
 ### Tools
 - GitHub
@@ -72,14 +76,14 @@
 
 <br>
 
-### 표절도 결과 확인
+### 표절도 결과 확인 화면 
 <img src="readmeAsset/표절도결과.png">
 
 1. 위 사진과 같이 사용자가 업로드한 문제에 대해서 표절 수준을 확인할 수 있고, 사용자는 업로드 여부를 결정할 수 있다.
 
 <br>
 
-### 표절 문제 확인
+### 표절 문제 확인 화면
 <img src="readmeAsset/표절문제.png">
 
 1. 위 사진과 같이 사용자는 어떠한 문제들이 표절 문제인지 확인할 수 있다.
@@ -101,7 +105,7 @@
 
 <br>
 
-### 마이페이지
+### 마이페이지 화면
 <img src="readmeAsset/마이페이지.png">
 
 1. 사용자는 마이페이지에서 자신이 구매한 문제를 확인할 수 있다.
@@ -109,60 +113,144 @@
 <br>
 
 ## 📂 디렉토리 구조 및 패키지 역할
-### 루트 디렉토리 (백엔드)
+### 백엔드 디렉토리
 ```
-꼬들
- ┣ kordlefront
- ┃ ┗ src
- ┣ ggoodle.py
- ┣ ggoodleDB.py
- ┣ ggoodleInfo.py
- ┗ unicode.py
+root
+ ┣ myhomework
+ ┃ ┣ complexKey
+ ┃ ┃ ┣ MemberComplexKey.java
+ ┃ ┃ ┣ ProblemPlagiarizeListPK.java
+ ┃ ┃ ┗ ProblemSimilarityListPK.java
+ ┃ ┣ controller
+ ┃ ┃ ┣ MemberApiController.java
+ ┃ ┃ ┣ MemberController.java
+ ┃ ┃ ┣ ProblemApiController.java
+ ┃ ┃ ┣ ProblemPlagiarizeListController.java
+ ┃ ┃ ┣ ProblemSimilarityListController.java
+ ┃ ┃ ┗ UserBalanceApiController.java
+ ┃ ┣ dto
+ ┃ ┃ ┣ DealForm.java
+ ┃ ┃ ┣ FileForm.java
+ ┃ ┃ ┣ MemberForm.java
+ ┃ ┃ ┣ ProblemForm.java
+ ┃ ┃ ┣ ProblemPlagiarizeListForm.java
+ ┃ ┃ ┣ ProblemSimilarListForm.java
+ ┃ ┃ ┗ UserBalanceForm.java
+ ┃ ┣ entity
+ ┃ ┃ ┣ Member.java
+ ┃ ┃ ┣ Problem.java
+ ┃ ┃ ┣ ProblemPlagiarizeList.java
+ ┃ ┃ ┣ ProblemSimilarList.java
+ ┃ ┃ ┗ UserBalance.java
+ ┃ ┣ repository
+ ┃ ┃ ┣ MemberRepository.java
+ ┃ ┃ ┣ ProblemPlagiarizeListRepository.java
+ ┃ ┃ ┣ ProblemRepository.java
+ ┃ ┃ ┣ ProblemSimilarityListRepository.java
+ ┃ ┃ ┗ UserBalanceRepository.java
+ ┃ ┣ service
+ ┃ ┃ ┣ MemberService.java
+ ┃ ┃ ┣ ProblemPlagiarizeListService.java
+ ┃ ┃ ┣ ProblemService.java
+ ┃ ┃ ┣ ProblemSimilarityService.java
+ ┃ ┃ ┗ UserBalanceService.java
+ ┃ ┣ .DS_Store
+ ┃ ┗ MyhomeworkApplication.java
+ ┗ .DS_Store
  
 ```
-1. kordlefront : yudle 게임의 React Frontend와 관련된 파일들이 있는 디렉토리
-2. ggoodle.py : yudle 게임 FastAPI 서버의 메인 Controller 파일  
-3. ggoodleDB.py : yudle 게임의 RDBMS 관련 처리를 담당하는 파일
-4. ggoodleInfo.py : "가장 많이 쓰이는 자모음이 무엇인지?" 와 같은 kordle 원본 게임의 통계를 알기 위해 만든 파일 (Yudle 게임과는 관련 없음)
-5. unicode.py : 자음 모음 분리, 결합과 같은 함수들이 있는 외부 라이브러리 파일
+1. complexKey : 속성이 2개 이상으로 이루어진 복수키를 관리하기 위한 패키지
+2. controller : client로부터 RestAPI요청을 받는 역할을 하는 패키지
+3. dto : Reqeust의 형태를 정의하는 패키지
+4. entity : JPA에서 데이터베이스의 테이블을 생성하는 역할을 하는 패키지
+5. repository : JPA에서 DB와 서버의 연결을 위한 패키지
+6. service : 본 서버 프로그램에서 핵심 로직을 처리하는 패키지  
 
-### kordlefront 디렉토리 (프론트엔드)
+### 프론트엔드 디렉토리 
 ```
 src
  ┣ api
- ┃ ┣ GetApi.js
- ┃ ┗ PostApi.js
+ ┃ ┣ GetAPI.js
+ ┃ ┗ PostAPI.js
  ┣ asset
- ┃ ┣ component
- ┃ ┃ ┣ AnswerBar.css
- ┃ ┃ ┣ AnswerBar.js
+ ┃ ┣ components
+ ┃ ┃ ┣ BackButton.js
  ┃ ┃ ┣ background.css
- ┃ ┃ ┣ DescriptionButton.css
- ┃ ┃ ┣ DescriptionButton.js
- ┃ ┃ ┣ JamoLayout.js
- ┃ ┃ ┣ Maker.css
- ┃ ┃ ┣ Maker.js
- ┃ ┃ ┣ RankingButton.css
- ┃ ┃ ┣ RankingButton.js
- ┃ ┃ ┣ RankingHeader.css
- ┃ ┃ ┣ RankingHeader.js
- ┃ ┃ ┣ RankingLayout.css
- ┃ ┃ ┣ RankingLayout.js
- ┃ ┃ ┣ Timer.css
- ┃ ┃ ┗ Timer.js
+ ┃ ┃ ┣ CategorySelector.js
+ ┃ ┃ ┣ ConfirmCancelButton.js
+ ┃ ┃ ┣ DetailButton.js
+ ┃ ┃ ┣ HeaderBar.js
+ ┃ ┃ ┣ index.js
+ ┃ ┃ ┣ NextCancelButton.js
+ ┃ ┃ ┣ OptionBoxes.js
+ ┃ ┃ ┣ PlagiarismModal.js
+ ┃ ┃ ┣ PreviewGrid.js
+ ┃ ┃ ┣ ProblemPreview.css
+ ┃ ┃ ┣ ProblemPreview.js
+ ┃ ┃ ┣ SearchButton.js
+ ┃ ┃ ┣ SignOutButton.js
+ ┃ ┃ ┣ UploadProblemButton.js
+ ┃ ┃ ┗ UserName.js
  ┃ ┗ image
- ┃ ┃ ┣ background.png
- ┃ ┃ ┣ clock.png
- ┃ ┃ ┣ description.png
- ┃ ┃ ┗ ranking.png
- ┣ fonts
- ┃ ┗ KyoboHandwriting2023wsa.ttf
+ ┃ ┃ ┣ answer_7.PNG
+ ┃ ┃ ┣ background_image.PNG
+ ┃ ┃ ┣ back_button.png
+ ┃ ┃ ┣ intro_image.jpg
+ ┃ ┃ ┣ pro_1.PNG
+ ┃ ┃ ┣ pro_10.PNG
+ ┃ ┃ ┣ pro_11.PNG
+ ┃ ┃ ┣ pro_12.PNG
+ ┃ ┃ ┣ pro_13.PNG
+ ┃ ┃ ┣ pro_14.PNG
+ ┃ ┃ ┣ pro_15.PNG
+ ┃ ┃ ┣ pro_16.PNG
+ ┃ ┃ ┣ pro_17.PNG
+ ┃ ┃ ┣ pro_18.PNG
+ ┃ ┃ ┣ pro_19.PNG
+ ┃ ┃ ┣ pro_2.PNG
+ ┃ ┃ ┣ pro_20.PNG
+ ┃ ┃ ┣ pro_3.PNG
+ ┃ ┃ ┣ pro_4.PNG
+ ┃ ┃ ┣ pro_5.PNG
+ ┃ ┃ ┣ pro_6.PNG
+ ┃ ┃ ┣ pro_7.PNG
+ ┃ ┃ ┣ pro_8.PNG
+ ┃ ┃ ┣ pro_9.PNG
+ ┃ ┃ ┣ search_button.png
+ ┃ ┃ ┗ solution_7.PNG
  ┣ page
- ┃ ┣ GamePage.css
- ┃ ┣ GamePage.js
- ┃ ┗ MainP.js
+ ┃ ┣ boughtpage
+ ┃ ┃ ┣ BoughtPage.css
+ ┃ ┃ ┗ BoughtPage.js
+ ┃ ┣ explorepage
+ ┃ ┃ ┣ ExploreArticle.css
+ ┃ ┃ ┣ ExploreArticle.js
+ ┃ ┃ ┣ ExploreHeader.js
+ ┃ ┃ ┗ ExplorePage.js
+ ┃ ┣ intropage
+ ┃ ┃ ┗ IntroPage.js
+ ┃ ┣ mainpage
+ ┃ ┃ ┣ MainArticle.js
+ ┃ ┃ ┣ MainHeader.js
+ ┃ ┃ ┗ MainPage.js
+ ┃ ┣ mypage
+ ┃ ┃ ┗ MyPage.js
+ ┃ ┣ problempage
+ ┃ ┃ ┣ ProblemDetail.css
+ ┃ ┃ ┣ ProblemDetail.js
+ ┃ ┃ ┣ ProblemHeader.js
+ ┃ ┃ ┗ ProblemPage.js
+ ┃ ┗ uploadpage
+ ┃ ┃ ┣ UploadArticle.js
+ ┃ ┃ ┣ UploadConfirm.css
+ ┃ ┃ ┣ UploadConfirm.js
+ ┃ ┃ ┣ UploadForm.css
+ ┃ ┃ ┣ UploadForm.js
+ ┃ ┃ ┣ UploadHeader.js
+ ┃ ┃ ┣ UploadPage.js
+ ┃ ┃ ┗ UploadWaiting.js
  ┣ store
- ┃ ┣ dataslice.js
+ ┃ ┣ dataSlice.js
  ┃ ┗ store.js
  ┣ App.css
  ┣ App.js
@@ -171,7 +259,7 @@ src
  ┣ index.js
  ┣ logo.svg
  ┣ reportWebVitals.js
- ┣ setProxy.js
+ ┣ setupProxy.js
  ┗ setupTests.js
  ```
  1. api : api 처리 관련 디렉토리
@@ -182,56 +270,58 @@ src
 <br>
 
 ## 📑 API 구조
-본 프로젝트의 API 구조는 [여기](https://github.com/LSe-Yeong/ggodle/blob/main/API_README.md)서 확인할 수 있습니다.
+본 프로젝트의 API 구조는 [여기](https://github.com/LSe-Yeong/PTD/blob/readme/API_README.md)서 확인할 수 있습니다.
 
 <br>
 
 ## ✅ 기술적 이슈 및 해결 과정
-1. 브라우저를 꺼도 사용자가 시도했던 단어가 남아야 한다.
-    - React에서 Cookie를 사용하여 브라우저가 꺼져도 24시간동안 사용자가 입력한 단어가 남도록 구현함.
-    - 추가로 사용자가 지금까지 진행한 시간 정보도 남아야 하므로 이것 또한 Cookie를 이용하여 구현함. 
+1. 수학 문제 표절도 판별 프롬프트를 어떤식으로 구성할지?
+    - 역할 부여, 정의 명시, 정보 제외, 단계적 분류 총 4가지 단계를 설정하여 프롬프트를 구성하였다.
+    - 특히 정의 명시에서 문제의 정보, 풀이과정의 맥락 등 표절의 기준을 명확하게 부여하여 성능을 높였다.
+    - 다음은 본 프로젝트의 프롬프트 구성이다.
+    <img src="readmeAsset/프롬프트.png">
 
 <br>
       
-2. 정답 단어를 체크하는 알고리즘은 어떻게 구현해야 할까?
-    - 단어가 겹치지 않는 경우 리스트를 순회하면 된다.
-    - 하지만 "국정" 과 같이 ㄱ이 두번 이상 나오게 된다면 우선 순위 등 여러가지 상황을 고려해야 한다.
-    - 위 문제를 해결하기 위해 우선 순위를 두어 해결했다.
-        - 포함되고 자리수 까지 맞는 단어를 먼저 체크하여 그단어를 X로 치환하여 다시 사용되지 않게 한다.
-        - X가 아닌 경우에 대해서 포함되고 자리수가 다른 경우를 체크한다.
-        - 위 경우에 포함되지 않으면 포함되지 않는 경우이다.
+2. 사진 데이터 처리를 어떻게 할지?
+    - 문제 업로드 시 사진은 MultipartFile의 형태로 받는다.
+    - 이후 File 클래스의 형태로 바꿔준 뒤 LLM 모델에게 전송한다.
+    - 표절도 측정 이후 사진 데이터를 프로젝트 패키지의 image 디렉토리에 저장한다.
+    - 이후 사진을 조회할 때는 image 디렉토리에서 파일을 찾아 Byte의 형태로 반환한다.
 
 <br>
 
-3. 어떻게 하면 24시간 or 정해진 시간 마다 서버가 가지고 있는 정답 단어를 바꿀 수 있을까?
-    - AsyncIOScheduler 외부 클래스를 이용하여 해결하였다.
-    - 위 클래스는 정해진 시간 마다 특정 함수를 실행시킬 수 있다.
-        - 12시가 될 때마다 단어 데이터 셋 리스트의 idx를 바꾼다. ex. 253 -> 357
-        - 서버는 리눅스 기준 시간이므로 한국 시간에 맞게 조절하는 과정도 필요하다. 
+3. FastAPI 서버와 SpringBoot 서버간 통신은 어떻게 할지?
+    - RestTemplate 클래스를 이용하여 해결함
 
 <br>
 
-4. 반응형 웹 디자인
-    - 대부분 친구들이 게임을 스마트폰 기기를 이용하여 플레이한다.
-    - 따라서 @media 를 이용하여 기기의 크기에 따라 컴포넌트, 블록들의 CSS 설정을 동적으로 변경하였다.
-    - 아래는 모바일 기기에서 접속 했을 경우 화면이다.
-    <img src="readmeAsset/yudleMobile.jpg"  style="width: 50%; height: auto; object-fit: contain;">
+4. 수학 문제에 대한 DB 스키마를 어떻게 나타낼 것인지?
+    - 수학 문제는 문제 자체에 대한 정보, 문제들간의 유사도 정도, 문제들간의 표절도 정도 등이 있다.
+    - 한 테이블에 다 담게 된다면 튜플의 개수가 매우 많아지므로 테이블을 분해하는 정규화 과정을 진행하였다.
+    - 그 결과 다음 3개의 테이블로 분해하였다. 
+        - 기본적인 문제에 대한 정보를 담는 테이블
+        - 서로간의 표절도에 대한 정보를 담는 테이블
+        - 서로간의 유사도에 대한 정보를 담는 테이블
+
+
+<br>
+
+## 관련 논문
+본 프로젝트와 관련된 논문은 [여기](readmeAsset/논문.pdf) 서 확인할 수 있습니다. <br>
+
 <br>
 
 ## 👬 프로젝트 팀원 및 역할
 1. 🐶이세영 [@LSe-Yeong](https://github.com/LSe-Yeong)
-    - React를 이용하여 FrontEnd 개발
-        - HTML CSS를 이용하여 화면 구현
-        - 단어 체크 알고리즘 구현
-        - 터치를 통해 단어 입력 구현
-        - Axios를 이용한 FastAPI와의 ReatAPI 통신 구현
-        - 타이머 기능 구현
-        
-    - FastAPI를 이용하여 Backend 서버 개발
-        - 유저 정보 DB에 추가, 조회 구현
-        - 정답 단어 변경 기능 구현
-        - 사용자가 입력한 단어가 유효한지 검사하는 기능 구현
-
-    - MySQL RDBMS을 Backend 서버와 연동
-    - AWS EC2를 이용하여 간단한 서버 배포
+    - SpringBoot를 이용한 API 서버 구축
+        - Member 등록, 조회와 관련된 API 구현
+        - Member 계좌 처리와 관련된 API 구현
+        - 수학 문제 업로드 및 id,카테고리 별로 조회 하는 API 구현
+        - 수학 문제 이미지 데이터 저장 및 처리 기능 구현
+        - 수학 문제, Member 관련 Entity 설계     
+    - MySQL RDBMS를 Backend 서버와 연동
+2. 🐰최명재 [@DdingJae418](https://github.com/DdingJae418)
+3. 🐱정은서 [@Eunseo23](https://github.com/Eunseo23)
+    
 
