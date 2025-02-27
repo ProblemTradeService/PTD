@@ -270,7 +270,7 @@ src
 <br>
 
 ## 📑 API 구조
-본 프로젝트의 API 구조는 [여기](https://github.com/LSe-Yeong/PTD/blob/readme/API_README.md)서 확인할 수 있습니다.
+본 프로젝트의 API 구조는 [여기](https://github.com/ProblemTradeService/PTD/blob/readme/API_README.md)서 확인할 수 있습니다.
 
 <br>
 
