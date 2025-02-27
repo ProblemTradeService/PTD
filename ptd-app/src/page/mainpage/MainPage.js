@@ -1,10 +1,10 @@
 import MainHeader from "./MainHeader";
 import MainArticle from "./MainArticle";
-import '../../asset/components/background.css';
+import "../../asset/components/background.css"
 
 function MainPage() {
 
-    return(
+    return (
         <div className="backGround">
             <MainHeader/>
             <MainArticle/>

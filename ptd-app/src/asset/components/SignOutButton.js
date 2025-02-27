@@ -1,20 +1,29 @@
 function SignOutButton() {
     
     const signButtonStyle = {
-        width: '100px',
-        height: '80px',
-        fontSize: '25px',
-        fontWeight: 'bold',
-        position: 'fixed',
-        right: '80px',
-        top: '15px',
-        backgroundColor: 'white',
-        border: 'solid 1px #3AAF46',
-        borderRadius: '10px',
-      };
+        width: '80px',
+        height: '22px',
+        textAlign: 'center',
+        fontWeight: '600',
+        backgroundColor: 'var(--Primary, #7C14FD)',
+        borderRadius: '1000px',
+        border: '1px solid var(--Primary, #7C14FD)',
+        color: 'white',
+        fontSize: '13px',
+    }  
+    
+    const signposition ={
+        display: 'flex',
+        justifyContent: 'flex-end',
+        position: 'relative',
+        right: '23px',
+        bottom: '-20%'
+    };
 
     return (
-        <button id='signout' style={signButtonStyle}>Sign<br/>Out</button>
+        <div style={signposition}>
+        <button id='signout' style={signButtonStyle}>SignOut</button>
+        </div>
     )
 }
 

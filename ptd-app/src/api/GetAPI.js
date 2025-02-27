@@ -1,42 +1,122 @@
 import axios from "axios";
 
 export async function getCategoryProblems(category) {
-    let responseInfo;
-    let responseImage
-    let problems =[]
+    try {
+        const [infoResponse, imageResponse] = await Promise.all([
+            axios.get("/api/problems/info/category/" + category[3].label),
+            axios.get("/api/problems/image/category/" + category[3].label)
+        ]);
 
-    await axios.get("/api/problems/info/category/"+category[3].label)
-        .then(response => {responseInfo=response.data})
-        .catch(error => console.log(error));
-    
-    await axios.get("/api/problems/image/category/"+category[3].label)
-        .then(response => {responseImage=response.data.image.map(element=>element.body);})
-        .catch(error => console.log(error));
-    
+        const responseInfo = infoResponse.data;
+        const responseImage = imageResponse.data.image 
+            ? imageResponse.data.image.map(element => element.body) 
+            : [];
 
-    for (let i = 0; i < responseInfo.length; i++) {
-        const problem = { ...responseInfo[i], image: 'data:image/jpeg;base64,' + responseImage[i]};
-        problems.push(problem);
+        const problems = responseInfo.map((info, index) => ({
+            ...info,
+            image: responseImage[index] ? 'data:image/jpeg;base64,' + responseImage[index] : null
+        }));
+
+        return problems;
+    } catch (error) {
+        console.log(error);
+        return []; 
     }
-
-    return problems;
 }
 
 export async function getProblem(pid) {
-    let data ={
-        info: null,
-        image: null
+    try {
+        const [infoResponse, imgResponse] = await Promise.all([
+            axios.get(`/api/problems/info/pid/${pid}`),
+            axios.get(`/api/problems/image/pid/${pid}`, { responseType: 'blob' })
+        ]);
+
+        const info = infoResponse.data;
+        const img = URL.createObjectURL(imgResponse.data);
+
+        return {
+            ...info,
+            image: img
+        };
+    } catch (error) {
+        console.log(error);
+        return {};
     }
+}
 
-    await axios.get(`/api/problems/info/pid/${pid}`)
-        .then(response => data.info = response.data)
-        .catch(error => console.log(error));
+export async function getSimilarProblems(pid) {
+    try {
+        const [infoResponse, imageResponse] = await Promise.all([
+            axios.get(`/api/problems/similar/info/${pid}`),
+            axios.get(`/api/problems/similar/image/${pid}`)
+        ]);
 
-    await axios.get(`/api/problems/image/pid/${pid}`, {
-        responseType:'blob'
-    })
-        .then(response => data.image = URL.createObjectURL(response.data))
-        .catch(error => console.log(error));
-        
-    return data;
+        const responseInfo = infoResponse.data;
+        const responseImage = imageResponse.data.image
+            ? imageResponse.data.image.map(element => element.body)
+            : [];
+
+        const problems = responseInfo.map((info, index) => ({
+            ...info,
+            image: responseImage[index] ? 'data:image/jpeg;base64,' + responseImage[index] : null
+        }));
+
+        return problems;
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+}
+
+
+export async function getPlagiarismProblems(pid) {
+    try {
+        const [infoResponse, imageResponse] = await Promise.all([
+            axios.get(`/api/problems/plagiarize/info/${pid}`),
+            axios.get(`/api/problems/plagiarize/image/${pid}`)
+        ]);
+
+        const responseInfo = infoResponse.data;
+        const responseImage = imageResponse.data.image
+            ? imageResponse.data.image.map(element => element.body)
+            : [];
+
+        const problems = responseInfo.map((info, index) => ({
+            ...info,
+            image: responseImage[index] ? 'data:image/jpeg;base64,' + responseImage[index] : null
+        }));
+
+        return problems;
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+}
+
+export async function getUserBalance(userName) {
+    try {
+        const response = await axios.get(`/api/userBalance/${userName}`);
+        return response.data.balance;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+
+export async function getUserProblems(userName) {
+    try {
+        const response = await axios.get(`/api/problems/my/${userName}/보유중`);
+        if (Object.keys(response.data).length === 0) {
+            return [];
+        }
+
+        const idList = response.data.map(element => element.id);
+
+        const problems = await Promise.all(idList.map(getProblem));
+
+        return problems;
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
 }

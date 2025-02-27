@@ -1,37 +1,39 @@
 import { useEffect, useState } from "react";
 import { getProblem } from "../../api/GetAPI";
+import { deleteProblem } from "../../api/PostAPI";
+import ProblemDetail from "../problempage/ProblemDetail";
+import ConfirmCancelButton from "../../asset/components/ConfirmCancelButton";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { clearCategory } from "../../store/dataSlice";
 
 
-function UploadConfirm(props) {
-    const [problemInfo, setProblemInfo] = useState(null);
-    const [problemImage, setProblemImage] = useState(null);
-    const [modalShow, setModalShow] = useState(false);
+function UploadConfirm({pid}) {
+    const [problem, setProblem] = useState(null);
+    const navigate = useNavigate()
+    const dispatch = useDispatch();
 
-    useEffect(()=>{
-        getProblem(props.pid).then(setProblem);
-    },[])
-
-    console.log(problemImage);
-
-    const setProblem = (data) => {
-        setProblemInfo(data.info);
-        setProblemImage(data.image)
+    const cancelUpload = () => {
+        deleteProblem(pid);
+        dispatch(clearCategory());
+        navigate('/');
     }
 
+    const uploadProblem = () => {
+        dispatch(clearCategory());
+        navigate('/');
+    }
 
-    if(problemInfo === null || problemImage === null) return;
+    useEffect(()=>{
+        getProblem(pid).then((data)=>setProblem(data));
+    },[])
+
+    if(!problem) return
     return (
     <>
-        <h1>업로드 확인</h1>
-        <div>
-            <img src={problemImage} style={{height:"30vh"}}/>
-            <h3>{problemInfo.id}</h3>
-            <h3>{problemInfo.category}</h3>
-            <h3>{problemInfo.level}</h3>
-            <h3>{problemInfo.owner}</h3>
-            <h3>{problemInfo.plaglevel}</h3>
-            {problemInfo.price}            
-        </div>
+        <ProblemDetail problem={problem}/>
+        <ConfirmCancelButton submitText={'확인'} cancelText={'업로드 취소'}
+        onSubmitHandler={uploadProblem} onCancelHandler={cancelUpload}/>
     </>
     )
 }

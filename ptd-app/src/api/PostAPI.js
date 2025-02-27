@@ -27,3 +27,23 @@ export async function postProblem(target, category) {
 
     return result;
 }
+
+export async function postUserDeal( _buyer, _id) {
+    let result;
+
+    await axios.post("/api/deal", {
+        id: _id,
+        buyer: _buyer
+    }).then(response=>{result = response.data})
+    .catch(error => alert(error.msg));
+
+    return result;
+}
+
+export async function deleteProblem(pid) {
+    try{
+        axios.get(`/api/problems/upload/cancel/${pid}`);
+    } catch (error){
+        console.log(error)
+    }
+}

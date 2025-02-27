@@ -75,7 +75,6 @@ function UploadArticle() {
             content = <UploadConfirm pid = {pid}/>
     }
 
-
     return (
         <article>
             {content}

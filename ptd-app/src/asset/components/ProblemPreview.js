@@ -1,27 +1,40 @@
-import { Grid, Card, CardActionArea, CardContent, Typography } from '@mui/material';
+import { Grid, Card, CardActionArea, CardContent, Typography, Container, Divider, Box } from '@mui/material';
+import './ProblemPreview.css'
 
-function ProblemPreview(props) {
+
+function ProblemPreview({problem, cardIndex, onPreviewClick}) {
+
+    const imgDiv ={
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%"
+    };
 
     const click = () => {
-        console.log("click");
-    }
+        onPreviewClick(problem.id)      
+    };
 
     return(
-        <Grid item md={4} key={props.cardIndex}>
+    <>
+    <Grid item md={12} key={cardIndex}>
         <Card onClick={click}>
-            <CardActionArea>
+            <CardActionArea  style={{ border: '1px solid #B070FF' }}>
             <CardContent>
-                <Typography variant="h5" component="div">
-                <img src={props.problem.image} style={{ width: '100%', height: 'auto' }} alt="Card Image"/>
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {props.problem.id}
-                </Typography>
+                <Container fixed style={{height:"30vh"}}>
+                <div style={imgDiv}>
+                <img src={problem.image} style={{ maxWidth: '100%', maxHeight: '100%' }}  alt="Card Image"/>   
+                </div>
+                </Container> 
+                <Divider sx={{mb:2, mt:2}}/>
+                {/* <Typography  style={{ textAlign: 'center', fontWeight: 'bold', color: '#7C14FD'}}>
+                ▶ 표절 수준: {problem.plaglevel} ◀</Typography> */}
             </CardContent>
             </CardActionArea>
         </Card>
-        </Grid>
-    )
+    </Grid>
+    </>
+    );
 }
 
 export default ProblemPreview;

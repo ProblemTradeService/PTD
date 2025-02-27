@@ -1,10 +1,7 @@
 package com.example.myhomework.controller;
 
 import com.example.myhomework.complexKey.ProblemSimilarityListPK;
-import com.example.myhomework.dto.FileForm;
-import com.example.myhomework.dto.MemberForm;
-import com.example.myhomework.dto.ProblemForm;
-import com.example.myhomework.dto.ProblemSimilarListForm;
+import com.example.myhomework.dto.*;
 import com.example.myhomework.entity.Member;
 import com.example.myhomework.entity.Problem;
 import com.example.myhomework.entity.ProblemSimilarList;
@@ -13,7 +10,7 @@ import com.example.myhomework.repository.ProblemRepository;
 import com.example.myhomework.repository.ProblemSimilarityListRepository;
 import com.example.myhomework.service.MemberService;
 import com.example.myhomework.service.ProblemService;
-import jakarta.annotation.Resource;
+import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -49,8 +46,7 @@ import org.springframework.http.MediaType;
 @RestController
 
 public class ProblemApiController {
-    private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
-    //private static final String IMAGE_DIR = "C:/Image/";
+
     @Autowired
     private ProblemRepository problemRepository;
 
@@ -94,6 +90,11 @@ public class ProblemApiController {
         return problems;
     }
 
+    @GetMapping("/api/problems/upload/cancel/{pid}")
+    public String problemUploadCancel(@PathVariable Long pid){
+        String s=problemService.problemUploadCancel(pid);
+        return s;
+    }
     @PostMapping("/api/problems")
     public ResponseEntity<Problem> crateProblem(@RequestBody ProblemForm dto){
         Problem created=problemService.create(dto);
@@ -106,5 +107,16 @@ public class ProblemApiController {
     public String createProblemFile(@RequestParam("problemFile") MultipartFile file1, @RequestParam("solutionFile") MultipartFile file2) throws IOException, InterruptedException {
         String s=problemService.createProblemFile(file1,file2);
         return s;
+    }
+
+    @PostMapping("/api/deal")
+    public boolean dealProblem(@RequestBody DealForm dto) throws IOException{
+        String response = problemService.dealProblem(dto.getId(),dto.getBuyer());
+        if(response.equals("success")){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

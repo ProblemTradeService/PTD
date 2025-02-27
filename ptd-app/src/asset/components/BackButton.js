@@ -1,27 +1,31 @@
 import back_button from "../../asset/image/back_button.png";
 
-function BackButton(props) {
+function BackButton({backButtonHandler}) {
 
-  const BackButtonStyle = {
-        position: 'fixed',
-        width: '60px',
-        height: '60px',
-        left: '15px',
-        top: '15px',
-        backgroundColor: 'white',
-        border: 'solid 1px #3AAF46',
-        borderRadius: '10px'
+
+  const backposition = {
+    display: 'flex',
+    position: 'relative',
+    top: '-40px',
+    left: '5px'
+    
   }
 
-    const imgStyle = {
-      float: 'left',
-      width: '50px',
+  const BackButtonStyle = {
+        backgroundColor: 'white',
+        border: 'white',        
+  }
+
+  const imgStyle = {
+      width: '30px',
   };
 
     return (
-        <button style={BackButtonStyle} onClick={props.backButtonHandler}>
+      <div style={backposition}> 
+        <button style={BackButtonStyle} onClick={backButtonHandler}>
           <img src={back_button} style={imgStyle} alt="back" />
         </button>
+        </div>
       );
     }
 

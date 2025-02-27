@@ -31,8 +31,8 @@ function InputP(){
             data.price=event.target.price.value
             data.owner=event.target.owner.value
             data.category=event.target.category.value
-            formdata.append("problemfile",problemfiles[0])
-            formdata.append("solutionfile",solutionfiles[0])
+            formdata.append("problemFile",problemfiles[0])
+            formdata.append("solutionFile",solutionfiles[0])
             
             axios.post("/api/problems",data)
             .then(response => setResult(response.data))

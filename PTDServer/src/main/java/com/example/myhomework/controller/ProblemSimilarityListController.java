@@ -12,7 +12,7 @@ import com.example.myhomework.repository.ProblemSimilarityListRepository;
 import com.example.myhomework.service.MemberService;
 import com.example.myhomework.service.ProblemService;
 import com.example.myhomework.service.ProblemSimilarityService;
-import jakarta.annotation.Resource;
+import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -40,11 +40,19 @@ import java.util.List;
 @Slf4j
 @RestController
 public class ProblemSimilarityListController {
+
+    @Autowired
+    ProblemRepository problemRepository;
     @Autowired
     ProblemSimilarityService problemSimilarityService;
 
     @Autowired
     ProblemSimilarityListRepository problemSimilarityListRepository;
+    
+    private static final String IMAGE_DIR = "/home/uosselab/바탕화면/PTD/Images/";
+    //private static final String IMAGE_DIR = "C:/PTD/images/";
+    //private static final String IMAGE_DIR = "/Users/UOS/Desktop/project/PTD/images/";
+
 
     @GetMapping("/api/problems/similarity")
     public List<ProblemSimilarList> getSimilarity(){
@@ -52,9 +60,8 @@ public class ProblemSimilarityListController {
     }
 
     @GetMapping("/api/problems/similar/info/{pid}")
-    public List<ProblemSimilarList> getSimilarProblemInfo(@PathVariable Long pid){
-        List<ProblemSimilarList> problemSimilarLists = problemSimilarityListRepository.findSimilarProblem(pid);
-        return problemSimilarLists;
+    public List<Problem> getSimilarProblemInfo(@PathVariable Long pid){
+        return problemSimilarityService.getSimilarProblemInfo(pid);
     }
 
     @GetMapping("/api/problems/similar/image/{pid}")
@@ -62,8 +69,24 @@ public class ProblemSimilarityListController {
         List<ProblemSimilarList> problemSimilarLists = problemSimilarityListRepository.findSimilarProblem(pid);
 
         MultiValueMap<String, ResponseEntity<byte[]>> responseMap=new LinkedMultiValueMap<>();
-        getImage(problemSimilarLists,responseMap);
+        getImage(problemSimilarLists,responseMap, false);
 
+        return responseMap;
+    }
+
+    @GetMapping("/api/problems/plagiarize/info/{pid}")
+    public List<Problem> getPlagiarizeProblemInfo(@PathVariable Long pid){
+        List<ProblemSimilarList> problemPlagiarizeLists = problemSimilarityListRepository.findPlagiarizeProblem(pid);
+        List<Problem> problems=getInfo(problemPlagiarizeLists);
+        return problems;
+    }
+
+    @GetMapping("/api/problems/plagiarize/image/{pid}")
+    public MultiValueMap<String, ResponseEntity<byte[]>> getPlagiarizeProblemImage(@PathVariable Long pid){
+        List<ProblemSimilarList> problemPlagiarizeLists = problemSimilarityListRepository.findPlagiarizeProblem(pid);
+
+        MultiValueMap<String, ResponseEntity<byte[]>> responseMap=new LinkedMultiValueMap<>();
+        getImage(problemPlagiarizeLists,responseMap, true);
         return responseMap;
     }
 
@@ -76,10 +99,23 @@ public class ProblemSimilarityListController {
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-    public void getImage(List<ProblemSimilarList> problemSimlarList,  MultiValueMap<String, ResponseEntity<byte[]>> responseMap) {
+    public List<Problem> getInfo(List<ProblemSimilarList> problemSimilarLists){
+        List<Problem> problems=new ArrayList<>();
+        for(ProblemSimilarList problemSimilar : problemSimilarLists){
+            Long pid=problemSimilar.getProblemPK().getPid2();
+            Problem p=problemRepository.findById(pid).orElse(null);
+            problems.add(p);
+        }
+        return problems;
+    }
+
+    public void getImage(List<ProblemSimilarList> problemSimlarList,  MultiValueMap<String, ResponseEntity<byte[]>> responseMap, boolean isPlag) {
         for (ProblemSimilarList problemSimilar : problemSimlarList) {
-            log.info(problemSimlarList.toString());
-            String path = "C:/Image/problem" + problemSimilar.getProblemPK().getPid2() + ".jpg";
+            String path = IMAGE_DIR + "/problem" + problemSimilar.getProblemPK().getPid2() + ".jpg";
+            Problem p=problemRepository.findById(problemSimilar.getProblemPK().getPid2()).orElse(null);
+            if(!p.getStatus().equals("판매중") && !isPlag)
+                continue;
+            log.info(problemSimilar.toString());
             HttpHeaders header = new HttpHeaders();
             Path filePath;
 

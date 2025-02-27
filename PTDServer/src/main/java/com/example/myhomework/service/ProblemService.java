@@ -7,9 +7,11 @@ import com.example.myhomework.dto.ProblemSimilarListForm;
 import com.example.myhomework.entity.Member;
 import com.example.myhomework.entity.Problem;
 import com.example.myhomework.entity.ProblemSimilarList;
+import com.example.myhomework.entity.UserBalance;
 import com.example.myhomework.repository.MemberRepository;
 import com.example.myhomework.repository.ProblemRepository;
 import com.example.myhomework.repository.ProblemSimilarityListRepository;
+import com.example.myhomework.repository.UserBalanceRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -39,13 +41,19 @@ import java.util.List;
 @Service
 
 public class ProblemService {
-
-    private static final String IMAGE_DIR = "/Users/myoungjae/Projects/PTD/images/";
-    //private static final String IMAGE_DIR = "C:/Image/";
+    private static final String IMAGE_DIR = "/home/uosselab/바탕화면/PTD/Images/";
+    //private static final String IMAGE_DIR = "/Users/UOS/Desktop/project/PTD/images/";
+    //private static final String IMAGE_DIR = "C:/PTD/images/";
 
     private Long pid=0L;
 
     private final RestTemplate restTemplate = new RestTemplate();
+
+    @Autowired
+    private UserBalanceRepository userBalanceRepository;
+
+    @Autowired
+    private UserBalanceService userBalanceService;
 
     @Autowired
     private ProblemSimilarityListRepository problemSimilarityListRepository;
@@ -100,6 +108,17 @@ public class ProblemService {
         return problems;
     }
 
+    public String problemUploadCancel(Long pid) {
+        Problem problem=problemRepository.findById(pid).orElse(null);
+        problemRepository.delete(problem);
+        List<ProblemSimilarList> problemSimilarList=problemSimilarityListRepository.findByPid1(pid);
+        for(int i=0;i<problemSimilarList.size();i++){
+            problemSimilarityListRepository.delete(problemSimilarList.get(i));
+        }
+        problemRemove(pid);
+        return null;
+    }
+
     public String createProblemFile(MultipartFile file1, MultipartFile file2) throws IOException, InterruptedException {
         Problem p= problemRepository.findFirstByOrderByIdDesc();
         int idx=0;
@@ -115,7 +134,12 @@ public class ProblemService {
 
         pid++;
 
-        List<String> stringList = uploadFile(newFile1, newFile2,null,"plagiarize"); // 앞에 List<String> plagList 각자 문제 문자열 배열 이걸로 받기
+        List<Problem> problems=problemRepository.findAll();
+        if(!problems.isEmpty()) {
+            problems.remove(problems.size() - 1);
+        }
+        log.info(problems.toString());
+        List<String> stringList = uploadFile(newFile1, newFile2,problems,"plagiarize"); // 앞에 List<String> plagList 각자 문제 문자열 배열 이걸로 받기
 
         //DB에 있는 해당 문제 표절 수준 업데이트 및, DB SimilarList에 추가하기
         //Thread.sleep(10000);
@@ -127,9 +151,12 @@ public class ProblemService {
             ProblemSimilarList problemEntity=dto.toEntity();
             problemSimilarityListRepository.save(problemEntity);
         }
+
         //제일 표절도 높은거 갱신하기
         String plagLevel= findFlagLevel(stringList);
+        log.info(plagLevel);
         p.setPlaglevel(plagLevel);
+        p.setStatus("판매중");
         problemRepository.save(p);
         log.info(plagLevel);
 
@@ -154,11 +181,47 @@ public class ProblemService {
         return null;
     }
 
+    public String dealProblem(Long id, String buyer){
+        Problem p = problemRepository.findById(id).orElse(null);
+        UserBalance buyerBalance = userBalanceRepository.findUserName(buyer);
+        log.info(buyerBalance.toString());
+        UserBalance sellerBalance = userBalanceRepository.findUserName(p.getOwner());
+        if(buyerBalance.getBalance()<p.getPrice()){
+            return "fail";
+        }
+        else{
+            // 셀러 price만큼 돈 상승
+            sellerBalance.setBalance(sellerBalance.getBalance()+p.getPrice());
+            userBalanceRepository.save(sellerBalance);
+            // 바이어 price만큼 돈 차감
+            buyerBalance.setBalance(buyerBalance.getBalance()-p.getPrice());
+            userBalanceRepository.save(buyerBalance);
+            // 문제 번호의 소유주 buyer로 바꾸기
+            p.setOwner(buyer);
+            p.setStatus("보유중");
+            problemRepository.save(p);
+            return "success";
+        }
+    }
 
+    public void problemRemove(Long pid){
+        String filePath=IMAGE_DIR+"problem"+pid+".jpg";
+        String filePath2=IMAGE_DIR+"solution"+pid+".jpg";
+        try{
+            Path path=Paths.get(filePath);
+            Path path2=Paths.get(filePath2);
+            Files.delete(path);
+            Files.delete(path2);
+        } catch (IOException e){
+
+        }
+    }
     public void getImage(List<Problem> problems,  MultiValueMap<String, ResponseEntity<byte[]>> responseMap){
         for(Problem problem : problems){
             log.info(problem.toString());
+
             String path=IMAGE_DIR + "problem"+problem.getId()+".jpg";
+
             HttpHeaders header = new HttpHeaders();
             Path filePath;
 
@@ -195,15 +258,15 @@ public class ProblemService {
         }
         switch (flagLevel){
             case 1:
-                return "매우 낮음";
+                return "[매우 낮음]";
             case 2:
-                return "낮음";
+                return "[낮음]";
             case 3:
-                return "보통";
+                return "[보통]";
             case 4:
-                return "높음";
+                return "[높음]";
             case 5:
-                return "매우 높음";
+                return "[매우 높음]";
         }
         return null;
     }
@@ -218,20 +281,16 @@ public class ProblemService {
         List<FileSystemResource> solutionResource = new ArrayList<>();
 
         if(type.equals("plagiarize")) {
-            for (int i = 0; ; i++) {
-                problemFiles.add(new File(IMAGE_DIR + "problem" + (i + 1) + ".jpg"));
-                solutionFiles.add(new File(IMAGE_DIR + "solution" + (i + 1) + ".jpg"));
-                if (!problemFiles.get(i).exists()) {
-                    break;
+                for (Problem problem : problems) {
+                    problemFiles.add(new File(IMAGE_DIR + "problem" + problem.getId() + ".jpg"));
+                    solutionFiles.add(new File(IMAGE_DIR + "solution" + problem.getId() + ".jpg"));
                 }
-                problemsResource.add(new FileSystemResource(problemFiles.get(i)));
-                solutionResource.add(new FileSystemResource(solutionFiles.get(i)));
-            }
-
-            if(!problemsResource.isEmpty()) {
-                problemsResource.remove(problemsResource.size() - 1);
-                solutionResource.remove(solutionResource.size()-1);
-            }
+                for (File f : problemFiles) {
+                    problemsResource.add(new FileSystemResource(f));
+                }
+                for (File f : solutionFiles) {
+                    solutionResource.add(new FileSystemResource(f));
+                }
         }
 
         else if(type.equals("similarity")){
@@ -263,8 +322,9 @@ public class ProblemService {
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
-        String serverUrl = "http://localhost:8000/plagiarism";
-
+        String AiUrl="http://localhost:8000/";
+        String serverUrl = AiUrl+type;
+        log.info(requestEntity.toString());
         List<String> result = restTemplate.postForObject(serverUrl, requestEntity, List.class);
         for(String str : result){
             log.info(str);

@@ -1,46 +1,62 @@
-import pro_1 from "../../asset/image/pro_1.PNG";
 import './ProblemDetail.css'
+import Button from '@mui/material/Button';
+import { useState } from 'react';
+import PlagiarismModal from '../../asset/components/PlagiarismModal';
 
-function ProblemDetail() {
+function ProblemDetail({problem}) {
+    const [modalShow, setModalShow] = useState(false);
+
+    const handleOpen = () => setModalShow(true);
+    const handleClose = () => setModalShow(false);
+
+    const buttonSx = {
+        ml:2,
+        mb:1,
+        backgroundColor:'#b428b4',
+        color: 'white',
+        '&:hover': {
+          backgroundColor: '#e65ae6',
+        },
+    }
 
     return (
-        <article class="proarticle">
+        <div class="proarticle">
             <div class="container">
             <div class='img-container'>
-                <img class='proImg' src={pro_1} alt='pro'></img>
+                <img class='proImg' src={problem.image} alt='pro'></img>
             </div>
-
             <div class='data-container'>
-            <ul id="problemDetail">
-                <li>
-                    <label for="similarityLevel" class="similarityLevel">표절 수준 : </label>
-                    <label class="similarityLevel" id="simLevel">높음</label>
-                </li>
-                <li>
-                    <label for="problemCategory">카테고리 : </label>
-                    <label>#고등학교 #미적분 #수열의 극한 #급수</label> 
-                </li> 
-                <li>
-                    <label for="seller">판매자 : </label>
-                    <label>김철수</label> 
-                </li>
-                <li>
-                    <label for="uploadDate">등록일자 : </label>
-                    <label>2022년 10월 21일</label> 
-                </li>
-                <li>
-                    <label for="difficulty">난이도 : </label>
-                    <label>4</label> 
-                </li>
-                <li>
-                    <label for="Price">가격 : </label>
-                    <label>10</label>
-                    <label> ETH</label>
-                </li>
-            </ul>
+            <table id="problemDetail">
+                <tr>
+                    <td class="c1" for="similarityLevel" >표절 수준 : </td>
+                    <td class="c2" id="simLevel">{problem.plaglevel}
+                    <Button variant="contained" sx={buttonSx} onClick={handleOpen}>상세보기</Button></td>
+                </tr>
+                <tr>
+                    <td class="c1" for="problemCategory">카테고리 : </td>
+                    <td class="c2" >{problem.category}</td> 
+                </tr> 
+                <tr>
+                    <td class="c1" for="seller">판매자 : </td>
+                    <td class="c2" >{problem.owner}</td> 
+                </tr>
+                <tr>
+                    <td class="c1" for="uploadDate">등록일자 : </td>
+                    <td class="c2" >2022년 10월 21일</td> 
+                </tr>
+                <tr>
+                    <td class="c1" for="difficulty">난이도 : </td>
+                    <td class="c2" >{problem.level}</td> 
+                </tr>
+                <tr>
+                    <td class="c1" for="Price">가격 : </td>
+                    <td class="c2" >{problem.price}원</td>
+                </tr>
+            </table>
             </div>
             </div>
-        </article>
+            <PlagiarismModal open={modalShow} setOpen={handleClose} pid={problem.id}/>
+        </div>
     )
 }
 

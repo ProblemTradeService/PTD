@@ -1,14 +1,10 @@
-import UploadProblemButton from '../../asset/components/UploadProblemButton';
-import SignOutButton from '../../asset/components/SignOutButton';
-import UserName from '../../asset/components/UserName';
+import HeaderBar from '../../asset/components/HeaderBar';
 
 function MainHeader() {
     
     return(
         <div>
-            <UploadProblemButton/><br/>
-            <SignOutButton/>
-            <UserName/><br/>
+            <HeaderBar/>
         </div>
     )
 }
