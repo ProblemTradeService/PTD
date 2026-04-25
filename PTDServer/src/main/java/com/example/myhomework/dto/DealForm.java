@@ -1,10 +1,11 @@
 package com.example.myhomework.dto;
 
-import com.example.myhomework.entity.Problem;
-import com.example.myhomework.entity.UserBalance;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
-import org.apache.catalina.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor

@@ -1,14 +1,16 @@
 package com.example.myhomework.service;
 
-import com.example.myhomework.dto.MemberForm;
-import com.example.myhomework.dto.ProblemForm;
 import com.example.myhomework.dto.ProblemSimilarListForm;
-import com.example.myhomework.entity.Member;
 import com.example.myhomework.entity.Problem;
 import com.example.myhomework.entity.ProblemSimilarList;
-import com.example.myhomework.repository.MemberRepository;
 import com.example.myhomework.repository.ProblemRepository;
 import com.example.myhomework.repository.ProblemSimilarityListRepository;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,14 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @Service

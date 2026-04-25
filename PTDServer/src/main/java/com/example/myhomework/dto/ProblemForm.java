@@ -1,10 +1,12 @@
 package com.example.myhomework.dto;
 
-import com.example.myhomework.entity.Member;
 import com.example.myhomework.entity.Problem;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor

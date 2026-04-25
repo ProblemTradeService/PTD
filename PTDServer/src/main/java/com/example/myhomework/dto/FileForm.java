@@ -1,14 +1,11 @@
 package com.example.myhomework.dto;
 
-import com.example.myhomework.entity.Member;
-import com.example.myhomework.entity.Problem;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.awt.*;
-import java.io.File;
 
 @AllArgsConstructor
 @NoArgsConstructor
